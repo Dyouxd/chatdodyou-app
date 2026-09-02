@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>🐢 CHAT DO DYOU</title>
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="data:application/json,{ %22name%22: %22CHAT DO DYOU%22, %22short_name%22: %22DYOU%22, %22start_url%22: %22/%22, %22display%22: %22standalone%22, %22background_color%22: %2210a37f%22, %22theme_color%22: %2210a37f%22 }">
+    <!-- PWA Manifest CORRIGIDO -->
+    <link rel="manifest" href="/manifest.json">
     
     <!-- iOS Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,7 +43,6 @@
             user-select: none;
         }
         
-        /* ===== LOGIN MOBILE ===== */
         .login-screen {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -104,8 +103,6 @@
             border-radius: 12px;
             font-size: 16px;
             outline: none;
-            -webkit-user-select: text;
-            user-select: text;
         }
         .form-group input:focus { border-color: var(--primary); }
         
@@ -123,7 +120,6 @@
         .btn-submit { background: var(--primary); color: white; }
         .btn-back { background: #e0e0e0; color: #333; }
         
-        /* ===== HEADER MOBILE ===== */
         .mobile-header {
             position: fixed;
             top: 0;
@@ -140,31 +136,10 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
-        .menu-btn {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 5px;
-        }
+        .menu-btn { background: transparent; border: none; color: white; font-size: 24px; cursor: pointer; padding: 5px; }
+        .header-title { flex: 1; font-size: 17px; font-weight: bold; text-align: center; }
+        .logout-icon { background: transparent; border: none; color: white; font-size: 20px; cursor: pointer; }
         
-        .header-title {
-            flex: 1;
-            font-size: 17px;
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        .logout-icon {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        /* ===== SIDEBAR (Drawer) ===== */
         .sidebar-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -172,7 +147,6 @@
             z-index: 199;
             display: none;
         }
-        
         .sidebar-overlay.open { display: block; }
         
         .sidebar {
@@ -187,7 +161,6 @@
             display: flex;
             flex-direction: column;
         }
-        
         .sidebar.open { left: 0; }
         
         .sidebar-header {
@@ -200,14 +173,7 @@
             padding-top: calc(20px + var(--safe-top));
         }
         
-        .user-info {
-            padding: 15px;
-            background: #e8e8e8;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
+        .user-info { padding: 15px; background: #e8e8e8; display: flex; align-items: center; gap: 10px; }
         .user-avatar {
             width: 40px; height: 40px;
             border-radius: 50%;
@@ -219,7 +185,6 @@
             font-weight: bold;
             font-size: 18px;
         }
-        
         .user-name { flex: 1; font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
         .new-chat-btn {
@@ -235,11 +200,7 @@
             min-height: 50px;
         }
         
-        .conversation-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px 15px;
-        }
+        .conversation-list { flex: 1; overflow-y: auto; padding: 10px 15px; }
         
         .conversation-item {
             padding: 15px;
@@ -254,32 +215,11 @@
             font-size: 14px;
             min-height: 48px;
         }
-        
-        .conversation-item.active {
-            border-color: var(--primary);
-            background: #e8f5e9;
-        }
-        
-        .conversation-title {
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
+        .conversation-item.active { border-color: var(--primary); background: #e8f5e9; }
+        .conversation-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .conversation-actions { display: flex; gap: 8px; }
+        .conversation-actions button { background: transparent; border: none; cursor: pointer; font-size: 18px; padding: 5px; min-width: 35px; min-height: 35px; }
         
-        .conversation-actions button {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 5px;
-            min-width: 35px;
-            min-height: 35px;
-        }
-        
-        /* ===== CHAT AREA ===== */
         .chat-area {
             position: fixed;
             top: 60px;
@@ -301,86 +241,22 @@
             line-height: 1.5;
             white-space: pre-wrap;
             word-wrap: break-word;
-            -webkit-user-select: text;
-            user-select: text;
         }
+        .msg.user { background: var(--blue); color: white; margin-left: auto; border-bottom-right-radius: 6px; }
+        .msg.bot { background: var(--bg-secondary); color: var(--text); margin-right: auto; border-bottom-left-radius: 6px; }
+        .msg.sys { background: #fff3e0; color: #ff8800; text-align: center; margin: 10px auto; font-size: 13px; border-radius: 12px; }
         
-        .msg.user {
-            background: var(--blue);
-            color: white;
-            margin-left: auto;
-            border-bottom-right-radius: 6px;
-        }
-        
-        .msg.bot {
-            background: var(--bg-secondary);
-            color: var(--text);
-            margin-right: auto;
-            border-bottom-left-radius: 6px;
-        }
-        
-        .msg.sys {
-            background: #fff3e0;
-            color: #ff8800;
-            text-align: center;
-            margin: 10px auto;
-            font-size: 13px;
-            border-radius: 12px;
-        }
-        
-        .code-block {
-            background: #1e1e1e;
-            border-radius: 10px;
-            margin: 10px 0;
-            overflow: hidden;
-        }
-        
-        .code-header {
-            background: #2d2d2d;
-            padding: 8px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
+        .code-block { background: #1e1e1e; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        .code-header { background: #2d2d2d; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
         .code-language { color: #10a37f; font-size: 11px; font-weight: bold; }
-        
         .code-actions { display: flex; gap: 5px; }
-        
-        .code-actions button {
-            padding: 6px 10px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            min-height: 32px;
-        }
-        
+        .code-actions button { padding: 6px 10px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; min-height: 32px; }
         .copy-code-btn { background: #10a37f; color: white; }
         .download-code-btn { background: #0066cc; color: white; }
+        .code-content { padding: 12px; overflow-x: auto; }
+        .code-content pre { margin: 0; font-family: 'Courier New', monospace; font-size: 13px; color: #d4d4d4; white-space: pre-wrap; word-wrap: break-word; }
+        .msg img { max-width: 100%; border-radius: 12px; cursor: pointer; }
         
-        .code-content {
-            padding: 12px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .code-content pre {
-            margin: 0;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            color: #d4d4d4;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        
-        .msg img {
-            max-width: 100%;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-        
-        /* ===== INPUT AREA ===== */
         .input-area {
             position: fixed;
             bottom: 0;
@@ -395,21 +271,7 @@
             align-items: flex-end;
             z-index: 100;
         }
-        
-        .attach-btn {
-            background: #e0e0e0;
-            border: none;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            font-size: 20px;
-            cursor: pointer;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
+        .attach-btn { background: #e0e0e0; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px; cursor: pointer; flex-shrink: 0; }
         .input-field {
             flex: 1;
             padding: 12px 16px;
@@ -421,45 +283,23 @@
             min-height: 44px;
             max-height: 100px;
             font-family: inherit;
-            -webkit-user-select: text;
-            user-select: text;
         }
-        
         .input-field:focus { border-color: var(--primary); }
-        
-        .send-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            font-size: 18px;
-            cursor: pointer;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .send-btn:active { background: #0d8b6d; transform: scale(0.95); }
+        .send-btn { background: var(--primary); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 18px; cursor: pointer; flex-shrink: 0; }
     </style>
 </head>
 <body>
-    <!-- LOGIN -->
     <div class="login-screen" id="loginScreen">
         <div class="login-card">
             <div class="logo">🐢</div>
             <h1>CHAT DO DYOU</h1>
             <p class="subtitle">Seu assistente universal</p>
-            
             <div id="loginOptions">
                 <button class="login-btn google" onclick="loginGoogle()">🔵 Entrar com Google</button>
                 <button class="login-btn email" onclick="mostrarCriar()">✉️ Criar Conta</button>
                 <button class="login-btn email" onclick="mostrarLogin()" style="border-color:#0066cc;color:#0066cc">🔑 Fazer Login</button>
                 <button class="login-btn anon" onclick="loginAnonimo()">👤 Usar Anonimamente</button>
             </div>
-            
             <div class="email-form" id="formCriar">
                 <h3 style="margin-bottom:15px;color:#333">✉️ Criar Conta</h3>
                 <div class="form-group"><label>Email:</label><input type="email" id="emailCriar" placeholder="seu@email.com"></div>
@@ -470,7 +310,6 @@
                     <button class="btn-submit" onclick="criarConta()">Criar</button>
                 </div>
             </div>
-            
             <div class="email-form" id="formLogin">
                 <h3 style="margin-bottom:15px;color:#333">🔑 Login</h3>
                 <div class="form-group"><label>Email:</label><input type="email" id="emailLogin" placeholder="seu@email.com"></div>
@@ -483,10 +322,8 @@
         </div>
     </div>
     
-    <!-- SIDEBAR OVERLAY -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="fecharSidebar()"></div>
     
-    <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">🐢 CHAT DO DYOU</div>
         <div class="user-info">
@@ -497,17 +334,14 @@
         <div class="conversation-list" id="conversationList"></div>
     </div>
     
-    <!-- HEADER -->
     <div class="mobile-header" id="mobileHeader" style="display:none">
         <button class="menu-btn" onclick="abrirSidebar()">☰</button>
         <span class="header-title" id="headerTitle">💬 Nova Conversa</span>
         <button class="logout-icon" onclick="sair()">🚪</button>
     </div>
     
-    <!-- CHAT AREA -->
     <div class="chat-area" id="chatArea" style="display:none"></div>
     
-    <!-- INPUT AREA -->
     <div class="input-area" id="inputArea" style="display:none">
         <button class="attach-btn" onclick="anexarArquivo()">📎</button>
         <textarea class="input-field" id="inputField" rows="1" placeholder="Digite sua mensagem..."></textarea>
@@ -517,7 +351,6 @@
     <input type="file" id="fileInput" style="display:none" multiple accept="*/*" onchange="lerArquivos(event)">
     
     <script>
-        // ===== FIREBASE =====
         const firebaseConfig = {
             apiKey: "AIzaSyDlf6NDwrz033RRuGWRC7v7bL1Pl7AqgmQ",
             authDomain: "chat-dyou.firebaseapp.com",
@@ -537,7 +370,6 @@
         let historico = [];
         let usuario = null;
         
-        // ===== SIDEBAR =====
         function abrirSidebar() {
             document.getElementById('sidebar').classList.add('open');
             document.getElementById('sidebarOverlay').classList.add('open');
@@ -548,7 +380,6 @@
             document.getElementById('sidebarOverlay').classList.remove('open');
         }
         
-        // ===== LOGIN =====
         function mostrarCriar() {
             document.getElementById('loginOptions').style.display = 'none';
             document.getElementById('formCriar').classList.add('active');
@@ -580,14 +411,12 @@
             const email = document.getElementById('emailCriar').value.trim();
             const senha = document.getElementById('senhaCriar').value;
             const conf = document.getElementById('confirmarSenha').value;
-            
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('Email inválido!');
             if (!/[a-z]/.test(senha)) return alert('Falta letra minúscula!');
             if (!/[A-Z]/.test(senha)) return alert('Falta letra maiúscula!');
             if (!/[0-9]/.test(senha)) return alert('Falta número!');
             if (senha.length < 6) return alert('Mínimo 6 caracteres!');
             if (senha !== conf) return alert('Senhas não coincidem!');
-            
             auth.createUserWithEmailAndPassword(email, senha)
                 .then(r => { usuario = r.user; entrar(); })
                 .catch(e => alert(e.code === 'auth/email-already-in-use' ? 'Email já cadastrado!' : e.message));
@@ -597,7 +426,6 @@
             const email = document.getElementById('emailLogin').value.trim();
             const senha = document.getElementById('senhaLogin').value;
             if (!email || !senha) return alert('Preencha todos os campos!');
-            
             auth.signInWithEmailAndPassword(email, senha)
                 .then(r => { usuario = r.user; entrar(); })
                 .catch(e => alert(e.code === 'auth/user-not-found' ? 'Conta não encontrada!' : e.code === 'auth/wrong-password' ? 'Senha incorreta!' : e.message));
@@ -622,15 +450,12 @@
             document.getElementById('mobileHeader').style.display = 'flex';
             document.getElementById('chatArea').style.display = 'block';
             document.getElementById('inputArea').style.display = 'flex';
-            
             const nome = usuario.displayName || usuario.email || 'Anônimo';
             document.getElementById('userName').textContent = nome;
             document.getElementById('userAvatar').textContent = nome.charAt(0).toUpperCase();
-            
             carregar();
         }
         
-        // ===== FIREBASE =====
         function carregar() {
             if (!usuario || usuario.isAnonymous) { novaConversa(); return; }
             db.collection('usuarios').doc(usuario.uid).collection('conversas')
@@ -653,7 +478,6 @@
                 }).catch(() => {});
         }
         
-        // ===== CONVERSAS =====
         function novaConversa() {
             contador++;
             conversaAtual = 'Conversa ' + contador;
@@ -672,16 +496,13 @@
             for (const nome in conversas) {
                 const item = document.createElement('div');
                 item.className = 'conversation-item' + (nome === conversaAtual ? ' active' : '');
-                
                 const titulo = document.createElement('span');
                 titulo.className = 'conversation-title';
                 titulo.textContent = nome;
                 titulo.onclick = () => { trocar(nome); fecharSidebar(); };
-                
                 const acoes = document.createElement('div');
                 acoes.className = 'conversation-actions';
                 acoes.innerHTML = '<button onclick="event.stopPropagation();renomear(\'' + nome + '\')">✏️</button><button onclick="event.stopPropagation();excluir(\'' + nome + '\')">🗑️</button>';
-                
                 item.appendChild(titulo);
                 item.appendChild(acoes);
                 lista.appendChild(item);
@@ -723,12 +544,10 @@
             }
         }
         
-        // ===== MENSAGENS =====
         function parseMarkdown(texto) {
             const linhas = texto.split('\n');
             let html = '';
             let codigo = false, lang = '', buffer = [];
-            
             for (const linha of linhas) {
                 if (linha.trim().startsWith('```')) {
                     if (codigo) {
@@ -741,7 +560,6 @@
                     continue;
                 }
                 if (codigo) { buffer.push(linha); continue; }
-                
                 let l = linha.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 if (linha.startsWith('## ')) l = '<strong>' + linha.substring(3) + '</strong>';
                 l = l.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -783,23 +601,19 @@
             }
         }
         
-        // ===== ENVIO =====
         async function enviar() {
             const input = document.getElementById('inputField');
             const msg = input.value.trim();
             if (!msg) return;
-            
             addMsg(msg, 'user');
             input.value = '';
             input.style.height = 'auto';
             historico.push({role: 'user', content: msg});
-            
             const lower = msg.toLowerCase();
             if (lower.includes('imagem') || lower.includes('foto') || lower.includes('desenho')) {
                 gerarImagem(msg.replace(/imagem:|imagem de|gerar imagem|foto de|desenho/gi, '').trim());
                 return;
             }
-            
             responder();
         }
         
@@ -845,7 +659,6 @@
             });
         }
         
-        // ===== TECLADO =====
         document.getElementById('inputField').addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -864,10 +677,10 @@
             e.target.value = '';
         }
         
-        // ===== SERVICE WORKER (PWA) =====
+        // Service Worker CORRIGIDO
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('data:application/javascript,self.addEventListener(%22fetch%22,e=>{})').catch(() => {});
+                navigator.serviceWorker.register('/sw.js').catch(() => {});
             });
         }
     </script>
