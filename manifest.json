@@ -1,7 +1,7 @@
 {
     "name": "CHAT DO DYOU",
     "short_name": "DYOU",
-    "description": "Assistente virtual universal com inteligência artificial",
+    "description": "Um chat para ajudar no seu dia a dia",
     "id": "chat-dyou-pwa",
     "start_url": "/",
     "scope": "/",
@@ -24,6 +24,26 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "screenshot1.png",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "screenshot2.png",
+            "sizes": "1920x1080",
+            "type": "image/png",
+            "form_factor": "wide"
         }
     ]
 }
