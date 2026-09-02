@@ -3,8 +3,16 @@
   "short_name": "chatdodyou",
   "start_url": "https://chatdodyou-app.vercel.app/",
   "display": "standalone",
-  "background_color": "#078068",
-  "theme_color": "#00a3b2",
-  "id": "Dionasoftwarecomp",
-  "description": "# 🐢 CHAT DO DYOU\n\n## Descrição\nChat com inteligência artificial universal.\n\n## Link\nhttps://chatdodyou.vercel.app\n\n## Funcionalidades\n- Chat com IA\n- Login Google/Email/Anônimo\n- Histórico de conversas\n- Geração de imagens\n- Importação de arquivos\n\n## Tecnologias\n- HTML, CSS, JavaScript\n- Firebase\n- Groq API\n- Vercel (hospedagem)\n\n## Como Usar\n1. Acesse o link\n2. Faça login\n3. Converse!\n\n## Desenvolvedor\nDyou Software"
+  "background_color": "#0f7325",
+  "dir": "auto",
+  "display": "fullscreen",
+  "name": "chat do dyou",
+  "orientation": "any",
+  "scope": "https://chatdodyou-app.vercel.app/",
+  "short_name": "chat do dyou",
+  "start_url": "https://chatdodyou-app.vercel.app/",
+  "theme_color": "#007777",
+  "id": "chat do dyou",
+  "description": "um chat para ajudar no seu dia a dia.",
+  "lang": "pt"
 }
