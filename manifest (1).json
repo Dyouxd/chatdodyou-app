@@ -1,0 +1,14 @@
+{
+  "background_color": "#0f7325",
+  "dir": "auto",
+  "display": "fullscreen",
+  "name": "chat do dyou",
+  "orientation": "any",
+  "scope": "https://chatdodyou.vercel.app/",
+  "short_name": "chat do dyou",
+  "start_url": "https://chatdodyou.vercel.app/",
+  "theme_color": "#007777",
+  "id": "chat do dyou",
+  "description": "um chat para ajudar no seu dia a dia.",
+  "lang": "pt"
+}
