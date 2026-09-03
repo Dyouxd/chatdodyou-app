@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🐢 CHAT DO DYOU v2</title>
+    
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#10a37f">
+    
+    <style>
+        :root {
+            --primary: #10a37f;
+            --primary-dark: #0d8b6d;
+            --blue: #0066cc;
+            --bg: #ffffff;
+            --bg-secondary: #f8f8f8;
+            --text: #333333;
+            --border: #e0e0e0;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            touch-action: manipulation;
+        }
+        
+        /* ===== TELA DE LOGIN ===== */
+        .login-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #10a37f, #0066cc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .logo { font-size: 50px; }
+        .login-card h1 { font-size: 22px; color: #333; margin: 5px 0; }
+        .subtitle { color: #666; font-size: 13px; margin-bottom: 15px; }
+        
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            background: white;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+        }
+        
+        .login-btn:active { transform: scale(0.97); background: #f0f0f0; }
+        .login-btn.nuvem { border-color: #10a37f; color: #10a37f; }
+        .login-btn.offline { border-color: #ff8800; color: #ff8800; }
+        .login-btn.anon { border-color: #0066cc; color: #0066cc; }
+        
+        .aviso-offline {
+            background: #fff3e0;
+            color: #cc6600;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            margin: 10px 0;
+            display: none;
+            text-align: left;
+            line-height: 1.4;
+        }
+        
+        .aviso-offline.show { display: block; }
+        
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-group label { font-size: 12px; font-weight: 600; color: #555; display: block; margin-bottom: 4px; }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+        .form-group input:focus { border-color: var(--primary); }
+        
+        .form-actions { display: flex; gap: 8px; margin-top: 15px; }
+        .form-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .btn-submit { background: var(--primary); color: white; }
+        .btn-back { background: #e0e0e0; color: #333; }
+        
+        /* ===== HEADER ===== */
+        .mobile-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .menu-btn { background: transparent; border: none; color: white; font-size: 24px; cursor: pointer; }
+        .header-title { flex: 1; font-size: 16px; font-weight: bold; text-align: center; }
+        .settings-btn { background: transparent; border: none; color: white; font-size: 20px; cursor: pointer; }
+        
+        /* ===== SIDEBAR ===== */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 199;
+            display: none;
+        }
+        .sidebar-overlay.open { display: block; }
+        
+        .sidebar {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            bottom: 0;
+            width: 300px;
+            background: #f5f5f5;
+            z-index: 200;
+            transition: left 0.3s;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .sidebar.open { left: 0; }
+        
+        .sidebar-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .user-info {
+            padding: 12px;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+        
+        .user-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .user-name { flex: 1; font-weight: 600; }
+        .logout-btn { background: #cc0000; color: white; border: none; border-radius: 5px; padding: 6px 10px; cursor: pointer; font-size: 11px; }
+        
+        .sidebar-section {
+            padding: 10px 15px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #888;
+            text-transform: uppercase;
+        }
+        
+        .new-chat-btn {
+            margin: 10px 15px;
+            padding: 13px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .sidebar-btn {
+            padding: 12px 15px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 3px 10px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: left;
+        }
+        
+        .sidebar-btn:hover { background: #e8f5e9; }
+        
+        .conversation-list { padding: 5px 10px; }
+        
+        .conversation-item {
+            padding: 12px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+        
+        .conversation-item.active { border-color: var(--primary); background: #e8f5e9; }
+        .conversation-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .conversation-actions { display: flex; gap: 5px; }
+        .conversation-actions button { background: transparent; border: none; cursor: pointer; font-size: 15px; }
+        
+        /* ===== CHAT AREA ===== */
+        .chat-area {
+            position: fixed;
+            top: 55px;
+            left: 0;
+            right: 0;
+            bottom: 65px;
+            overflow-y: auto;
+            padding: 15px;
+            -webkit-overflow-scrolling: touch;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background 0.3s;
+        }
+        
+        .msg {
+            max-width: 85%;
+            margin: 8px 0;
+            padding: 10px 14px;
+            border-radius: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .msg.user { background: #0066cc; color: white; margin-left: auto; }
+        .msg.bot { background: white; color: #333; margin-right: auto; }
+        .msg.sys { background: #fff3e0; color: #ff8800; text-align: center; margin: 8px auto; font-size: 12px; }
+        
+        .code-block { background: #1e1e1e; border-radius: 8px; margin: 8px 0; overflow: hidden; }
+        .code-header { background: #2d2d2d; padding: 6px 10px; display: flex; justify-content: space-between; }
+        .code-language { color: #10a37f; font-size: 10px; font-weight: bold; }
+        .code-actions button { padding: 3px 6px; border: none; border-radius: 3px; cursor: pointer; font-size: 10px; margin-left: 3px; }
+        .copy-code-btn { background: #10a37f; color: white; }
+        .download-code-btn { background: #0066cc; color: white; }
+        .code-content { padding: 10px; overflow-x: auto; }
+        .code-content pre { margin: 0; font-family: monospace; font-size: 12px; color: #d4d4d4; white-space: pre-wrap; }
+        
+        /* ===== CONFIGURAÇÕES ===== */
+        .settings-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 20px;
+            z-index: 300;
+            display: none;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.2);
+        }
+        .settings-panel.open { display: block; }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .settings-header h3 { font-size: 16px; color: #333; }
+        .close-settings { background: transparent; border: none; font-size: 20px; cursor: pointer; }
+        
+        .fundos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .fundo-option {
+            aspect-ratio: 1;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .fundo-option.selected { border-color: var(--primary); }
+        .fundo-option.color { display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        
+        .section-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #555;
+            margin: 15px 0 8px 0;
+        }
+        
+        /* ===== INPUT ===== */
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 8px 10px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 6px;
+            align-items: flex-end;
+            z-index: 100;
+        }
+        
+        .attach-btn, .calc-btn, .dict-btn {
+            background: #e0e0e0;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 10px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 15px;
+            outline: none;
+            resize: none;
+            min-height: 38px;
+            max-height: 80px;
+            font-family: inherit;
+        }
+        .input-field:focus { border-color: var(--primary); }
+        
+        .send-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- TELA DE LOGIN -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="logo">🐢</div>
+            <h1>CHAT DO DYOU v2</h1>
+            <p class="subtitle">Seu assistente universal completo</p>
+            
+            <div id="loginOptions">
+                <button class="login-btn nuvem" onclick="mostrarLoginNuvem()">☁️ Criar Conta na Nuvem</button>
+                <button class="login-btn nuvem" onclick="mostrarLoginNuvemExistente()">🔑 Login na Nuvem</button>
+                <button class="login-btn offline" onclick="mostrarLoginOffline()">📱 Criar Conta Offline</button>
+                <button class="login-btn anon" onclick="loginAnonimo()">👤 Usar Anonimamente</button>
+            </div>
+            
+            <div class="aviso-offline" id="avisoOffline">
+                ⚠️ <strong>CONTA OFFLINE:</strong> Seus dados ficarão salvos APENAS neste dispositivo. Para acessar em outros dispositivos, crie uma conta na nuvem.
+            </div>
+            
+            <div id="formNuvem" style="display:none">
+                <h3 style="margin-bottom:10px;color:#10a37f">☁️ Criar Conta na Nuvem</h3>
+                <div class="form-group"><label>Nome:</label><input type="text" id="nomeNuvem" placeholder="Seu nome"></div>
+                <div class="form-group"><label>Email:</label><input type="email" id="emailNuvem" placeholder="seu@email.com"></div>
+                <div class="form-group"><label>Senha:</label><input type="password" id="senhaNuvem" placeholder="Mín 6 caracteres"></div>
+                <div class="form-actions">
+                    <button class="btn-back" onclick="voltarLogin()">←</button>
+                    <button class="btn-submit" onclick="criarContaNuvem()">Criar</button>
+                </div>
+            </div>
+            
+            <div id="formNuvemLogin" style="display:none">
+                <h3 style="margin-bottom:10px;color:#10a37f">🔑 Login na Nuvem</h3>
+                <div class="form-group"><label>Email:</label><input type="email" id="emailNuvemLogin" placeholder="seu@email.com"></div>
+                <div class="form-group"><label>Senha:</label><input type="password" id="senhaNuvemLogin" placeholder="Sua senha"></div>
+                <div class="form-actions">
+                    <button class="btn-back" onclick="voltarLogin()">←</button>
+                    <button class="btn-submit" onclick="fazerLoginNuvem()">Entrar</button>
+                </div>
+            </div>
+            
+            <div id="formOffline" style="display:none">
+                <h3 style="margin-bottom:10px;color:#ff8800">📱 Criar Conta Offline</h3>
+                <div class="form-group"><label>Nome:</label><input type="text" id="nomeOffline" placeholder="Seu nome"></div>
+                <div class="form-group"><label>Senha:</label><input type="password" id="senhaOffline" placeholder="Crie uma senha"></div>
+                <div class="form-actions">
+                    <button class="btn-back" onclick="voltarLogin()">←</button>
+                    <button class="btn-submit" onclick="criarContaOffline()">Criar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- HEADER -->
+    <div class="mobile-header" id="mobileHeader" style="display:none">
+        <button class="menu-btn" onclick="abrirSidebar()">☰</button>
+        <span class="header-title" id="headerTitle">💬 Nova Conversa</span>
+        <button class="settings-btn" onclick="abrirConfig()">⚙️</button>
+    </div>
+    
+    <!-- SIDEBAR -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="fecharSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">🐢 CHAT DO DYOU v2</div>
+        <div class="user-info">
+            <div class="user-avatar" id="userAvatar">?</div>
+            <span class="user-name" id="userName">...</span>
+            <button class="logout-btn" onclick="sair()">Sair</button>
+        </div>
+        
+        <button class="new-chat-btn" onclick="novaConversa()">➕ Nova Conversa</button>
+        
+        <div class="sidebar-section">📚 Conversas</div>
+        <div class="conversation-list" id="conversationList"></div>
+        
+        <div class="sidebar-section">🔧 Ferramentas</div>
+        <button class="sidebar-btn" onclick="abrirDicionario()">📖 Dicionário</button>
+        <button class="sidebar-btn" onclick="abrirCalculadora()">🔢 Calculadora</button>
+        <button class="sidebar-btn" onclick="abrirConfig()">🎨 Personalizar Fundo</button>
+    </div>
+    
+    <!-- CHAT -->
+    <div class="chat-area" id="chatArea" style="display:none"></div>
+    
+    <!-- INPUT -->
+    <div class="input-area" id="inputArea" style="display:none">
+        <button class="attach-btn" onclick="anexarArquivo()">📎</button>
+        <button class="calc-btn" onclick="abrirCalculadora()">🔢</button>
+        <button class="dict-btn" onclick="abrirDicionario()">📖</button>
+        <textarea class="input-field" id="inputField" rows="1" placeholder="Digite sua mensagem..."></textarea>
+        <button class="send-btn" onclick="enviar()">➤</button>
+    </div>
+    
+    <!-- PAINEL DE CONFIGURAÇÕES -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h3>🎨 Personalizar Fundo</h3>
+            <button class="close-settings" onclick="fecharConfig()">✖</button>
+        </div>
+        
+        <div class="section-title">🎨 Cores Sólidas</div>
+        <div class="fundos-grid" id="fundosCores"></div>
+        
+        <div class="section-title">🌈 Gradientes</div>
+        <div class="fundos-grid" id="fundosGradientes"></div>
+        
+        <div class="section-title">🌸 Animes</div>
+        <div class="fundos-grid" id="fundosAnimes"></div>
+        
+        <div class="section-title">🏔️ Paisagens</div>
+        <div class="fundos-grid" id="fundosPaisagens"></div>
+        
+        <div class="section-title">🐾 Animais</div>
+        <div class="fundos-grid" id="fundosAnimais"></div>
+        
+        <div class="section-title">🌿 Plantas</div>
+        <div class="fundos-grid" id="fundosPlantas"></div>
+        
+        <div class="section-title">🍎 Frutas</div>
+        <div class="fundos-grid" id="fundosFrutas"></div>
+        
+        <div class="section-title">📁 Upload Próprio</div>
+        <button class="sidebar-btn" onclick="uploadFundo()" style="margin:0">📤 Enviar Imagem</button>
+        <input type="file" id="fundoInput" style="display:none" accept="image/*" onchange="aplicarFundoUpload(event)">
+    </div>
+    
+    <input type="file" id="fileInput" style="display:none" multiple accept="*/*" onchange="lerArquivos(event)">
+    
+        <script>
+        // ============================================
+        // CONFIGURAÇÃO SUPABASE
+        // ============================================
+        const SUPABASE_URL = 'https://mrlxfpqsnwqkywhickvn.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_VDtJCN45kf5jU9Snv0P4eA_2NElS_MR';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        // ============================================
+        // VARIÁVEIS GLOBAIS
+        // ============================================
+        let usuarioAtual = null;
+        let modoLogin = ''; // 'nuvem', 'offline', 'anonimo'
+        let conversas = {};
+        let conversaAtual = null;
+        let contador = 0;
+        let historico = [];
+        
+        // ============================================
+        // FUNÇÕES DE LOGIN
+        // ============================================
+        function voltarLogin() {
+            document.getElementById('loginOptions').style.display = 'block';
+            document.getElementById('formNuvem').style.display = 'none';
+            document.getElementById('formNuvemLogin').style.display = 'none';
+            document.getElementById('formOffline').style.display = 'none';
+            document.getElementById('avisoOffline').classList.remove('show');
+        }
+        
+        function mostrarLoginNuvem() {
+            document.getElementById('loginOptions').style.display = 'none';
+            document.getElementById('formNuvem').style.display = 'block';
+            document.getElementById('avisoOffline').classList.remove('show');
+        }
+        
+        function mostrarLoginNuvemExistente() {
+            document.getElementById('loginOptions').style.display = 'none';
+            document.getElementById('formNuvemLogin').style.display = 'block';
+            document.getElementById('avisoOffline').classList.remove('show');
+        }
+        
+        function mostrarLoginOffline() {
+            document.getElementById('loginOptions').style.display = 'none';
+            document.getElementById('formOffline').style.display = 'block';
+            document.getElementById('avisoOffline').classList.add('show');
+        }
+        
+        async function criarContaNuvem() {
+            const nome = document.getElementById('nomeNuvem').value.trim();
+            const email = document.getElementById('emailNuvem').value.trim();
+            const senha = document.getElementById('senhaNuvem').value;
+            
+            if (!nome) return alert('Digite seu nome!');
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('Email inválido!');
+            if (senha.length < 6) return alert('Senha deve ter mínimo 6 caracteres!');
+            
+            try {
+                const { data, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: senha,
+                    options: {
+                        data: { nome: nome }
+                    }
+                });
+                
+                if (error) {
+                    if (error.message.includes('already registered')) {
+                        return alert('Este email já está cadastrado! Faça login.');
+                    }
+                    return alert('Erro: ' + error.message);
+                }
+                
+                if (data.user) {
+                    usuarioAtual = {
+                        id: data.user.id,
+                        nome: nome,
+                        email: email,
+                        tipo: 'nuvem'
+                    };
+                    modoLogin = 'nuvem';
+                    entrarNoChat();
+                }
+            } catch (e) {
+                alert('Erro: ' + e.message);
+            }
+        }
+        
+        async function fazerLoginNuvem() {
+            const email = document.getElementById('emailNuvemLogin').value.trim();
+            const senha = document.getElementById('senhaNuvemLogin').value;
+            
+            if (!email || !senha) return alert('Preencha todos os campos!');
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: senha
+                });
+                
+                if (error) {
+                    if (error.message.includes('Invalid login')) {
+                        return alert('Email ou senha incorretos!');
+                    }
+                    return alert('Erro: ' + error.message);
+                }
+                
+                if (data.user) {
+                    usuarioAtual = {
+                        id: data.user.id,
+                        nome: data.user.user_metadata?.nome || email.split('@')[0],
+                        email: email,
+                        tipo: 'nuvem'
+                    };
+                    modoLogin = 'nuvem';
+                    entrarNoChat();
+                }
+            } catch (e) {
+                alert('Erro: ' + e.message);
+            }
+        }
+        
+        function criarContaOffline() {
+            const nome = document.getElementById('nomeOffline').value.trim();
+            const senha = document.getElementById('senhaOffline').value;
+            
+            if (!nome) return alert('Digite seu nome!');
+            if (senha.length < 4) return alert('Senha deve ter mínimo 4 caracteres!');
+            
+            usuarioAtual = {
+                id: 'offline_' + Date.now(),
+                nome: nome,
+                email: nome + '@offline.local',
+                tipo: 'offline'
+            };
+            modoLogin = 'offline';
+            
+            // Salvar no LocalStorage
+            localStorage.setItem('dyou_usuario', JSON.stringify(usuarioAtual));
+            
+            entrarNoChat();
+        }
+        
+        function loginAnonimo() {
+            usuarioAtual = {
+                id: 'anon_' + Date.now(),
+                nome: 'Anônimo',
+                email: 'anon@anon.local',
+                tipo: 'anonimo'
+            };
+            modoLogin = 'anonimo';
+            entrarNoChat();
+        }
+        
+        function sair() {
+            if (confirm('Deseja sair?')) {
+                if (modoLogin === 'nuvem') {
+                    supabase.auth.signOut();
+                }
+                usuarioAtual = null;
+                modoLogin = '';
+                conversas = {};
+                conversaAtual = null;
+                localStorage.removeItem('dyou_usuario');
+                
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('mobileHeader').style.display = 'none';
+                document.getElementById('chatArea').style.display = 'none';
+                document.getElementById('inputArea').style.display = 'none';
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebarOverlay').classList.remove('open');
+                voltarLogin();
+            }
+        }
+        
+        function entrarNoChat() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mobileHeader').style.display = 'flex';
+            document.getElementById('chatArea').style.display = 'block';
+            document.getElementById('inputArea').style.display = 'flex';
+            
+            document.getElementById('userName').textContent = usuarioAtual.nome;
+            document.getElementById('userAvatar').textContent = usuarioAtual.nome.charAt(0).toUpperCase();
+            
+            carregarConversas();
+        }
+        
+        // ============================================
+        // FUNÇÕES DE CONVERSAS
+        // ============================================
+        async function carregarConversas() {
+            if (modoLogin === 'nuvem') {
+                try {
+                    const { data, error } = await supabase
+                        .from('conversas')
+                        .select('*')
+                        .eq('usuario_id', usuarioAtual.id)
+                        .order('criado_em', { ascending: false });
+                    
+                    if (data && data.length > 0) {
+                        data.forEach(conv => {
+                            conversas[conv.titulo] = [];
+                        });
+                        const primeira = data[0].titulo;
+                        trocarConversa(primeira);
+                        return;
+                    }
+                } catch (e) {
+                    console.log('Erro ao carregar:', e);
+                }
+            } else {
+                const salvo = localStorage.getItem('dyou_conversas');
+                if (salvo) {
+                    conversas = JSON.parse(salvo);
+                    const chaves = Object.keys(conversas);
+                    if (chaves.length > 0) {
+                        trocarConversa(chaves[0]);
+                        return;
+                    }
+                }
+            }
+            novaConversa();
+        }
+        
+        function novaConversa() {
+            contador++;
+            conversaAtual = 'Conversa ' + contador;
+            conversas[conversaAtual] = [];
+            historico = [];
+            document.getElementById('headerTitle').textContent = '💬 ' + conversaAtual;
+            document.getElementById('chatArea').innerHTML = '';
+            addMsg('🐢 Bem-vindo ao CHAT DO DYOU v2!', 'sys');
+            addMsg('💡 Digite "ajuda" para ver o que posso fazer', 'sys');
+            listarConversas();
+            fecharSidebar();
+            salvarConversas();
+        }
+        
+        function listarConversas() {
+            const lista = document.getElementById('conversationList');
+            lista.innerHTML = '';
+            
+            for (const nome in conversas) {
+                const item = document.createElement('div');
+                item.className = 'conversation-item' + (nome === conversaAtual ? ' active' : '');
+                
+                const titulo = document.createElement('span');
+                titulo.className = 'conversation-title';
+                titulo.textContent = nome;
+                titulo.onclick = () => { trocarConversa(nome); fecharSidebar(); };
+                
+                const acoes = document.createElement('div');
+                acoes.className = 'conversation-actions';
+                acoes.innerHTML = '<button onclick="event.stopPropagation();renomearConversa(\'' + nome + '\')">✏️</button><button onclick="event.stopPropagation();excluirConversa(\'' + nome + '\')">🗑️</button>';
+                
+                item.appendChild(titulo);
+                item.appendChild(acoes);
+                lista.appendChild(item);
+            }
+        }
+        
+        function trocarConversa(nome) {
+            conversaAtual = nome;
+            document.getElementById('headerTitle').textContent = '💬 ' + nome;
+            document.getElementById('chatArea').innerHTML = '';
+            historico = [];
+            
+            for (const msg of conversas[nome] || []) {
+                exibirMsg(msg.texto, msg.tipo);
+                if (msg.tipo === 'user') historico.push({role: 'user', content: msg.texto});
+                else if (msg.tipo === 'bot') historico.push({role: 'assistant', content: msg.texto});
+            }
+            listarConversas();
+        }
+        
+        function renomearConversa(nome) {
+            const novo = prompt('Novo nome:', nome);
+            if (novo && novo.trim() && novo !== nome) {
+                conversas[novo] = conversas[nome];
+                delete conversas[nome];
+                if (conversaAtual === nome) {
+                    conversaAtual = novo;
+                    document.getElementById('headerTitle').textContent = '💬 ' + novo;
+                }
+                listarConversas();
+                salvarConversas();
+            }
+        }
+        
+        function excluirConversa(nome) {
+            if (confirm('Excluir "' + nome + '"?')) {
+                delete conversas[nome];
+                if (conversaAtual === nome) novaConversa();
+                else {
+                    listarConversas();
+                    salvarConversas();
+                }
+            }
+        }
+        
+        function salvarConversas() {
+            if (modoLogin === 'offline' || modoLogin === 'anonimo') {
+                localStorage.setItem('dyou_conversas', JSON.stringify(conversas));
+            }
+            // Para nuvem, salvar no Supabase
+        }
+        
+        // ============================================
+        // FUNÇÕES DE MENSAGENS
+        // ============================================
+        function exibirMsg(texto, tipo) {
+            const div = document.createElement('div');
+            div.className = 'msg ' + tipo;
+            if (tipo === 'bot') div.innerHTML = parseMarkdown(texto);
+            else div.textContent = texto;
+            document.getElementById('chatArea').appendChild(div);
+            div.scrollIntoView({behavior: 'smooth', block: 'end'});
+        }
+        
+        function addMsg(texto, tipo) {
+            exibirMsg(texto, tipo);
+            if (conversaAtual && conversas[conversaAtual]) {
+                conversas[conversaAtual].push({texto, tipo});
+                salvarConversas();
+            }
+        }
+        
+        function parseMarkdown(texto) {
+            const linhas = texto.split('\n');
+            let html = '';
+            let codigo = false, lang = '', buffer = [];
+            
+            for (const linha of linhas) {
+                if (linha.trim().startsWith('```')) {
+                    if (codigo) {
+                        html += '<div class="code-block"><div class="code-header"><span class="code-language">' + lang + '</span><div class="code-actions"><button class="copy-code-btn" onclick="copiarCodigo(this)">📋</button><button class="download-code-btn" onclick="baixarCodigo(this)">⬇️</button></div></div><div class="code-content"><pre>' + buffer.join('\n').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre></div></div>';
+                        buffer = []; codigo = false;
+                    } else {
+                        codigo = true;
+                        lang = linha.replace(/```/g,'').trim() || 'code';
+                    }
+                    continue;
+                }
+                if (codigo) { buffer.push(linha); continue; }
+                let l = linha.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                if (linha.startsWith('## ')) l = '<strong>' + linha.substring(3) + '</strong>';
+                l = l.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                if (!linha.trim()) l = '<br>';
+                html += l;
+            }
+            return html;
+        }
+        
+        function copiarCodigo(btn) {
+            navigator.clipboard.writeText(btn.closest('.code-block').querySelector('pre').textContent);
+            btn.textContent = '✅';
+            setTimeout(() => btn.textContent = '📋', 2000);
+        }
+        
+        function baixarCodigo(btn) {
+            const codigo = btn.closest('.code-block').querySelector('pre').textContent;
+            const blob = new Blob([codigo], {type: 'text/plain'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'codigo.txt';
+            a.click();
+        }
+        
+        // ============================================
+        // SIDEBAR
+        // ============================================
+        function abrirSidebar() {
+            document.getElementById('sidebar').classList.add('open');
+            document.getElementById('sidebarOverlay').classList.add('open');
+        }
+        
+        function fecharSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('open');
+        }
+        
+        // ============================================
+        // CONFIGURAÇÕES DE FUNDO
+        // ============================================
+        function abrirConfig() {
+            document.getElementById('settingsPanel').classList.add('open');
+            carregarFundos();
+            fecharSidebar();
+        }
+        
+        function fecharConfig() {
+            document.getElementById('settingsPanel').classList.remove('open');
+        }
+        
+        function carregarFundos() {
+            // Cores sólidas
+            const cores = ['#ffffff', '#f0f0f0', '#e8f5e9', '#e3f2fd', '#fce4ec', '#fff3e0', '#f3e5f5', '#e0f7fa'];
+            const containerCores = document.getElementById('fundosCores');
+            containerCores.innerHTML = '';
+            cores.forEach(cor => {
+                const div = document.createElement('div');
+                div.className = 'fundo-option color';
+                div.style.background = cor;
+                div.textContent = '🎨';
+                div.onclick = () => aplicarFundo('cor', cor, div);
+                containerCores.appendChild(div);
+            });
+            
+            // Gradientes
+            const gradientes = [
+                'linear-gradient(135deg, #10a37f, #0066cc)',
+                'linear-gradient(135deg, #9b59b6, #e74c3c)',
+                'linear-gradient(135deg, #ff8800, #ffcc00)',
+                'linear-gradient(135deg, #0066cc, #00ccff)',
+                'linear-gradient(135deg, #e74c3c, #9b59b6)',
+                'linear-gradient(135deg, #00aa00, #00cc66)'
+            ];
+            const containerGrad = document.getElementById('fundosGradientes');
+            containerGrad.innerHTML = '';
+            gradientes.forEach(grad => {
+                const div = document.createElement('div');
+                div.className = 'fundo-option';
+                div.style.background = grad;
+                div.onclick = () => aplicarFundo('gradiente', grad, div);
+                containerGrad.appendChild(div);
+            });
+            
+            // Animes
+            const animes = [
+                'https://image.pollinations.ai/prompt/anime%20background%20landscape?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/anime%20sky%20clouds?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/anime%20city?width=300&height=300&nologo=true'
+            ];
+            carregarImagensFundo('fundosAnimes', animes);
+            
+            // Paisagens
+            const paisagens = [
+                'https://image.pollinations.ai/prompt/beautiful%20mountain%20landscape?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/beach%20sunset?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/forest%20nature?width=300&height=300&nologo=true'
+            ];
+            carregarImagensFundo('fundosPaisagens', paisagens);
+            
+            // Animais
+            const animais = [
+                'https://image.pollinations.ai/prompt/cute%20cat?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/cute%20dog?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/bird%20flying?width=300&height=300&nologo=true'
+            ];
+            carregarImagensFundo('fundosAnimais', animais);
+            
+            // Plantas
+            const plantas = [
+                'https://image.pollinations.ai/prompt/flowers%20garden?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/leaves%20green?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/rose%20flower?width=300&height=300&nologo=true'
+            ];
+            carregarImagensFundo('fundosPlantas', plantas);
+            
+            // Frutas
+            const frutas = [
+                'https://image.pollinations.ai/prompt/fruits%20colorful?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/apple%20orange%20banana?width=300&height=300&nologo=true',
+                'https://image.pollinations.ai/prompt/watermelon%20strawberry?width=300&height=300&nologo=true'
+            ];
+            carregarImagensFundo('fundosFrutas', frutas);
+        }
+        
+        function carregarImagensFundo(containerId, urls) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            urls.forEach(url => {
+                const div = document.createElement('div');
+                div.className = 'fundo-option';
+                div.style.backgroundImage = `url(${url})`;
+                div.onclick = () => aplicarFundo('imagem', url, div);
+                container.appendChild(div);
+            });
+        }
+        
+        function aplicarFundo(tipo, valor, elemento) {
+            const chatArea = document.getElementById('chatArea');
+            
+            if (tipo === 'cor') {
+                chatArea.style.backgroundImage = 'none';
+                chatArea.style.backgroundColor = valor;
+            } else if (tipo === 'gradiente') {
+                chatArea.style.backgroundImage = valor;
+            } else if (tipo === 'imagem') {
+                chatArea.style.backgroundImage = `url(${valor})`;
+                chatArea.style.backgroundSize = 'cover';
+                chatArea.style.backgroundPosition = 'center';
+            }
+            
+            // Marcar como selecionado
+            document.querySelectorAll('.fundo-option').forEach(f => f.classList.remove('selected'));
+            if (elemento) elemento.classList.add('selected');
+            
+            // Salvar preferência
+            const fundo = {tipo, valor};
+            localStorage.setItem('dyou_fundo', JSON.stringify(fundo));
+            
+            fecharConfig();
+        }
+        
+        function uploadFundo() {
+            document.getElementById('fundoInput').click();
+        }
+        
+        function aplicarFundoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    aplicarFundo('imagem', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+            event.target.value = '';
+        }
+        
+        // Carregar fundo salvo ao iniciar
+        function carregarFundoSalvo() {
+            const fundo = localStorage.getItem('dyou_fundo');
+            if (fundo) {
+                const config = JSON.parse(fundo);
+                const chatArea = document.getElementById('chatArea');
+                if (config.tipo === 'cor') {
+                    chatArea.style.backgroundColor = config.valor;
+                } else {
+                    chatArea.style.backgroundImage = config.tipo === 'gradiente' ? config.valor : `url(${config.valor})`;
+                    chatArea.style.backgroundSize = 'cover';
+                }
+            }
+        }
+        
+        // ============================================
+        // DICIONÁRIO E CALCULADORA (Placeholders)
+        // ============================================
+        function abrirDicionario() {
+            const palavra = prompt('📖 Digite a palavra para consultar:');
+            if (palavra) {
+                addMsg('📖 ' + palavra, 'user');
+                consultarDicionario(palavra);
+            }
+        }
+        
+        function abrirCalculadora() {
+            const expressao = prompt('🔢 Digite a expressão matemática:');
+            if (expressao) {
+                addMsg('🔢 ' + expressao, 'user');
+                calcularExpressao(expressao);
+            }
+        }
+        
+        // ============================================
+        // TECLADO
+        // ============================================
+        document.getElementById('inputField').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                enviar();
+            }
+        });
+        
+        document.getElementById('inputField').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+        });
+        
+        function anexarArquivo() { document.getElementById('fileInput').click(); }
+        function lerArquivos(e) {
+            for (const f of e.target.files) addMsg('📎 ' + f.name, 'sys');
+            e.target.value = '';
+        }
+        
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+        // Verificar se já tem usuário offline salvo
+        const usuarioSalvo = localStorage.getItem('dyou_usuario');
+        if (usuarioSalvo) {
+            usuarioAtual = JSON.parse(usuarioSalvo);
+            modoLogin = 'offline';
+            entrarNoChat();
+        }
+        
+        // Carregar fundo salvo
+        carregarFundoSalvo();
+                // ============================================
+        // ENVIO DE MENSAGEM
+        // ============================================
+        async function enviar() {
+            const input = document.getElementById('inputField');
+            const msg = input.value.trim();
+            if (!msg) return;
+            
+            addMsg(msg, 'user');
+            input.value = '';
+            input.style.height = 'auto';
+            historico.push({role: 'user', content: msg});
+            
+            const lower = msg.toLowerCase();
+            
+            // Verificar comandos
+            if (lower === 'ajuda' || lower === 'help') {
+                mostrarAjuda();
+                return;
+            }
+            
+            // Calculadora
+            if (isCalculo(msg)) {
+                calcularExpressao(msg);
+                return;
+            }
+            
+            // Dicionário
+            if (lower.startsWith('significado') || lower.startsWith('o que significa') || 
+                lower.startsWith('dicionário') || lower.startsWith('dicionario') ||
+                lower.startsWith('traduz') || lower.startsWith('tradução')) {
+                const palavra = msg.replace(/significado de|o que significa|dicionário|dicionario|traduz|tradução/gi, '').trim();
+                consultarDicionario(palavra);
+                return;
+            }
+            
+            // Física
+            if (lower.includes('velocidade') || lower.includes('força') || lower.includes('energia') || 
+                lower.includes('distância') || lower.includes('tempo')) {
+                calcularFisica(msg);
+                return;
+            }
+            
+            // Química
+            if (lower.includes('massa molar') || lower.includes('tabela periódica') || 
+                lower.includes('elemento') || lower.includes('átomo')) {
+                consultarQuimica(msg);
+                return;
+            }
+            
+            // Geração de imagem
+            if (lower.includes('imagem') || lower.includes('foto') || lower.includes('desenho')) {
+                const prompt = msg.replace(/imagem:|imagem de|gerar imagem|foto de|desenho/gi, '').trim();
+                gerarImagem(prompt);
+                return;
+            }
+            
+            // Pesquisa na internet
+            await responderIA(msg);
+        }
+        
+        // ============================================
+        // AJUDA
+        // ============================================
+        function mostrarAjuda() {
+            const ajuda = `🐢 CHAT DO DYOU v2 - AJUDA
+
+📖 DICIONÁRIO:
+• "significado [palavra]" - PT/EN/ES/FR
+• "traduz [palavra]"
+• "dicionário [palavra]"
+
+🔢 CALCULADORA:
+• "2 + 2"
+• "sen(30)"
+• "√16"
+• "10% de 200"
+
+⚛️ FÍSICA:
+• "velocidade = distância / tempo"
+• "força = massa × aceleração"
+
+🧪 QUÍMICA:
+• "massa molar H2O"
+• "tabela periódica"
+
+🖼️ IMAGENS:
+• "imagem: [descrição]"
+
+🌐 PESQUISA:
+• Qualquer pergunta (busca na Wikipedia)
+
+💾 MODO OFFLINE:
+• Respostas básicas funcionam sem internet`;
+            
+            addMsg(ajuda, 'bot');
+            historico.push({role: 'assistant', content: ajuda});
+        }
+        
+        // ============================================
+        // CALCULADORA
+        // ============================================
+        function isCalculo(texto) {
+            return /[\d]/.test(texto) && /[+\-*/().,%]/.test(texto);
+        }
+        
+        function calcularExpressao(expressao) {
+            try {
+                // Limpar expressão
+                let expr = expressao
+                    .replace(/quanto é|quanto e|calcule|calcula|=/gi, '')
+                    .replace(/×/g, '*')
+                    .replace(/÷/g, '/')
+                    .replace(/√/g, 'Math.sqrt')
+                    .replace(/sen/gi, 'Math.sin')
+                    .replace(/cos/gi, 'Math.cos')
+                    .replace(/tan/gi, 'Math.tan')
+                    .replace(/log/gi, 'Math.log10')
+                    .replace(/ln/gi, 'Math.log')
+                    .replace(/pi/gi, 'Math.PI')
+                    .replace(/(\d+)%/g, '($1/100)')
+                    .trim();
+                
+                // Porcentagem
+                if (expr.includes('%')) {
+                    expr = expr.replace(/(\d+)%\s*de\s*(\d+)/g, '($1/100)*$2');
+                }
+                
+                const resultado = new Function('return ' + expr)();
+                
+                let resposta = `🔢 Resultado: ${resultado}`;
+                if (expressao.includes('=')) {
+                    resposta = `🔢 ${expressao} ${resultado}`;
+                }
+                
+                addMsg(resposta, 'bot');
+                historico.push({role: 'assistant', content: resposta});
+                
+                // Salvar no aprendizado
+                salvarAprendizado(expressao, resposta, 'calculo');
+                
+            } catch (e) {
+                addMsg('❌ Expressão inválida! Tente: 2 + 2', 'bot');
+            }
+        }
+        
+        function calcularFisica(msg) {
+            const lower = msg.toLowerCase();
+            let resposta = '';
+            
+            if (lower.includes('velocidade')) {
+                resposta = `⚛️ FÍSICA - VELOCIDADE
+
+Fórmula: v = d / t
+
+Onde:
+• v = velocidade (m/s)
+• d = distância (m)
+• t = tempo (s)
+
+Exemplo: Se percorrer 100m em 10s:
+v = 100 / 10 = 10 m/s`;
+            } else if (lower.includes('força') || lower.includes('forca')) {
+                resposta = `⚛️ FÍSICA - FORÇA
+
+Fórmula: F = m × a
+
+Onde:
+• F = força (N)
+• m = massa (kg)
+• a = aceleração (m/s²)
+
+Exemplo: 10kg com aceleração de 5m/s²:
+F = 10 × 5 = 50 N`;
+            } else if (lower.includes('energia')) {
+                resposta = `⚛️ FÍSICA - ENERGIA CINÉTICA
+
+Fórmula: Ec = ½ × m × v²
+
+Onde:
+• Ec = energia cinética (J)
+• m = massa (kg)
+• v = velocidade (m/s)`;
+            } else {
+                resposta = `⚛️ FÍSICA - FÓRMULAS
+
+• Velocidade: v = d/t
+• Força: F = m×a
+• Energia: E = m×c²
+• Potência: P = E/t
+• Pressão: P = F/A`;
+            }
+            
+            addMsg(resposta, 'bot');
+            historico.push({role: 'assistant', content: resposta});
+            salvarAprendizado(msg, resposta, 'fisica');
+        }
+        
+        function consultarQuimica(msg) {
+            const lower = msg.toLowerCase();
+            let resposta = '';
+            
+            if (lower.includes('h2o')) {
+                resposta = `🧪 QUÍMICA - H₂O (Água)
+
+Composição:
+• 2 átomos de Hidrogênio (H)
+• 1 átomo de Oxigênio (O)
+
+Massa Molar:
+• H = 1 g/mol × 2 = 2 g/mol
+• O = 16 g/mol × 1 = 16 g/mol
+• Total = 18 g/mol`;
+            } else if (lower.includes('tabela')) {
+                resposta = `🧪 TABELA PERIÓDICA (Primeiros 10)
+
+1. H - Hidrogênio (1)
+2. He - Hélio (4)
+3. Li - Lítio (7)
+4. Be - Berílio (9)
+5. B - Boro (11)
+6. C - Carbono (12)
+7. N - Nitrogênio (14)
+8. O - Oxigênio (16)
+9. F - Flúor (19)
+10. Ne - Neônio (20)`;
+            } else {
+                resposta = `🧪 QUÍMICA - AJUDA
+
+Comandos:
+• "massa molar H2O"
+• "tabela periódica"
+• "elemento carbono"`;
+            }
+            
+            addMsg(resposta, 'bot');
+            historico.push({role: 'assistant', content: resposta});
+            salvarAprendizado(msg, resposta, 'quimica');
+        }
+        
+        // ============================================
+        // DICIONÁRIO MULTILÍNGUE
+        // ============================================
+        function detectarIdioma(texto) {
+            if (/[áàâãéêíóôõúç]/.test(texto.toLowerCase())) return 'pt';
+            if (/[ñ¿¡]/.test(texto.toLowerCase())) return 'es';
+            if (/[àâçéèêëîïôùûü]/.test(texto.toLowerCase()) && !/[áãõ]/.test(texto.toLowerCase())) return 'fr';
+            return 'en';
+        }
+        
+        async function consultarDicionario(palavra) {
+            const idioma = detectarIdioma(palavra);
+            
+            try {
+                const resp = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/${idioma}/${palavra}`);
+                
+                if (resp.ok) {
+                    const data = await resp.json();
+                    const entrada = data[0];
+                    
+                    let resposta = `📖 DICIONÁRIO (${idioma.toUpperCase()})\n\n`;
+                    resposta += `Palavra: ${entrada.word}\n`;
+                    
+                    if (entrada.phonetic) {
+                        resposta += `Pronúncia: ${entrada.phonetic}\n`;
+                    }
+                    
+                    resposta += '\nSignificados:\n';
+                    
+                    entrada.meanings.slice(0, 3).forEach((meaning, i) => {
+                        resposta += `\n${i + 1}. ${meaning.partOfSpeech}\n`;
+                        meaning.definitions.slice(0, 2).forEach((def, j) => {
+                            resposta += `   ${j + 1}. ${def.definition}\n`;
+                            if (def.example) {
+                                resposta += `   Ex: ${def.example}\n`;
+                            }
+                        });
+                    });
+                    
+                    addMsg(resposta, 'bot');
+                    historico.push({role: 'assistant', content: resposta});
+                    salvarAprendizado(palavra, resposta, 'dicionario');
+                    
+                } else {
+                    // Dicionário offline básico
+                    const offline = dicionarioOffline(palavra.toLowerCase());
+                    if (offline) {
+                        addMsg(offline, 'bot');
+                        historico.push({role: 'assistant', content: offline});
+                    } else {
+                        addMsg('❌ Palavra não encontrada. Verifique a ortografia.', 'bot');
+                    }
+                }
+            } catch (e) {
+                const offline = dicionarioOffline(palavra.toLowerCase());
+                if (offline) {
+                    addMsg(offline, 'bot');
+                } else {
+                    addMsg('📖 Modo offline: palavra não encontrada na base local.', 'bot');
+                }
+            }
+        }
+        
+        function dicionarioOffline(palavra) {
+            const dicionario = {
+                'amor': '📖 AMOR: Sentimento de afeto profundo por alguém ou algo.',
+                'felicidade': '📖 FELICIDADE: Estado de bem-estar e contentamento.',
+                'tristeza': '📖 TRISTEZA: Sentimento de melancolia ou desânimo.',
+                'amizade': '📖 AMIZADE: Relação de afeto e confiança entre pessoas.',
+                'coragem': '📖 CORAGEM: Capacidade de enfrentar medos e desafios.',
+                'sabedoria': '📖 SABEDORIA: Conhecimento profundo e experiência.',
+                'esperança': '📖 ESPERANÇA: Expectativa positiva sobre o futuro.',
+                'liberdade': '📖 LIBERDADE: Condição de agir sem restrições.',
+                'inteligência': '📖 INTELIGÊNCIA: Capacidade de aprender e resolver problemas.',
+                'criatividade': '📖 CRIATIVIDADE: Capacidade de criar coisas novas.',
+                'hello': '📖 HELLO: Saudação em inglês. Significa "olá".',
+                'love': '📖 LOVE: Amor em inglês.',
+                'amigo': '📖 AMIGO: Pessoa com quem se tem amizade.',
+                'família': '📖 FAMÍLIA: Grupo de pessoas unidas por laços de parentesco.',
+                'saúde': '📖 SAÚDE: Estado de bem-estar físico e mental.'
+            };
+            
+            return dicionario[palavra] || null;
+        }
+        
+        // ============================================
+        // RESPOSTA IA (Pesquisa + Offline)
+        // ============================================
+        async function responderIA(msg) {
+            addMsg('⏳ Pesquisando...', 'sys');
+            
+            // 1. Buscar no aprendizado local
+            const local = buscarAprendizadoLocal(msg);
+            if (local) {
+                removerLoading();
+                addMsg(local, 'bot');
+                historico.push({role: 'assistant', content: local});
+                return;
+            }
+            
+            // 2. Buscar no Supabase (mente coletiva)
+            const nuvem = await buscarAprendizadoNuvem(msg);
+            if (nuvem) {
+                removerLoading();
+                addMsg(nuvem, 'bot');
+                historico.push({role: 'assistant', content: nuvem});
+                return;
+            }
+            
+            // 3. Buscar na Wikipedia
+            const wiki = await buscarWikipedia(msg);
+            if (wiki) {
+                removerLoading();
+                addMsg(wiki, 'bot');
+                historico.push({role: 'assistant', content: wiki});
+                salvarAprendizado(msg, wiki, 'pesquisa');
+                return;
+            }
+            
+            // 4. Resposta offline básica
+            const offline = respostaOffline(msg);
+            removerLoading();
+            addMsg(offline, 'bot');
+            historico.push({role: 'assistant', content: offline});
+        }
+        
+        async function buscarWikipedia(msg) {
+            try {
+                const termo = msg.replace(/o que é|o que e|quem é|quem e|explique|pesquise|busque/gi, '').trim();
+                const resp = await fetch(`https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(termo.replace(/\s+/g, '_'))}`);
+                
+                if (resp.ok) {
+                    const data = await resp.json();
+                    if (data.extract) {
+                        return `📚 ${data.title}\n\n${data.extract.substring(0, 500)}...`;
+                    }
+                }
+                return null;
+            } catch {
+                return null;
+            }
+        }
+        
+        function respostaOffline(msg) {
+            const lower = msg.toLowerCase();
+            
+            const respostas = {
+                'oi': 'Olá! 👋 Sou o CHAT DO DYOU v2!\n\nPosso ajudar com:\n• 📖 Dicionário (PT/EN/ES/FR)\n• 🔢 Calculadora\n• ⚛️ Física\n• 🧪 Química\n• 🖼️ Imagens\n• 🌐 Pesquisas\n\nDigite "ajuda" para mais!',
+                'olá': 'Olá! 👋 Bem-vindo!\n\nDigite "ajuda" para ver tudo que posso fazer!',
+                'ola': 'Olá! 👋 Como posso ajudar?',
+                'tudo bem': 'Estou ótimo! 🐢\n\nPronto para ajudar com suas perguntas!',
+                'como vai': 'Estou funcionando perfeitamente! 💪\n\nO que você precisa?',
+                'obrigado': 'De nada! 😊\n\nEstou aqui sempre que precisar!',
+                'valeu': 'Valeu você! 🙌\n\nPrecisa de mais alguma coisa?',
+                'tchau': 'Até logo! 👋\n\nVolte quando precisar!',
+                'adeus': 'Adeus! 🐢\n\nFoi um prazer conversar!',
+                'quem é você': 'Sou o CHAT DO DYOU v2! 🐢\n\nUm assistente universal com:\n• Dicionário\n• Calculadora\n• Física\n• Química\n• Pesquisas\n\nDigite "ajuda" para ver tudo!',
+                'o que você faz': 'Posso ajudar com:\n\n📖 Dicionário (4 idiomas)\n🔢 Matemática\n⚛️ Física\n🧪 Química\n🖼️ Geração de imagens\n🌐 Pesquisa na Wikipedia\n\nDigite "ajuda" para detalhes!'
+            };
+            
+            for (const chave in respostas) {
+                if (lower.includes(chave)) {
+                    return respostas[chave];
+                }
+            }
+            
+            return '❓ Não encontrei resposta offline para isso.\n\n💡 Tente:\n• Reformular a pergunta\n• Digitar "ajuda"\n• Conectar à internet para pesquisar';
+        }
+        
+        // ============================================
+        // GERAR IMAGEM
+        // ============================================
+        async function gerarImagem(prompt) {
+            addMsg('🎨 Gerando imagem...', 'sys');
+            const url = 'https://image.pollinations.ai/prompt/' + encodeURIComponent(prompt) + '?width=512&height=512&nologo=true';
+            
+            const div = document.createElement('div');
+            div.className = 'msg bot';
+            div.innerHTML = '<img src="' + url + '" style="max-width:100%;border-radius:10px" onclick="window.open(this.src)">';
+            document.getElementById('chatArea').appendChild(div);
+            div.scrollIntoView({behavior: 'smooth'});
+            
+            removerLoading();
+        }
+        
+        // ============================================
+        // APRENDIZADO (Mente Coletiva)
+        // ============================================
+        function buscarAprendizadoLocal(msg) {
+            const aprendizado = JSON.parse(localStorage.getItem('dyou_aprendizado') || '{}');
+            const chave = msg.toLowerCase().trim();
+            return aprendizado[chave] || null;
+        }
+        
+        async function buscarAprendizadoNuvem(msg) {
+            if (modoLogin !== 'nuvem') return null;
+            
+            try {
+                const { data, error } = await supabase
+                    .from('aprendizado')
+                    .select('resposta')
+                    .ilike('pergunta', `%${msg.toLowerCase().substring(0, 30)}%`)
+                    .limit(1);
+                
+                if (data && data.length > 0) {
+                    return data[0].resposta;
+                }
+            } catch {}
+            return null;
+        }
+        
+        function salvarAprendizado(pergunta, resposta, categoria) {
+            // Salvar localmente
+            const aprendizado = JSON.parse(localStorage.getItem('dyou_aprendizado') || '{}');
+            aprendizado[pergunta.toLowerCase().trim()] = resposta;
+            localStorage.setItem('dyou_aprendizado', JSON.stringify(aprendizado));
+            
+            // Salvar no Supabase
+            if (modoLogin === 'nuvem') {
+                supabase.from('aprendizado').insert({
+                    pergunta: pergunta.toLowerCase().trim(),
+                    resposta: resposta,
+                    categoria: categoria,
+                    idioma: detectarIdioma(pergunta)
+                }).then(() => {});
+            }
+        }
+        
+        // ============================================
+        // UTILITÁRIOS
+        // ============================================
+        function removerLoading() {
+            document.querySelectorAll('.msg.sys').forEach(m => {
+                if (m.textContent.includes('⏳') || m.textContent.includes('🎨')) m.remove();
+            });
+        }
+        
+        // Verificar conexão
+        function verificarConexao() {
+            return navigator.onLine;
+        }
+        
+        window.addEventListener('online', () => {
+            if (usuarioAtual) addMsg('✅ Conexão restaurada!', 'sys');
+        });
+        
+        window.addEventListener('offline', () => {
+            if (usuarioAtual) addMsg('📡 Modo offline ativado!', 'sys');
+        });
+    </script>
+</body>
+</html>
