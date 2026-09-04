@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chat-dyou-v3-cache';
+const CACHE_NAME = 'chat-dyou-v4.1-cache';
 const urlsToCache = [
     '/',
     '/index.html',
