@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐢 CHAT DO DYOU v3</title>
+    <title>🐢 CHAT DO DYOU</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="manifest" href="/manifest.json">
@@ -12,7 +12,6 @@
         :root { --primary:#10a37f; --blue:#0066cc; --bg:#fff; --text:#333; --border:#e0e0e0; }
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         html,body { height:100%; overflow:hidden; font-family:Arial,sans-serif; background:#fff; touch-action:manipulation; }
-        
         .login-screen { position:fixed; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg,#10a37f,#0066cc); display:flex; align-items:center; justify-content:center; z-index:1000; padding:15px; }
         .login-card { background:#fff; border-radius:20px; padding:25px; width:100%; max-width:380px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); max-height:90vh; overflow-y:auto; }
         .logo { font-size:50px; }
@@ -32,12 +31,10 @@
         .form-actions button { flex:1; padding:12px; border:none; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; }
         .btn-submit { background:#10a37f; color:#fff; }
         .btn-back { background:#e0e0e0; color:#333; }
-        
         .mobile-header { position:fixed; top:0; left:0; right:0; background:#10a37f; color:#fff; padding:12px 15px; display:flex; align-items:center; gap:10px; z-index:100; }
         .menu-btn { background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer; }
         .header-title { flex:1; font-size:16px; font-weight:bold; text-align:center; }
         .settings-btn { background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer; }
-        
         .sidebar-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:199; display:none; }
         .sidebar-overlay.open { display:block; }
         .sidebar { position:fixed; left:-300px; top:0; bottom:0; width:300px; background:#f5f5f5; z-index:200; transition:left 0.3s; display:flex; flex-direction:column; overflow-y:auto; }
@@ -56,39 +53,38 @@
         .conversation-title { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
         .conversation-actions { display:flex; gap:5px; }
         .conversation-actions button { background:transparent; border:none; cursor:pointer; font-size:15px; }
-        
         .chat-area { position:fixed; top:55px; left:0; right:0; bottom:65px; overflow-y:auto; padding:15px; background-size:cover; background-position:center; }
         .msg { max-width:85%; margin:8px 0; padding:10px 14px; border-radius:15px; font-size:14px; line-height:1.5; white-space:pre-wrap; word-wrap:break-word; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
         .msg.user { background:#0066cc; color:#fff; margin-left:auto; }
         .msg.bot { background:#fff; color:#333; margin-right:auto; }
         .msg.sys { background:#fff3e0; color:#ff8800; text-align:center; margin:8px auto; font-size:12px; }
         .msg img { max-width:200px; border-radius:10px; cursor:pointer; }
-        
         .code-block { background:#1e1e1e; border-radius:10px; margin:10px 0; overflow:hidden; }
-        .code-header { background:#2d2d2d; padding:8px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:5px; }
+        .code-header { background:#2d2d2d; padding:8px 12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:5px; }
         .code-language { color:#10a37f; font-size:11px; font-weight:bold; text-transform:uppercase; }
-        .code-actions { display:flex; gap:5px; flex-wrap:wrap; }
-        .code-actions button { padding:4px 8px; border:none; border-radius:4px; cursor:pointer; font-size:10px; margin-left:3px; }
+        .code-actions { display:flex; gap:5px; }
+        .code-actions button { padding:4px 8px; border:none; border-radius:4px; cursor:pointer; font-size:10px; }
         .copy-code-btn { background:#10a37f; color:#fff; }
         .download-code-btn { background:#0066cc; color:#fff; }
         .code-content { padding:15px; overflow-x:auto; }
-        .code-content pre { margin:0; font-family:'Courier New',monospace; font-size:13px; color:#d4d4d4; white-space:pre-wrap; word-wrap:break-word; }
-        
-        .text-actions { display:flex; gap:5px; margin-top:8px; flex-wrap:wrap; }
-        .text-actions button { padding:5px 10px; border:1px solid #ccc; border-radius:12px; background:#fff; cursor:pointer; font-size:10px; }
-        .copy-text-btn { color:#0066cc; border-color:#0066cc; }
-        
+        .code-content pre { margin:0; font-family:'Courier New',monospace; font-size:13px; color:#d4d4d4; white-space:pre-wrap; }
+        .msg.bot table { border-collapse:collapse; margin:10px 0; width:100%; font-size:12px; }
+        .msg.bot th { background:#e8f5e9; padding:6px; text-align:left; border:1px solid #ddd; font-weight:bold; }
+        .msg.bot td { padding:6px; border:1px solid #ddd; }
+        .msg.bot h2 { font-size:16px; margin:12px 0 8px; border-bottom:2px solid #10a37f; padding-bottom:4px; }
+        .msg.bot h3 { font-size:14px; margin:10px 0 6px; }
+        .msg.bot ul { margin:8px 0; padding-left:20px; }
+        .msg.bot li { margin:4px 0; }
+        .msg.bot strong { font-weight:bold; }
         .settings-panel { position:fixed; bottom:0; left:0; right:0; background:#fff; border-radius:20px 20px 0 0; padding:20px; z-index:300; display:none; max-height:70vh; overflow-y:auto; }
         .settings-panel.open { display:block; }
         .settings-header { display:flex; justify-content:space-between; margin-bottom:15px; }
-        .settings-header h3 { font-size:16px; }
         .close-settings { background:transparent; border:none; font-size:20px; cursor:pointer; }
         .fundos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0; }
         .fundo-option { aspect-ratio:1; border-radius:10px; cursor:pointer; border:3px solid transparent; background-size:cover; background-position:center; }
         .fundo-option.selected { border-color:#10a37f; }
         .fundo-option.color { display:flex; align-items:center; justify-content:center; font-size:20px; }
         .section-title { font-size:13px; font-weight:bold; color:#555; margin:15px 0 8px; }
-        
         .input-area { position:fixed; bottom:0; left:0; right:0; background:#fff; padding:8px 10px; border-top:1px solid #e0e0e0; display:flex; gap:6px; align-items:flex-end; z-index:100; }
         .attach-btn { background:#e0e0e0; border:none; border-radius:50%; width:38px; height:38px; font-size:16px; cursor:pointer; flex-shrink:0; }
         .input-field { flex:1; padding:10px 14px; border:2px solid #e0e0e0; border-radius:20px; font-size:15px; outline:none; resize:none; min-height:38px; max-height:80px; font-family:inherit; }
@@ -101,8 +97,8 @@
     <div class="login-screen" id="loginScreen">
         <div class="login-card">
             <div class="logo">🐢</div>
-            <h1>CHAT DO DYOU v3</h1>
-            <p class="subtitle">Seu assistente universal</p>
+            <h1>CHAT DO DYOU</h1>
+            <p class="subtitle">Seu assistente pessoal</p>
             <div id="loginOptions">
                 <button class="login-btn nuvem" onclick="mostrarLoginNuvem()">☁️ Criar Conta na Nuvem</button>
                 <button class="login-btn nuvem" onclick="mostrarLoginNuvemExistente()">🔑 Login na Nuvem</button>
@@ -111,20 +107,20 @@
             </div>
             <div class="aviso-offline" id="avisoOffline">⚠️ <strong>CONTA OFFLINE:</strong> Seus dados ficarão salvos APENAS neste dispositivo.</div>
             <div id="formNuvem" style="display:none">
-                <h3 style="color:#10a37f">☁️ Criar Conta na Nuvem</h3>
+                <h3 style="color:#10a37f">☁️ Criar Conta</h3>
                 <div class="form-group"><label>Nome:</label><input type="text" id="nomeNuvem"></div>
                 <div class="form-group"><label>Email:</label><input type="email" id="emailNuvem"></div>
                 <div class="form-group"><label>Senha:</label><input type="password" id="senhaNuvem"></div>
                 <div class="form-actions"><button class="btn-back" onclick="voltarLogin()">←</button><button class="btn-submit" onclick="criarContaNuvem()">Criar</button></div>
             </div>
             <div id="formNuvemLogin" style="display:none">
-                <h3 style="color:#10a37f">🔑 Login na Nuvem</h3>
+                <h3 style="color:#10a37f">🔑 Login</h3>
                 <div class="form-group"><label>Email:</label><input type="email" id="emailNuvemLogin"></div>
                 <div class="form-group"><label>Senha:</label><input type="password" id="senhaNuvemLogin"></div>
                 <div class="form-actions"><button class="btn-back" onclick="voltarLogin()">←</button><button class="btn-submit" onclick="fazerLoginNuvem()">Entrar</button></div>
             </div>
             <div id="formOffline" style="display:none">
-                <h3 style="color:#ff8800">📱 Criar Conta Offline</h3>
+                <h3 style="color:#ff8800">📱 Conta Offline</h3>
                 <div class="form-group"><label>Nome:</label><input type="text" id="nomeOffline"></div>
                 <div class="form-group"><label>Senha:</label><input type="password" id="senhaOffline"></div>
                 <div class="form-actions"><button class="btn-back" onclick="voltarLogin()">←</button><button class="btn-submit" onclick="criarContaOffline()">Criar</button></div>
@@ -140,7 +136,7 @@
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="fecharSidebar()"></div>
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">🐢 CHAT DO DYOU v3</div>
+        <div class="sidebar-header">🐢 CHAT DO DYOU</div>
         <div class="user-info">
             <div class="user-avatar" id="userAvatar">?</div>
             <span class="user-name" id="userName">...</span>
@@ -189,284 +185,97 @@ const db = window.supabase.createClient('https://mrlxfpqsnwqkywhickvn.supabase.c
 const GROQ_API_KEY = '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';
 const UNSPLASH_KEY = 'xOSAe6ID7Kkm1z7I_q_mCkPhROYpOvjNZozAajhGrTs';
 const PEXELS_KEY = 'IJrJXcPWu5az8MhhPItOpNkXjIrOJxVtiy8Tu1XXi0a8wSAbepMzAmtj';
-const PIXABAY_KEY = '57402621-6d900d51c0f7dcc1a768f473f';
+const PIXABAY_KEY = '57402621-08cda3c47c3c14456f94e8419';
 const REMOVEBG_KEY = 'r2oeWr7jADx7p2KGkCv7wKcU';
 
 let usuarioAtual = null, modoLogin = '', conversas = {}, conversaAtual = null, contador = 0, historico = [];
 let imagensConversa = [], ultimoArquivo = null;
 
-// ===== LOGIN =====
 function voltarLogin() { document.getElementById('loginOptions').style.display='block'; document.getElementById('formNuvem').style.display='none'; document.getElementById('formNuvemLogin').style.display='none'; document.getElementById('formOffline').style.display='none'; document.getElementById('avisoOffline').classList.remove('show'); }
 function mostrarLoginNuvem() { document.getElementById('loginOptions').style.display='none'; document.getElementById('formNuvem').style.display='block'; }
 function mostrarLoginNuvemExistente() { document.getElementById('loginOptions').style.display='none'; document.getElementById('formNuvemLogin').style.display='block'; }
 function mostrarLoginOffline() { document.getElementById('loginOptions').style.display='none'; document.getElementById('formOffline').style.display='block'; document.getElementById('avisoOffline').classList.add('show'); }
+async function criarContaNuvem() { const n=document.getElementById('nomeNuvem').value.trim(); const e=document.getElementById('emailNuvem').value.trim(); const s=document.getElementById('senhaNuvem').value; if(!n)return alert('Digite seu nome!'); if(!e.includes('@'))return alert('Email inválido!'); if(s.length<6)return alert('Senha mín 6!'); try{const{data,error}=await db.auth.signUp({email:e,password:s,options:{data:{nome:n}}}); if(error)return alert('Erro: '+error.message); if(data.user){usuarioAtual={id:data.user.id,nome:n,email:e,tipo:'nuvem'}; modoLogin='nuvem'; entrarNoChat();}}catch(err){alert('Erro: '+err.message);} }
+async function fazerLoginNuvem() { const e=document.getElementById('emailNuvemLogin').value.trim(); const s=document.getElementById('senhaNuvemLogin').value; if(!e||!s)return alert('Preencha!'); try{const{data,error}=await db.auth.signInWithPassword({email:e,password:s}); if(error)return alert('Erro: '+error.message); if(data.user){usuarioAtual={id:data.user.id,nome:data.user.user_metadata?.nome||e.split('@')[0],email:e,tipo:'nuvem'}; modoLogin='nuvem'; entrarNoChat();}}catch(err){alert('Erro: '+err.message);} }
+function criarContaOffline() { const n=document.getElementById('nomeOffline').value.trim(); const s=document.getElementById('senhaOffline').value; if(!n)return alert('Digite seu nome!'); if(s.length<4)return alert('Senha mín 4!'); usuarioAtual={id:'offline_'+Date.now(),nome:n,email:n+'@offline',tipo:'offline'}; modoLogin='offline'; localStorage.setItem('dyou_usuario',JSON.stringify(usuarioAtual)); entrarNoChat(); }
+function loginAnonimo() { usuarioAtual={id:'anon_'+Date.now(),nome:'Anônimo',email:'anon@anon',tipo:'anonimo'}; modoLogin='anonimo'; entrarNoChat(); }
+function sair() { if(confirm('Sair?')){usuarioAtual=null;conversas={};localStorage.removeItem('dyou_usuario');document.getElementById('loginScreen').style.display='flex';document.getElementById('mobileHeader').style.display='none';document.getElementById('chatArea').style.display='none';document.getElementById('inputArea').style.display='none';voltarLogin();} }
+function entrarNoChat() { document.getElementById('loginScreen').style.display='none'; document.getElementById('mobileHeader').style.display='flex'; document.getElementById('chatArea').style.display='block'; document.getElementById('inputArea').style.display='flex'; document.getElementById('userName').textContent=usuarioAtual.nome; document.getElementById('userAvatar').textContent=usuarioAtual.nome.charAt(0).toUpperCase(); carregarConversas(); }
+function carregarConversas(){const s=localStorage.getItem('dyou_conversas'); if(s){conversas=JSON.parse(s); const chaves=Object.keys(conversas); if(chaves.length>0){trocarConversa(chaves[0]); return;}} novaConversa();}
+function novaConversa(){contador++; conversaAtual='Conversa '+contador; conversas[conversaAtual]=[]; historico=[]; imagensConversa=[]; document.getElementById('headerTitle').textContent='💬 '+conversaAtual; document.getElementById('chatArea').innerHTML=''; addMsg('🐢 Olá! Sou o CHAT DO DYOU!','bot'); listarConversas(); fecharSidebar(); salvarConversas();}
+function listarConversas(){const l=document.getElementById('conversationList'); l.innerHTML=''; for(const n in conversas){const item=document.createElement('div'); item.className='conversation-item'+(n===conversaAtual?' active':''); item.innerHTML='<span class="conversation-title">'+n+'</span><div class="conversation-actions"><button onclick="event.stopPropagation();renomearConversa(\''+n+'\')">✏️</button><button onclick="event.stopPropagation();excluirConversa(\''+n+'\')">🗑️</button></div>'; item.onclick=function(){trocarConversa(n);fecharSidebar();}; l.appendChild(item);}}
+function trocarConversa(n){conversaAtual=n; document.getElementById('headerTitle').textContent='💬 '+n; document.getElementById('chatArea').innerHTML=''; historico=[]; imagensConversa=[]; for(const m of conversas[n]||[]){exibirMsg(m.texto,m.tipo); if(m.tipo==='user')historico.push({role:'user',content:m.texto}); else if(m.tipo==='bot')historico.push({role:'assistant',content:m.texto});} listarConversas();}
+function renomearConversa(n){const novo=prompt('Novo nome:',n); if(novo&&novo.trim()&&novo!==n){conversas[novo]=conversas[n]; delete conversas[n]; if(conversaAtual===n)conversaAtual=novo; listarConversas(); salvarConversas();}}
+function excluirConversa(n){if(confirm('Excluir?')){delete conversas[n]; if(conversaAtual===n)novaConversa(); else listarConversas(); salvarConversas();}}
+function salvarConversas(){localStorage.setItem('dyou_conversas',JSON.stringify(conversas));}
+function exibirMsg(t,tipo){const d=document.createElement('div'); d.className='msg '+tipo; d.textContent=t; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth',block:'end'});}
+function addMsg(t,tipo){exibirMsg(t,tipo); if(conversaAtual&&conversas[conversaAtual]){conversas[conversaAtual].push({texto:t,tipo}); salvarConversas();}}
+function addMsgBot(t){const d=document.createElement('div'); d.className='msg bot'; d.innerHTML=parseMarkdown(t); document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth',block:'end'}); if(conversaAtual&&conversas[conversaAtual]){conversas[conversaAtual].push({texto:t,tipo:'bot'}); salvarConversas();}}
+function parseMarkdown(texto){const linhas=texto.split('\n'); let html=''; let emCodigo=false,lang='',buffer=[]; let emTabela=false,tabelaHtml=''; let emLista=false,listaHtml=''; for(let i=0;i<linhas.length;i++){const linha=linhas[i]; if(emLista&&!linha.trim().startsWith('-')&&!linha.trim().startsWith('•')&&!linha.trim().match(/^\d+\./)){html+='<ul>'+listaHtml+'</ul>';listaHtml='';emLista=false;} if(emTabela&&!linha.trim().startsWith('|')){html+='<table>'+tabelaHtml+'</table>';tabelaHtml='';emTabela=false;} if(linha.trim().startsWith('```')){if(emCodigo){html+=criarBlocoCodigo(buffer.join('\n'),lang);buffer=[];emCodigo=false;}else{emCodigo=true;lang=linha.replace(/```/g,'').trim()||'code';}continue;} if(emCodigo){buffer.push(linha);continue;} if(linha.trim().startsWith('|')){emTabela=true; const celulas=linha.split('|').filter(c=>c.trim()!==''); if(celulas.every(c=>/^[-:]+$/.test(c.trim())))continue; const isHeader=i+1<linhas.length&&linhas[i+1].includes('---'); if(isHeader){tabelaHtml+='<tr>'+celulas.map(c=>'<th>'+c.trim()+'</th>').join('')+'</tr>';}else{tabelaHtml+='<tr>'+celulas.map(c=>'<td>'+c.trim()+'</td>').join('')+'</tr>';}continue;} if(linha.trim().startsWith('-')||linha.trim().startsWith('•')||linha.trim().match(/^\d+\./)){emLista=true; const item=linha.trim().replace(/^[-•]/g,'').replace(/^\d+\./g,'').trim(); listaHtml+='<li>'+item+'</li>';continue;} let l=linha.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); if(linha.startsWith('### ')){l='<h3>'+linha.substring(4)+'</h3>';}else if(linha.startsWith('## ')){l='<h2>'+linha.substring(3)+'</h2>';}else if(linha.startsWith('# ')){l='<h1>'+linha.substring(2)+'</h1>';}else{l=l.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>'); l=l.replace(/`([^`]+)`/g,'<code>$1</code>'); if(!linha.trim())l='<br>';} html+=l;} if(emLista)html+='<ul>'+listaHtml+'</ul>'; if(emTabela)html+='<table>'+tabelaHtml+'</table>'; if(emCodigo&&buffer.length>0)html+=criarBlocoCodigo(buffer.join('\n'),lang); return html;}
+function criarBlocoCodigo(cod,lang){return '<div class="code-block"><div class="code-header"><span class="code-language">'+lang+'</span><div class="code-actions"><button class="copy-code-btn" onclick="copiarCodigo(this)">📋 Copiar</button><button class="download-code-btn" onclick="baixarCodigo(this)">⬇️ Baixar</button></div></div><div class="code-content"><pre>'+cod.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre></div></div>';}
+function copiarCodigo(b){navigator.clipboard.writeText(b.closest('.code-block').querySelector('pre').textContent); b.textContent='✅'; setTimeout(()=>b.textContent='📋 Copiar',2000);}
+function baixarCodigo(b){const cod=b.closest('.code-block').querySelector('pre').textContent; const lang=b.closest('.code-block').querySelector('.code-language').textContent; const ext={python:'py',javascript:'js',html:'html',css:'css',java:'java',c:'c',code:'txt'}[lang.toLowerCase()]||'txt'; const blob=new Blob([cod],{type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='codigo.'+ext; a.click();}
+function abrirSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('sidebarOverlay').classList.add('open');}
+function fecharSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}
+function abrirConfig(){document.getElementById('settingsPanel').classList.add('open');carregarFundos();fecharSidebar();}
+function fecharConfig(){document.getElementById('settingsPanel').classList.remove('open');}
+function carregarFundos(){const cores=['#ffffff','#f0f0f0','#e8f5e9','#e3f2fd','#fce4ec','#fff3e0']; const c=document.getElementById('fundosCores'); c.innerHTML=''; cores.forEach(cor=>{const d=document.createElement('div'); d.className='fundo-option color'; d.style.background=cor; d.onclick=()=>aplicarFundo('cor',cor); c.appendChild(d);}); const grads=['linear-gradient(135deg,#10a37f,#0066cc)','linear-gradient(135deg,#9b59b6,#e74c3c)','linear-gradient(135deg,#ff8800,#ffcc00)']; const g=document.getElementById('fundosGradientes'); g.innerHTML=''; grads.forEach(grad=>{const d=document.createElement('div'); d.className='fundo-option'; d.style.background=grad; d.onclick=()=>aplicarFundo('gradiente',grad); g.appendChild(d);}); carregarImgs('fundosAnimes',['https://image.pollinations.ai/prompt/anime%20landscape?width=300&height=300&nologo=true']); carregarImgs('fundosPaisagens',['https://image.pollinations.ai/prompt/mountain%20landscape?width=300&height=300&nologo=true']); carregarImgs('fundosAnimais',['https://image.pollinations.ai/prompt/cute%20cat?width=300&height=300&nologo=true']); carregarImgs('fundosPlantas',['https://image.pollinations.ai/prompt/flowers?width=300&height=300&nologo=true']); carregarImgs('fundosFrutas',['https://image.pollinations.ai/prompt/fruits?width=300&height=300&nologo=true']);}
+function carregarImgs(id,urls){const c=document.getElementById(id); c.innerHTML=''; urls.forEach(url=>{const d=document.createElement('div'); d.className='fundo-option'; d.style.backgroundImage='url('+url+')'; d.onclick=()=>aplicarFundo('imagem',url); c.appendChild(d);});}
+function aplicarFundo(tipo,valor){const chat=document.getElementById('chatArea'); if(tipo==='cor'){chat.style.backgroundImage='none';chat.style.backgroundColor=valor;} else if(tipo==='gradiente'){chat.style.backgroundImage=valor;} else{chat.style.backgroundImage='url('+valor+')';chat.style.backgroundSize='cover';} localStorage.setItem('dyou_fundo',JSON.stringify({tipo,valor})); fecharConfig();}
+function uploadFundo(){document.getElementById('fundoInput').click();}
+function aplicarFundoUpload(e){const f=e.target.files[0]; if(f){const r=new FileReader(); r.onload=function(ev){aplicarFundo('imagem',ev.target.result);}; r.readAsDataURL(f);} e.target.value='';}
+function temNegacao(msg){const l=msg.toLowerCase(); return l.includes('não')||l.includes('nao')||l.includes('n quero')||l.includes('para de')||l.includes('pare de')||l.includes('chega de');}
+function detectarIntencao(msg){const l=msg.toLowerCase().trim(); if(l==='para'||l==='pare'||l==='stop'||l==='chega')return'parar'; if(temNegacao(msg))return'conversa'; if(l.includes('quero conversar')||l.includes('vamos conversar')||l.includes('quero falar')||l.includes('preciso falar'))return'conversa'; if(l.startsWith('pesquisa')||l.startsWith('busca')||l.startsWith('busque')||l.startsWith('procura')||l.startsWith('pesquisar'))return'wikipedia'; if(l.includes('remove fundo')||l.includes('remover fundo')||l.includes('tira fundo')||l.includes('tirar fundo')||l.includes('sem fundo')||l.includes('fundo transparente'))return'removebg'; if(l.includes('qr code')||l.includes('qrcode'))return'qrcode'; if((l.includes('foto')||l.includes('imagem')||l.includes('desenho')||l.includes('ilustração')||l.includes('ilustracao')||l.includes('figura')||l.includes('picture')||l.includes('image'))&&!temNegacao(msg))return'imagem'; if(l.includes('significado')||l.includes('o que significa')||l.includes('dicionário')||l.includes('dicionario')||l.includes('defina'))return'dicionario'; if(/^[\d\s+\-*/().,%]+$/.test(msg)&&/[\d]/.test(msg))return'calculadora'; return'conversa';}
+function extrairTermo(msg){let t=msg; const rem=['foto de','foto da','foto do','foto:','imagem de','imagem:','gerar foto','gerar imagem','criar imagem','mostra foto','busca foto','desenho de','desenho:','pesquisa:','pesquisa','busca:','busca','busque','procura','pesquisar','significado de','o que significa','defina','qr code:','qrcode:']; for(const r of rem){if(t.toLowerCase().startsWith(r)){t=t.substring(r.length).trim(); break;}} return t.trim()||msg;}
+async function enviar(){const input=document.getElementById('inputField'); const msg=input.value.trim(); if(!msg)return; addMsg(msg,'user'); input.value=''; historico.push({role:'user',content:msg}); const intencao=detectarIntencao(msg); const termo=extrairTermo(msg); if(intencao==='parar'){addMsg('👍 Tudo bem! O que você gostaria de fazer agora?','bot'); return;} if(intencao==='conversa'){await responderIA(msg); return;} if(intencao==='wikipedia'){pesquisarWikipedia(termo); return;} if(intencao==='removebg'){removerFundoUltimaImagem(); return;} if(intencao==='qrcode'){gerarQRCode(termo); return;} if(intencao==='imagem'){buscarFotosMultiplas(termo); return;} if(intencao==='dicionario'){consultarDicionario(termo); return;} if(intencao==='calculadora'){calcular(msg); return;} await responderIA(msg);}
+function gerarQRCode(t){const url='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(t); const d=document.createElement('div'); d.className='msg bot'; d.innerHTML='<img src="'+url+'" style="max-width:200px;border-radius:10px">'; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth'}); imagensConversa.push({url,fonte:'qrcode'});}
+async function pesquisarWikipedia(termo){addMsg('⏳ Pesquisando...','sys'); try{const r=await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(termo.replace(/\s+/g,'_'))); if(r.ok){const d=await r.json(); if(d.extract&&d.extract.length>30){removerLoading(); addMsg(d.extract.substring(0,800)+'...','bot'); return;}} removerLoading(); addMsg('Não encontrei nada sobre isso.','bot');}catch(e){removerLoading(); addMsg('Não consegui pesquisar agora.','bot');}}
+async function buscarFotosMultiplas(termo){addMsg('⏳ Buscando...','sys'); const urls=[]; try{const r1=await fetch('https://api.unsplash.com/search/photos?query='+encodeURIComponent(termo)+'&client_id='+UNSPLASH_KEY+'&per_page=1'); const d1=await r1.json(); if(d1.results)d1.results.forEach(f=>urls.push({url:f.urls.regular}));}catch{} try{const r2=await fetch('https://api.pexels.com/v1/search?query='+encodeURIComponent(termo)+'&per_page=1',{headers:{'Authorization':PEXELS_KEY}}); const d2=await r2.json(); if(d2.photos)d2.photos.forEach(f=>urls.push({url:f.src.large}));}catch{} try{const r3=await fetch('https://pixabay.com/api/?key='+PIXABAY_KEY+'&q='+encodeURIComponent(termo)+'&per_page=2'); const d3=await r3.json(); if(d3.hits)d3.hits.forEach(f=>urls.push({url:f.webformatURL}));}catch{} removerLoading(); if(urls.length>0){urls.slice(0,4).forEach(url=>{const d=document.createElement('div'); d.className='msg bot'; d.innerHTML='<img src="'+url.url+'" style="max-width:100%;border-radius:10px;cursor:pointer" onclick="window.open(this.src)">'; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth'}); imagensConversa.push(url);});}else{addMsg('Nenhuma imagem encontrada.','bot');}}
+async function removerFundoUltimaImagem(){if(imagensConversa.length===0){addMsg('Envie uma imagem primeiro!','bot');return;} const ultima=imagensConversa[imagensConversa.length-1]; addMsg('⏳ Removendo fundo...','sys'); try{const response=await fetch(ultima.url); const blob=await response.blob(); const formData=new FormData(); formData.append('image_file',blob,'imagem.png'); formData.append('size','auto'); const r=await fetch('https://api.remove.bg/v1.0/removebg',{method:'POST',headers:{'X-Api-Key':REMOVEBG_KEY},body:formData}); if(r.ok){const blobResult=await r.blob(); const urlResult=URL.createObjectURL(blobResult); removerLoading(); const d=document.createElement('div'); d.className='msg bot'; d.innerHTML='<img src="'+urlResult+'" style="max-width:100%;border-radius:10px;background:#e0e0e0"><br><small>✅ Fundo removido!</small>'; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth'}); imagensConversa.push({url:urlResult});}else{removerLoading(); addMsg('Não consegui remover o fundo.','bot');}}catch{removerLoading(); addMsg('Erro ao processar.','bot');}}
+async function consultarDicionario(p){try{const r=await fetch('https://api.dictionaryapi.dev/api/v2/entries/pt/'+p); if(r.ok){const d=await r.json(); let resp=d[0].word+'\n\n'; d[0].meanings.slice(0,2).forEach(m=>{resp+=m.partOfSpeech+'\n'; m.definitions.slice(0,2).forEach(def=>{resp+='• '+def.definition+'\n';});}); addMsg(resp,'bot');}else{addMsg('Não encontrei essa palavra.','bot');}}catch{addMsg('Erro ao buscar.','bot');}}
+function calcular(expr){try{let e=expr.replace(/×/g,'*').replace(/÷/g,'/').replace(/sen/gi,'Math.sin').replace(/cos/gi,'Math.cos').replace(/√/g,'Math.sqrt').replace(/pi/gi,'Math.PI'); const r=new Function('return '+e)(); addMsg('Resultado: '+r,'bot');}catch{addMsg('Expressão inválida.','bot');}}
 
-async function criarContaNuvem() {
-    const nome = document.getElementById('nomeNuvem').value.trim();
-    const email = document.getElementById('emailNuvem').value.trim();
-    const senha = document.getElementById('senhaNuvem').value;
-    if (!nome) return alert('Digite seu nome!');
-    if (!email.includes('@')) return alert('Email inválido!');
-    if (senha.length < 6) return alert('Senha mín 6 caracteres!');
-    try { const { data, error } = await db.auth.signUp({ email, password: senha, options: { data: { nome } } }); if (error) return alert('Erro: ' + error.message); if (data.user) { usuarioAtual = { id: data.user.id, nome, email, tipo: 'nuvem' }; modoLogin = 'nuvem'; entrarNoChat(); } } catch(e) { alert('Erro: ' + e.message); }
-}
-
-async function fazerLoginNuvem() {
-    const email = document.getElementById('emailNuvemLogin').value.trim();
-    const senha = document.getElementById('senhaNuvemLogin').value;
-    if (!email || !senha) return alert('Preencha todos!');
-    try { const { data, error } = await db.auth.signInWithPassword({ email, password: senha }); if (error) return alert('Erro: ' + error.message); if (data.user) { usuarioAtual = { id: data.user.id, nome: data.user.user_metadata?.nome || email.split('@')[0], email, tipo: 'nuvem' }; modoLogin = 'nuvem'; entrarNoChat(); } } catch(e) { alert('Erro: ' + e.message); }
-}
-
-function criarContaOffline() {
-    const nome = document.getElementById('nomeOffline').value.trim();
-    const senha = document.getElementById('senhaOffline').value;
-    if (!nome) return alert('Digite seu nome!');
-    if (senha.length < 4) return alert('Senha mín 4 caracteres!');
-    usuarioAtual = { id: 'offline_' + Date.now(), nome, email: nome + '@offline', tipo: 'offline' }; modoLogin = 'offline';
-    localStorage.setItem('dyou_usuario', JSON.stringify(usuarioAtual)); entrarNoChat();
-}
-
-function loginAnonimo() { usuarioAtual = { id: 'anon_' + Date.now(), nome: 'Anônimo', email: 'anon@anon', tipo: 'anonimo' }; modoLogin = 'anonimo'; entrarNoChat(); }
-
-function sair() { if (confirm('Sair?')) { usuarioAtual = null; conversas = {}; localStorage.removeItem('dyou_usuario'); document.getElementById('loginScreen').style.display='flex'; document.getElementById('mobileHeader').style.display='none'; document.getElementById('chatArea').style.display='none'; document.getElementById('inputArea').style.display='none'; voltarLogin(); } }
-
-function entrarNoChat() {
-    document.getElementById('loginScreen').style.display='none'; document.getElementById('mobileHeader').style.display='flex';
-    document.getElementById('chatArea').style.display='block'; document.getElementById('inputArea').style.display='flex';
-    document.getElementById('userName').textContent = usuarioAtual.nome;
-    document.getElementById('userAvatar').textContent = usuarioAtual.nome.charAt(0).toUpperCase();
-    carregarConversas();
-}
-
-// ===== CONVERSAS =====
-function carregarConversas() { const salvo = localStorage.getItem('dyou_conversas'); if (salvo) { conversas = JSON.parse(salvo); const chaves = Object.keys(conversas); if (chaves.length > 0) { trocarConversa(chaves[0]); return; } } novaConversa(); }
-
-function novaConversa() { contador++; conversaAtual = 'Conversa ' + contador; conversas[conversaAtual] = []; historico = []; imagensConversa = []; document.getElementById('headerTitle').textContent = '💬 ' + conversaAtual; document.getElementById('chatArea').innerHTML = ''; addMsg('🐢 Olá! Sou o CHAT DO DYOU!', 'bot'); listarConversas(); fecharSidebar(); salvarConversas(); }
-
-function listarConversas() { const lista = document.getElementById('conversationList'); lista.innerHTML = ''; for (const nome in conversas) { const item = document.createElement('div'); item.className = 'conversation-item' + (nome === conversaAtual ? ' active' : ''); item.innerHTML = '<span class="conversation-title">' + nome + '</span><div class="conversation-actions"><button onclick="event.stopPropagation();renomearConversa(\'' + nome + '\')">✏️</button><button onclick="event.stopPropagation();excluirConversa(\'' + nome + '\')">🗑️</button></div>'; item.onclick = function() { trocarConversa(nome); fecharSidebar(); }; lista.appendChild(item); } }
-function trocarConversa(nome) { conversaAtual = nome; document.getElementById('headerTitle').textContent = '💬 ' + nome; document.getElementById('chatArea').innerHTML = ''; historico = []; imagensConversa = []; for (const msg of conversas[nome] || []) { exibirMsg(msg.texto, msg.tipo); if (msg.tipo === 'user') historico.push({role:'user', content:msg.texto}); else if (msg.tipo === 'bot') historico.push({role:'assistant', content:msg.texto}); } listarConversas(); }
-function renomearConversa(nome) { const novo = prompt('Novo nome:', nome); if (novo && novo.trim() && novo !== nome) { conversas[novo] = conversas[nome]; delete conversas[nome]; if (conversaAtual === nome) conversaAtual = novo; listarConversas(); salvarConversas(); } }
-function excluirConversa(nome) { if (confirm('Excluir?')) { delete conversas[nome]; if (conversaAtual === nome) novaConversa(); else listarConversas(); salvarConversas(); } }
-function salvarConversas() { localStorage.setItem('dyou_conversas', JSON.stringify(conversas)); }
-
-// ===== MENSAGENS =====
-function exibirMsg(texto, tipo) { const div = document.createElement('div'); div.className = 'msg ' + tipo; div.textContent = texto; document.getElementById('chatArea').appendChild(div); div.scrollIntoView({behavior:'smooth', block:'end'}); }
-function addMsg(texto, tipo) { exibirMsg(texto, tipo); if (conversaAtual && conversas[conversaAtual]) { conversas[conversaAtual].push({texto, tipo}); salvarConversas(); } }
-
-function addMsgBot(texto) {
-    const div = document.createElement('div'); div.className = 'msg bot'; div.innerHTML = parseMarkdown(texto);
-    document.getElementById('chatArea').appendChild(div); div.scrollIntoView({behavior:'smooth', block:'end'});
-    if (conversaAtual && conversas[conversaAtual]) { conversas[conversaAtual].push({texto, tipo:'bot'}); salvarConversas(); }
-}
-
-function parseMarkdown(texto) {
-    const linhas = texto.split('\n'); let html = ''; let emCodigo = false, lang = '', buffer = [];
-    for (const linha of linhas) {
-        if (linha.trim().startsWith('```')) {
-            if (emCodigo) { html += criarBlocoCodigo(buffer.join('\n'), lang); buffer = []; emCodigo = false; }
-            else { emCodigo = true; lang = linha.replace(/```/g,'').trim() || 'code'; }
-            continue;
-        }
-        if (emCodigo) { buffer.push(linha); continue; }
-        let l = linha.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-        if (linha.startsWith('## ')) l = '<strong>' + linha.substring(3) + '</strong>';
-        l = l.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
-        if (!linha.trim()) l = '<br>';
-        html += l;
+async function responderIA(msg){
+    addMsg('⏳...','sys');
+    const l=msg.toLowerCase();
+    
+    if(l==='oi'||l==='olá'||l==='ola'||l==='hey'){removerLoading(); addMsg('Olá! 👋 Como posso ajudar?','bot'); return;}
+    if(l==='tudo bem'||l==='como vai'){removerLoading(); addMsg('Estou ótimo! 🐢 E você?','bot'); return;}
+    if(l==='obrigado'||l==='valeu'){removerLoading(); addMsg('De nada! 😊','bot'); return;}
+    if(l==='bom dia'){removerLoading(); addMsg('Bom dia! ☀️','bot'); return;}
+    if(l==='boa tarde'){removerLoading(); addMsg('Boa tarde! 🌤️','bot'); return;}
+    if(l==='boa noite'){removerLoading(); addMsg('Boa noite! 🌙','bot'); return;}
+    if(l.includes('que dia')||l.includes('que ano')||l.includes('data de hoje')){removerLoading(); addMsg('Hoje é '+new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'})+'.','bot'); return;}
+    
+    let historicoLimitado=historico.slice(-100);
+    let contexto='';
+    if(ultimoArquivo){contexto='\n\nARQUIVO ('+ultimoArquivo.nome+'):\n'+ultimoArquivo.conteudo.substring(0,3000);}
+    
+    const modelos=['openai/gpt-oss-20b','llama-3.3-70b-versatile','mixtral-8x7b-32768'];
+    for(const modelo of modelos){
+        try{
+            const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+GROQ_API_KEY,'Content-Type':'application/json'},body:JSON.stringify({model:modelo,messages:[{role:'system',content:'Você é o CHAT DO DYOU, um assistente virtual amigável. Responda de forma natural e direta, SEM mencionar APIs, fontes ou limitações técnicas. Apenas responda como um assistente humano faria. Responda em português. Para código use ```linguagem.'},...historicoLimitado,{role:'user',content:msg+contexto}],temperature:0.7,max_tokens:3000})});
+            if(resp.ok){const data=await resp.json(); if(data.choices&&data.choices[0]&&data.choices[0].message){let resposta=data.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim(); removerLoading(); addMsgBot(resposta); historico.push({role:'assistant',content:resposta}); if(historico.length>100){historico=historico.slice(-100);} return;}}
+        }catch(e){continue;}
     }
-    return html;
-}
-
-function criarBlocoCodigo(codigo, lang) { return '<div class="code-block"><div class="code-header"><span class="code-language">' + lang + '</span><div class="code-actions"><button class="copy-code-btn" onclick="copiarCodigo(this)">📋 Copiar</button><button class="download-code-btn" onclick="baixarCodigo(this)">⬇️ Baixar</button></div></div><div class="code-content"><pre>' + codigo.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre></div></div>'; }
-function copiarCodigo(btn) { navigator.clipboard.writeText(btn.closest('.code-block').querySelector('pre').textContent); btn.textContent = '✅'; setTimeout(() => btn.textContent = '📋 Copiar', 2000); }
-function baixarCodigo(btn) { const codigo = btn.closest('.code-block').querySelector('pre').textContent; const lang = btn.closest('.code-block').querySelector('.code-language').textContent; const ext = {python:'py',javascript:'js',html:'html',css:'css',java:'java',c:'c',code:'txt'}[lang.toLowerCase()] || 'txt'; const blob = new Blob([codigo], {type:'text/plain'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'codigo.' + ext; a.click(); }
-
-// ===== SIDEBAR/CONFIG =====
-function abrirSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebarOverlay').classList.add('open'); }
-function fecharSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
-function abrirConfig() { document.getElementById('settingsPanel').classList.add('open'); carregarFundos(); fecharSidebar(); }
-function fecharConfig() { document.getElementById('settingsPanel').classList.remove('open'); }
-
-function carregarFundos() {
-    const cores = ['#ffffff','#f0f0f0','#e8f5e9','#e3f2fd','#fce4ec','#fff3e0'];
-    const c = document.getElementById('fundosCores'); c.innerHTML = '';
-    cores.forEach(cor => { const d = document.createElement('div'); d.className = 'fundo-option color'; d.style.background = cor; d.onclick = () => aplicarFundo('cor', cor); c.appendChild(d); });
-    const grads = ['linear-gradient(135deg,#10a37f,#0066cc)','linear-gradient(135deg,#9b59b6,#e74c3c)','linear-gradient(135deg,#ff8800,#ffcc00)'];
-    const g = document.getElementById('fundosGradientes'); g.innerHTML = '';
-    grads.forEach(grad => { const d = document.createElement('div'); d.className = 'fundo-option'; d.style.background = grad; d.onclick = () => aplicarFundo('gradiente', grad); g.appendChild(d); });
-    carregarImgs('fundosAnimes', ['https://image.pollinations.ai/prompt/anime%20landscape?width=300&height=300&nologo=true']);
-    carregarImgs('fundosPaisagens', ['https://image.pollinations.ai/prompt/mountain%20landscape?width=300&height=300&nologo=true']);
-    carregarImgs('fundosAnimais', ['https://image.pollinations.ai/prompt/cute%20cat?width=300&height=300&nologo=true']);
-    carregarImgs('fundosPlantas', ['https://image.pollinations.ai/prompt/flowers?width=300&height=300&nologo=true']);
-    carregarImgs('fundosFrutas', ['https://image.pollinations.ai/prompt/fruits?width=300&height=300&nologo=true']);
-}
-function carregarImgs(id, urls) { const c = document.getElementById(id); c.innerHTML = ''; urls.forEach(url => { const d = document.createElement('div'); d.className = 'fundo-option'; d.style.backgroundImage = 'url(' + url + ')'; d.onclick = () => aplicarFundo('imagem', url); c.appendChild(d); }); }
-function aplicarFundo(tipo, valor) { const chat = document.getElementById('chatArea'); if (tipo === 'cor') { chat.style.backgroundImage = 'none'; chat.style.backgroundColor = valor; } else if (tipo === 'gradiente') { chat.style.backgroundImage = valor; } else { chat.style.backgroundImage = 'url(' + valor + ')'; chat.style.backgroundSize = 'cover'; } localStorage.setItem('dyou_fundo', JSON.stringify({tipo, valor})); fecharConfig(); }
-function uploadFundo() { document.getElementById('fundoInput').click(); }
-function aplicarFundoUpload(e) { const f = e.target.files[0]; if (f) { const r = new FileReader(); r.onload = function(ev) { aplicarFundo('imagem', ev.target.result); }; r.readAsDataURL(f); } e.target.value = ''; }
-
-// ===== DETECÇÃO INTELIGENTE =====
-function detectarIntencao(msg) {
-    const lower = msg.toLowerCase();
-    if (lower.includes('qr code') || lower.includes('qrcode') || (lower.includes('qr') && lower.length < 10)) return 'qrcode';
-    if (lower.includes('foto') || lower.includes('imagem') || lower.includes('desenho') || lower.includes('ilustração') || lower.includes('ilustracao') || lower.includes('picture') || lower.includes('image') || lower.includes('figura')) return 'imagem';
-    if (lower.includes('significado de') || lower.includes('o que significa') || lower.includes('dicionário') || lower.includes('dicionario') || lower.includes('defina')) return 'dicionario';
-    if (/^[\d\s+\-*/().,%]+$/.test(msg) && /[\d]/.test(msg) && /[+\-*/().]/.test(msg)) return 'calculadora';
-    if (lower.includes('remove fundo') || lower.includes('remover fundo') || lower.includes('tira fundo') || lower.includes('tirar fundo') || lower.includes('sem fundo') || lower.includes('fundo transparente') || lower.includes('remove bg') || lower.includes('remove background')) return 'removebg';
-    return 'conversa';
-}
-
-function extrairTermo(msg, tipo) {
-    let termo = msg;
-    const remover = ['foto de', 'foto da', 'foto do', 'foto:', 'fotos de', 'fotos:', 'imagem de', 'imagem da', 'imagem do', 'imagem:', 'imagens de', 'imagens:', 'gerar foto', 'gerar imagem', 'criar imagem', 'cria imagem', 'mostra foto', 'mostre foto', 'mostra imagem', 'mostre imagem', 'busca foto', 'busque foto', 'busca imagem', 'busque imagem', 'quero foto', 'quero ver foto', 'quero imagem', 'quero ver imagem', 'me mostra foto', 'me mostre foto', 'me mostra imagem', 'me mostre imagem', 'desenho de', 'desenho:', 'ilustração de', 'ilustracao de', 'qr code:', 'qrcode:', 'qr code de', 'qrcode de', 'significado de', 'o que significa', 'dicionário de', 'dicionario de', 'defina'];
-    for (const r of remover) { if (termo.toLowerCase().startsWith(r)) { termo = termo.substring(r.length).trim(); break; } }
-    return termo.trim() || msg;
-}
-
-// ===== ENVIO =====
-async function enviar() {
-    const input = document.getElementById('inputField');
-    const msg = input.value.trim();
-    if (!msg) return;
-    addMsg(msg, 'user'); input.value = ''; historico.push({role:'user', content:msg});
-    const intencao = detectarIntencao(msg);
-    const termo = extrairTermo(msg, intencao);
     
-    if (intencao === 'qrcode') { gerarQRCode(termo); return; }
-    if (intencao === 'imagem') { buscarFotosMultiplas(termo); return; }
-    if (intencao === 'dicionario') { consultarDicionario(termo); return; }
-    if (intencao === 'calculadora') { calcular(msg); return; }
-    if (intencao === 'removebg') { removerFundoUltimaImagem(); return; }
-    
-    await responderIA(msg);
-}
-
-// ===== FERRAMENTAS =====
-function gerarQRCode(texto) { const url = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(texto); const div = document.createElement('div'); div.className = 'msg bot'; div.innerHTML = '<img src="' + url + '" style="max-width:200px;border-radius:10px">'; document.getElementById('chatArea').appendChild(div); div.scrollIntoView({behavior:'smooth'}); imagensConversa.push({url, fonte:'qrcode'}); }
-
-async function buscarFotosMultiplas(termo) {
-    addMsg('📸 Buscando fotos de "' + termo + '"...', 'sys');
-    const urls = [];
-    
-    try { const r1 = await fetch('https://api.unsplash.com/search/photos?query=' + encodeURIComponent(termo) + '&client_id=' + UNSPLASH_KEY + '&per_page=2'); const d1 = await r1.json(); if (d1.results) d1.results.forEach(f => urls.push({url: f.urls.regular, fonte:'Unsplash'})); } catch {}
-    try { const r2 = await fetch('https://api.pexels.com/v1/search?query=' + encodeURIComponent(termo) + '&per_page=1', { headers: {'Authorization': PEXELS_KEY} }); const d2 = await r2.json(); if (d2.photos) d2.photos.forEach(f => urls.push({url: f.src.large, fonte:'Pexels'})); } catch {}
-    try { const r3 = await fetch('https://pixabay.com/api/?key=' + PIXABAY_KEY + '&q=' + encodeURIComponent(termo) + '&per_page=2'); const d3 = await r3.json(); if (d3.hits) d3.hits.forEach(f => urls.push({url: f.webformatURL, fonte:'Pixabay'})); } catch {}
+    try{
+        const resp2=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','HTTP-Referer':window.location.origin,'X-Title':'Chat DYOU'},body:JSON.stringify({model:'deepseek/deepseek-chat-v3-0324:free',messages:[{role:'system',content:'Você é o CHAT DO DYOU. Responda em português de forma natural.'},...historicoLimitado.slice(-10)],max_tokens:2000})});
+        if(resp2.ok){const data2=await resp2.json(); if(data2.choices&&data2.choices[0]&&data2.choices[0].message){let resposta2=data2.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim(); removerLoading(); addMsgBot(resposta2); historico.push({role:'assistant',content:resposta2}); return;}}
+    }catch(e){}
     
     removerLoading();
-    if (urls.length > 0) {
-        urls.slice(0, 5).forEach(img => {
-            const div = document.createElement('div'); div.className = 'msg bot';
-            div.innerHTML = '<img src="' + img.url + '" style="max-width:100%;border-radius:10px;cursor:pointer" onclick="window.open(this.src)"><br><small>📸 ' + img.fonte + '</small>';
-            document.getElementById('chatArea').appendChild(div); div.scrollIntoView({behavior:'smooth'});
-            imagensConversa.push({url: img.url, fonte: img.fonte});
-        });
-    } else {
-        addMsg('❌ Nenhuma foto encontrada para "' + termo + '"', 'bot');
-    }
+    addMsg('Desculpe, não consegui processar isso agora. Tente novamente!','bot');
 }
 
-async function removerFundoUltimaImagem() {
-    if (imagensConversa.length === 0) { addMsg('❌ Nenhuma imagem na conversa!', 'bot'); return; }
-    const ultima = imagensConversa[imagensConversa.length - 1];
-    addMsg('🔧 Removendo fundo...', 'sys');
-    try {
-        const response = await fetch(ultima.url);
-        const blob = await response.blob();
-        const formData = new FormData();
-        formData.append('image_file', blob, 'imagem.png');
-        formData.append('size', 'auto');
-        const r = await fetch('https://api.remove.bg/v1.0/removebg', { method: 'POST', headers: {'X-Api-Key': REMOVEBG_KEY}, body: formData });
-        if (r.ok) {
-            const blobResult = await r.blob();
-            const urlResult = URL.createObjectURL(blobResult);
-            removerLoading();
-            const div = document.createElement('div'); div.className = 'msg bot';
-            div.innerHTML = '<img src="' + urlResult + '" style="max-width:100%;border-radius:10px;background:#e0e0e0"><br><small>✅ Fundo removido!</small>';
-            document.getElementById('chatArea').appendChild(div); div.scrollIntoView({behavior:'smooth'});
-            imagensConversa.push({url: urlResult, fonte:'removebg'});
-        } else { removerLoading(); addMsg('❌ Erro ao remover fundo', 'bot'); }
-    } catch { removerLoading(); addMsg('❌ Erro', 'bot'); }
-}
-
-async function consultarDicionario(palavra) {
-    try { const r = await fetch('https://api.dictionaryapi.dev/api/v2/entries/pt/' + palavra); if (r.ok) { const d = await r.json(); let resp = '📖 ' + d[0].word + '\n\n'; d[0].meanings.slice(0,2).forEach(m => { resp += m.partOfSpeech + '\n'; m.definitions.slice(0,2).forEach(def => { resp += '• ' + def.definition + '\n'; }); }); addMsg(resp, 'bot'); } else { addMsg('❌ Palavra não encontrada', 'bot'); } } catch { addMsg('❌ Erro', 'bot'); }
-}
-
-function calcular(expr) { try { let e = expr.replace(/×/g,'*').replace(/÷/g,'/').replace(/sen/gi,'Math.sin').replace(/cos/gi,'Math.cos').replace(/√/g,'Math.sqrt').replace(/pi/gi,'Math.PI'); const r = new Function('return ' + e)(); addMsg('🔢 Resultado: ' + r, 'bot'); } catch { addMsg('❌ Expressão inválida', 'bot'); } }
-
-// ===== IA =====
-async function responderIA(msg) {
-    addMsg('⏳ Pensando...', 'sys');
-    const lower = msg.toLowerCase();
-    if (lower === 'oi' || lower === 'olá' || lower === 'ola' || lower === 'hey') { removerLoading(); addMsg('Olá! 👋 Como posso ajudar?', 'bot'); return; }
-    if (lower.includes('tudo bem') || lower.includes('como vai')) { removerLoading(); addMsg('Estou ótimo! 🐢 E você?', 'bot'); return; }
-    if (lower.includes('obrigado') || lower.includes('valeu')) { removerLoading(); addMsg('De nada! 😊', 'bot'); return; }
-    if (lower.includes('bom dia')) { removerLoading(); addMsg('Bom dia! ☀️', 'bot'); return; }
-    if (lower.includes('boa tarde')) { removerLoading(); addMsg('Boa tarde! 🌤️', 'bot'); return; }
-    if (lower.includes('boa noite')) { removerLoading(); addMsg('Boa noite! 🌙', 'bot'); return; }
-    
-    let contexto = '';
-    if (ultimoArquivo) { contexto = '\n\nARQUIVO ANEXADO (' + ultimoArquivo.nome + '):\n' + ultimoArquivo.conteudo.substring(0, 3000); }
-    
-    const modelos = ['openai/gpt-oss-20b', 'llama-3.3-70b-versatile', 'mixtral-8x7b-32768'];
-    for (const modelo of modelos) {
-        try {
-            const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-                method: 'POST',
-                headers: {'Authorization': 'Bearer ' + GROQ_API_KEY, 'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    model: modelo,
-                    messages: [
-                        {role: 'system', content: 'Você é o CHAT DO DYOU. Se pedirem marca registrada (Mario, Pikachu), crie versão GENÉRICA e explique. Para código use ```linguagem. Responda em português.'},
-                        ...historico.slice(-10),
-                        {role: 'user', content: msg + contexto}
-                    ],
-                    temperature: 0.7, max_tokens: 3000
-                })
-            });
-            if (resp.ok) { const data = await resp.json(); if (data.choices && data.choices[0] && data.choices[0].message) { let resposta = data.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim(); removerLoading(); addMsgBot(resposta); historico.push({role:'assistant', content:resposta}); return; } }
-        } catch (e) { continue; }
-    }
-    removerLoading(); addMsg('🤔 Não consegui processar. Tente novamente!', 'bot');
-}
-
-function removerLoading() { document.querySelectorAll('.msg.sys').forEach(m => { if (m.textContent.includes('⏳') || m.textContent.includes('🎨') || m.textContent.includes('📸') || m.textContent.includes('🔧')) m.remove(); }); }
-
-// ===== ARQUIVOS =====
-function anexarArquivo() { document.getElementById('fileInput').click(); }
-function lerArquivos(e) {
-    const arquivos = e.target.files;
-    for (const arquivo of arquivos) {
-        const tipo = arquivo.type, nome = arquivo.name, tamanho = arquivo.size;
-        if (tipo.startsWith('image/')) {
-            const leitor = new FileReader();
-            leitor.onload = function(event) {
-                const div = document.createElement('div'); div.className = 'msg bot';
-                div.innerHTML = '<img src="' + event.target.result + '" style="max-width:200px;border-radius:10px"><br><small>📎 ' + nome + '</small>';
-                document.getElementById('chatArea').appendChild(div); div.scrollIntoView({behavior:'smooth'});
-                imagensConversa.push({url: event.target.result, fonte:'upload'});
-                addMsg('🖼️ Imagem recebida! Use "remove fundo" para remover!', 'bot');
-            };
-            leitor.readAsDataURL(arquivo);
-        }
-        else if (tipo.startsWith('text/') || tipo.includes('json') || tipo.includes('javascript') || tipo.includes('xml') || tipo.includes('csv')) {
-            const leitor = new FileReader();
-            leitor.onload = function(event) { ultimoArquivo = {nome, tipo, conteudo: event.target.result}; addMsg('📄 Lido: ' + nome + ' (' + formatarTamanho(tamanho) + ')', 'sys'); addMsg('💡 Conteúdo carregado! Me pergunte!', 'bot'); };
-            leitor.readAsText(arquivo);
-        }
-        else { ultimoArquivo = {nome, tipo, conteudo: '[Binário]'}; addMsg('📁 ' + nome + ' (' + formatarTamanho(tamanho) + ')', 'bot'); }
-    }
-    e.target.value = '';
-}
-function formatarTamanho(bytes) { if (!bytes) return '0 B'; if (bytes < 1024) return bytes + ' B'; if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB'; return (bytes/1048576).toFixed(1) + ' MB'; }
-
-document.getElementById('inputField').addEventListener('keydown', function(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviar(); } });
-
-const fundoSalvo = localStorage.getItem('dyou_fundo');
-if (fundoSalvo) { const f = JSON.parse(fundoSalvo); const chat = document.getElementById('chatArea'); if (f.tipo === 'cor') { chat.style.backgroundColor = f.valor; } else if (f.tipo === 'gradiente') { chat.style.backgroundImage = f.valor; } else { chat.style.backgroundImage = 'url(' + f.valor + ')'; chat.style.backgroundSize = 'cover'; } }
-
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(() => {}); }
+function removerLoading(){document.querySelectorAll('.msg.sys').forEach(m=>{if(m.textContent.includes('⏳')||m.textContent.includes('🎨')||m.textContent.includes('📸')||m.textContent.includes('🔧'))m.remove();});}
+function anexarArquivo(){document.getElementById('fileInput').click();}
+function lerArquivos(e){const arquivos=e.target.files; for(const arquivo of arquivos){const tipo=arquivo.type,nome=arquivo.name,tamanho=arquivo.size; if(tipo.startsWith('image/')){const leitor=new FileReader(); leitor.onload=function(event){const d=document.createElement('div'); d.className='msg bot'; d.innerHTML='<img src="'+event.target.result+'" style="max-width:200px;border-radius:10px"><br><small>📎 '+nome+'</small>'; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth'}); imagensConversa.push({url:event.target.result}); addMsg('Imagem recebida!','bot');}; leitor.readAsDataURL(arquivo);} else if(tipo.startsWith('text/')||tipo.includes('json')||tipo.includes('javascript')||tipo.includes('xml')||tipo.includes('csv')){const leitor=new FileReader(); leitor.onload=function(event){ultimoArquivo={nome,tipo,conteudo:event.target.result}; addMsg('Arquivo lido: '+nome,'sys'); addMsg('Pode perguntar sobre ele!','bot');}; leitor.readAsText(arquivo);} else{ultimoArquivo={nome,tipo,conteudo:'[Binário]'}; addMsg('Arquivo: '+nome,'bot');}} e.target.value='';}
+function formatarTamanho(b){if(!b)return'0 B'; if(b<1024)return b+' B'; if(b<1048576)return(b/1024).toFixed(1)+' KB'; return(b/1048576).toFixed(1)+' MB';}
+document.getElementById('inputField').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}});
+const fundoSalvo=localStorage.getItem('dyou_fundo');
+if(fundoSalvo){const f=JSON.parse(fundoSalvo); const chat=document.getElementById('chatArea'); if(f.tipo==='cor'){chat.style.backgroundColor=f.valor;} else if(f.tipo==='gradiente'){chat.style.backgroundImage=f.valor;} else{chat.style.backgroundImage='url('+f.valor+')'; chat.style.backgroundSize='cover';}}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}
 </script>
 </body>
 </html>
