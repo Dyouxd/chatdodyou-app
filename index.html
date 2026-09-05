@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐢 CHAT DO DYOU</title>
+    <title>🐢 CHAT DO DYOU - Seu Assistente Pessoal Inteligente</title>
+    <meta name="description" content="CHAT DO DYOU é um assistente virtual inteligente e gratuito. Converse, pesquise, calcule, consulte dicionário e gere imagens!">
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4462741550595807" crossorigin="anonymous"></script>
@@ -94,11 +95,55 @@
         .input-field { flex:1; padding:10px 14px; border:2px solid #e0e0e0; border-radius:20px; font-size:15px; outline:none; resize:none; min-height:38px; max-height:80px; font-family:inherit; }
         .input-field:focus { border-color:#10a37f; }
         .send-btn { background:#10a37f; color:#fff; border:none; border-radius:50%; width:38px; height:38px; font-size:16px; cursor:pointer; flex-shrink:0; }
+        
+        /* ==== CONTEÚDO ADSENSE ==== */
+        .info-section { position:fixed; top:0; left:0; right:0; bottom:0; background:#fff; z-index:500; overflow-y:auto; padding:20px; display:none; }
+        .info-container { max-width:600px; margin:0 auto; text-align:center; }
+        .info-container h1 { font-size:28px; color:#10a37f; }
+        .info-container h2 { color:#0066cc; margin-top:20px; text-align:left; }
+        .info-container p { text-align:left; line-height:1.8; color:#333; }
+        .info-container ul { text-align:left; line-height:2; padding-left:20px; }
+        .info-container a { color:#10a37f; text-decoration:none; }
+        .btn-comecar { background:#10a37f; color:#fff; border:none; padding:15px 30px; border-radius:10px; font-size:16px; cursor:pointer; margin-top:20px; }
     </style>
 </head>
 <body>
 
-    <div class="login-screen" id="loginScreen">
+    <!-- CONTEÚDO DESCRITIVO (para AdSense) -->
+    <div class="info-section" id="infoSection">
+        <div class="info-container">
+            <h1>🐢 CHAT DO DYOU</h1>
+            <p style="text-align:center; font-size:16px;">Seu Assistente Pessoal Inteligente</p>
+            
+            <h2>O que é o CHAT DO DYOU?</h2>
+            <p>O CHAT DO DYOU é um assistente virtual completo que utiliza inteligência artificial para ajudar você com conversas, pesquisas, cálculos, dicionário e muito mais. Totalmente gratuito e fácil de usar!</p>
+            
+            <h2>Funcionalidades Principais</h2>
+            <ul>
+                <li>💬 <strong>Chat Inteligente:</strong> Converse sobre qualquer assunto</li>
+                <li>🔢 <strong>Calculadora:</strong> Resolva operações matemáticas</li>
+                <li>📖 <strong>Dicionário:</strong> Consulte palavras em português</li>
+                <li>🖼️ <strong>Geração de Imagens:</strong> Crie imagens por descrição</li>
+                <li>📚 <strong>Pesquisa:</strong> Busque informações atualizadas</li>
+                <li>🔐 <strong>Segurança:</strong> Seus dados protegidos</li>
+            </ul>
+            
+            <h2>Por que usar?</h2>
+            <p>✅ 100% Gratuito | ✅ Fácil de usar | ✅ Respostas rápidas | ✅ Disponível 24/7</p>
+            
+            <h2>Links Úteis</h2>
+            <p>
+                <a href="sobre.html">📄 Sobre</a> | 
+                <a href="ajuda.html">❓ Ajuda</a> | 
+                <a href="privacidade.html">🔒 Privacidade</a> | 
+                <a href="termos.html">📋 Termos</a>
+            </p>
+            
+            <button class="btn-comecar" onclick="fecharInfo()">🚀 Começar a Usar</button>
+        </div>
+    </div>
+
+    <div class="login-screen" id="loginScreen" style="display:none;">
         <div class="login-card">
             <div class="logo">🐢</div>
             <h1>CHAT DO DYOU</h1>
@@ -149,6 +194,11 @@
         <button class="new-chat-btn" onclick="novaConversa()">➕ Nova Conversa</button>
         <div class="sidebar-section">📚 Conversas</div>
         <div class="conversation-list" id="conversationList"></div>
+        <div class="sidebar-section">🔗 Links</div>
+        <button class="sidebar-btn" onclick="window.location.href='sobre.html'">📄 Sobre</button>
+        <button class="sidebar-btn" onclick="window.location.href='ajuda.html'">❓ Ajuda</button>
+        <button class="sidebar-btn" onclick="window.location.href='privacidade.html'">🔒 Privacidade</button>
+        <button class="sidebar-btn" onclick="window.location.href='termos.html'">📋 Termos</button>
         <div class="sidebar-section">🎨 Personalização</div>
         <button class="sidebar-btn" onclick="abrirConfig()">🎨 Personalizar Fundo</button>
     </div>
@@ -186,18 +236,17 @@
 
 <script>
 const db = window.supabase.createClient('https://mrlxfpqsnwqkywhickvn.supabase.co', 'sb_publishable_VDtJCN45kf5jU9Snv0P4eA_2NElS_MR');
-const GROQ_KEYS = [
-    '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',
-    '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',
-    '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'
-];
+const GROQ_KEYS = ['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','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','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'];
+const MODELOS_CHAT = ['openai/gpt-oss-120b','openai/gpt-oss-20b','qwen/qwen3.6-27b','qwen/qwen3.8-27b','allam-2-7b','groq/compound','groq/compound-mini','canopylabs/orpheus-v1-english'];
 const UNSPLASH_KEY = 'xOSAe6ID7Kkm1z7I_q_mCkPhROYpOvjNZozAajhGrTs';
 const PEXELS_KEY = 'IJrJXcPWu5az8MhhPItOpNkXjIrOJxVtiy8Tu1XXi0a8wSAbepMzAmtj';
 const PIXABAY_KEY = '57402621-08cda3c47c3c14456f94e8419';
 const REMOVEBG_KEY = 'r2oeWr7jADx7p2KGkCv7wKcU';
-
 let usuarioAtual = null, modoLogin = '', conversas = {}, conversaAtual = null, contador = 0, historico = [];
 let imagensConversa = [], ultimoArquivo = null;
+
+function fecharInfo() { document.getElementById('infoSection').style.display='none'; document.getElementById('loginScreen').style.display='flex'; }
+window.addEventListener('load', function() { document.getElementById('infoSection').style.display='block'; });
 
 function voltarLogin() { document.getElementById('loginOptions').style.display='block'; document.getElementById('formNuvem').style.display='none'; document.getElementById('formNuvemLogin').style.display='none'; document.getElementById('formOffline').style.display='none'; document.getElementById('avisoOffline').classList.remove('show'); }
 function mostrarLoginNuvem() { document.getElementById('loginOptions').style.display='none'; document.getElementById('formNuvem').style.display='block'; }
@@ -246,7 +295,6 @@ function calcular(expr){try{let e=expr.replace(/×/g,'*').replace(/÷/g,'/').rep
 async function responderIA(msg) {
     addMsg('⏳...', 'sys');
     const l = msg.toLowerCase();
-    
     if(l==='oi'||l==='olá'||l==='ola'||l==='hey'){removerLoading(); addMsg('Olá! 👋 Como posso ajudar?','bot'); return;}
     if(l==='tudo bem'||l==='como vai'){removerLoading(); addMsg('Estou ótimo! 🐢 E você?','bot'); return;}
     if(l==='obrigado'||l==='valeu'){removerLoading(); addMsg('De nada! 😊','bot'); return;}
@@ -259,12 +307,9 @@ async function responderIA(msg) {
     let contexto = '';
     if(ultimoArquivo){contexto='\n\nARQUIVO ('+ultimoArquivo.nome+'):\n'+ultimoArquivo.conteudo.substring(0,3000);}
     
-    const modelos = ['openai/gpt-oss-20b', 'llama-3.3-70b-versatile', 'mixtral-8x7b-32768'];
-    
-    // ROTAÇÃO DE CHAVES GROQ
-    for(let tentativa = 0; tentativa < GROQ_KEYS.length * modelos.length; tentativa++) {
+    for(let tentativa = 0; tentativa < GROQ_KEYS.length * MODELOS_CHAT.length; tentativa++) {
         const chave = GROQ_KEYS[tentativa % GROQ_KEYS.length];
-        const modelo = modelos[Math.floor(tentativa / GROQ_KEYS.length)];
+        const modelo = MODELOS_CHAT[Math.floor(tentativa / GROQ_KEYS.length)];
         try {
             const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                 method: 'POST',
@@ -272,7 +317,7 @@ async function responderIA(msg) {
                 body: JSON.stringify({
                     model: modelo,
                     messages: [
-                        {role: 'system', content: 'Você é o CHAT DO DYOU, um assistente amigável. Responda naturalmente, SEM mencionar APIs ou limitações. Responda em português. Para código use ```linguagem.'},
+                        {role: 'system', content: 'Você é o CHAT DO DYOU, um assistente amigável. Responda naturalmente em português. Para código use ```linguagem.'},
                         ...historicoLimitado,
                         {role: 'user', content: msg + contexto}
                     ],
@@ -281,53 +326,39 @@ async function responderIA(msg) {
             });
             if(resp.ok) {
                 const data = await resp.json();
-                if(data.choices && data.choices[0] && data.choices[0].message) {
+                if(data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
                     let resposta = data.choices[0].message.content.replace(/<think>.*?<\/think>/gs, '').trim();
-                    removerLoading(); addMsgBot(resposta);
-                    historico.push({role: 'assistant', content: resposta});
-                    if(historico.length > 100){historico = historico.slice(-100);}
-                    return;
+                    if(resposta.length > 0) {
+                        removerLoading(); addMsgBot(resposta);
+                        historico.push({role: 'assistant', content: resposta});
+                        if(historico.length > 100){historico = historico.slice(-100);}
+                        return;
+                    }
                 }
             }
         } catch(e) { continue; }
     }
-    
-    // FALLBACK: DEEPSEEK (OpenRouter - modelo corrigido)
     try {
         const resp2 = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: {'Content-Type': 'application/json', 'HTTP-Referer': window.location.origin, 'X-Title': 'Chat DYOU'},
-            body: JSON.stringify({
-                model: 'deepseek/deepseek-chat:free',
-                messages: [{role: 'system', content: 'Você é o CHAT DO DYOU. Responda em português.'}, ...historicoLimitado.slice(-10)],
-                max_tokens: 2000
-            })
+            body: JSON.stringify({model: 'deepseek/deepseek-chat:free', messages: [{role: 'system', content: 'Você é o CHAT DO DYOU. Responda em português.'}, ...historicoLimitado.slice(-10)], max_tokens: 2000})
         });
         if(resp2.ok) {
             const data2 = await resp2.json();
             if(data2.choices && data2.choices[0] && data2.choices[0].message) {
                 let resposta2 = data2.choices[0].message.content.replace(/<think>.*?<\/think>/gs, '').trim();
-                removerLoading(); addMsgBot(resposta2);
-                historico.push({role: 'assistant', content: resposta2});
-                return;
+                if(resposta2.length > 0) { removerLoading(); addMsgBot(resposta2); historico.push({role: 'assistant', content: resposta2}); return; }
             }
         }
     } catch(e) {}
-    
-    // FALLBACK: WIKIPEDIA
     try {
         const termo = msg.replace(/gostaria de saber|quero saber|o que é|o que e|quem é|quem e|como fazer|como funciona|explique|fale sobre/gi, '').trim();
         if(termo.length > 2) {
             const r3 = await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(termo.replace(/\s+/g, '_')));
-            if(r3.ok) {
-                const d3 = await r3.json();
-                if(d3.extract && d3.extract.length > 30) {
-                    removerLoading(); addMsg(d3.extract.substring(0, 800) + '...', 'bot'); return;
-                }
-            }
+            if(r3.ok) { const d3 = await r3.json(); if(d3.extract && d3.extract.length > 30) { removerLoading(); addMsg(d3.extract.substring(0, 800) + '...', 'bot'); return; } }
         }
     } catch(e) {}
-    
     removerLoading();
     addMsg('Desculpe, não consegui processar isso agora. Tente novamente!', 'bot');
 }
