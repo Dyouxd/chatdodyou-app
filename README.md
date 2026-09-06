@@ -1,4 +1,4 @@
-# 🐢 CHAT DO DYOU v4.1
+# 🐢 CHAT DO DYOU
 
 Assistente virtual universal completo.
 
