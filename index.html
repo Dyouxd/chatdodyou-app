@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐢 CHAT DO DYOU</title>
-    <meta name="description" content="Assistente virtual inteligente e gratuito">
+    <title>🐢 CHAT DO DYOU - Seu Assistente Pessoal Inteligente</title>
+    <meta name="description" content="CHAT DO DYOU é um assistente virtual gratuito. Converse, pesquise, calcule, consulte dicionário e gere imagens!">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4462741550595807" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -14,48 +14,86 @@
         :root { --primary:#10a37f; --blue:#0066cc; --bg:#fff; --text:#333; --border:#e0e0e0; }
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         html,body { height:100%; overflow:hidden; font-family:Arial,sans-serif; background:#fff; touch-action:manipulation; }
-        .login-screen { position:fixed; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg,#10a37f,#0066cc); display:flex; align-items:center; justify-content:center; z-index:1000; padding:15px; }
-        .login-card { background:#fff; border-radius:20px; padding:25px; width:100%; max-width:380px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); max-height:90vh; overflow-y:auto; }
-        .logo { font-size:50px; } .login-card h1 { font-size:22px; color:#333; margin:5px 0; } .subtitle { color:#666; font-size:13px; margin-bottom:15px; }
+        .login-screen { position:fixed; top:0; left:0; right:0; bottom:35px; background:linear-gradient(135deg,#10a37f,#0066cc); display:flex; align-items:center; justify-content:center; z-index:1000; padding:15px; }
+        .login-card { background:#fff; border-radius:20px; padding:20px; width:100%; max-width:400px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); max-height:85vh; overflow-y:auto; }
+        .logo { font-size:50px; }
+        .login-card h1 { font-size:22px; color:#333; margin:5px 0; }
+        .subtitle { color:#666; font-size:13px; margin-bottom:10px; }
         .login-btn { width:100%; padding:13px; border:2px solid #ddd; border-radius:12px; margin-bottom:10px; cursor:pointer; font-size:14px; font-weight:600; background:#fff; display:flex; align-items:center; justify-content:center; gap:8px; min-height:48px; }
-        .login-btn:active { transform:scale(0.97); background:#f0f0f0; } .login-btn.nuvem { border-color:#10a37f; color:#10a37f; } .login-btn.offline { border-color:#ff8800; color:#ff8800; } .login-btn.anon { border-color:#0066cc; color:#0066cc; }
-        .aviso-offline { background:#fff3e0; color:#cc6600; padding:10px; border-radius:8px; font-size:11px; margin:10px 0; display:none; text-align:left; } .aviso-offline.show { display:block; }
-        .form-group { margin-bottom:12px; text-align:left; } .form-group label { font-size:12px; font-weight:600; color:#555; display:block; margin-bottom:4px; }
+        .login-btn:active { transform:scale(0.97); background:#f0f0f0; }
+        .login-btn.nuvem { border-color:#10a37f; color:#10a37f; }
+        .login-btn.offline { border-color:#ff8800; color:#ff8800; }
+        .login-btn.anon { border-color:#0066cc; color:#0066cc; }
+        .aviso-offline { background:#fff3e0; color:#cc6600; padding:10px; border-radius:8px; font-size:11px; margin:10px 0; display:none; text-align:left; }
+        .aviso-offline.show { display:block; }
+        .form-group { margin-bottom:12px; text-align:left; }
+        .form-group label { font-size:12px; font-weight:600; color:#555; display:block; margin-bottom:4px; }
         .form-group input { width:100%; padding:12px; border:2px solid #ddd; border-radius:10px; font-size:15px; outline:none; }
-        .form-actions { display:flex; gap:8px; margin-top:15px; } .form-actions button { flex:1; padding:12px; border:none; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; } .btn-submit { background:#10a37f; color:#fff; } .btn-back { background:#e0e0e0; color:#333; }
+        .form-actions { display:flex; gap:8px; margin-top:15px; }
+        .form-actions button { flex:1; padding:12px; border:none; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; }
+        .btn-submit { background:#10a37f; color:#fff; }
+        .btn-back { background:#e0e0e0; color:#333; }
         .mobile-header { position:fixed; top:0; left:0; right:0; background:#10a37f; color:#fff; padding:12px 15px; display:flex; align-items:center; gap:10px; z-index:100; }
-        .menu-btn { background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer; } .header-title { flex:1; font-size:16px; font-weight:bold; text-align:center; } .settings-btn { background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer; }
-        .sidebar-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:199; display:none; } .sidebar-overlay.open { display:block; }
-        .sidebar { position:fixed; left:-300px; top:0; bottom:0; width:300px; background:#f5f5f5; z-index:200; transition:left 0.3s; display:flex; flex-direction:column; overflow-y:auto; } .sidebar.open { left:0; }
+        .menu-btn { background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer; }
+        .header-title { flex:1; font-size:16px; font-weight:bold; text-align:center; }
+        .settings-btn { background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer; }
+        .sidebar-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:199; display:none; }
+        .sidebar-overlay.open { display:block; }
+        .sidebar { position:fixed; left:-300px; top:0; bottom:0; width:300px; background:#f5f5f5; z-index:200; transition:left 0.3s; display:flex; flex-direction:column; overflow-y:auto; }
+        .sidebar.open { left:0; }
         .sidebar-header { padding:20px; background:#10a37f; color:#fff; text-align:center; font-weight:bold; font-size:18px; }
         .user-info { padding:12px; background:#e8e8e8; display:flex; align-items:center; gap:10px; font-size:13px; }
-        .user-avatar { width:36px; height:36px; border-radius:50%; background:#10a37f; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; } .user-name { flex:1; font-weight:600; }
+        .user-avatar { width:36px; height:36px; border-radius:50%; background:#10a37f; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; }
+        .user-name { flex:1; font-weight:600; }
         .logout-btn { background:#cc0000; color:#fff; border:none; border-radius:5px; padding:6px 10px; cursor:pointer; font-size:11px; }
         .new-chat-btn { margin:10px 15px; padding:13px; background:#10a37f; color:#fff; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:14px; }
         .sidebar-section { padding:10px 15px; font-size:11px; font-weight:bold; color:#888; text-transform:uppercase; }
         .sidebar-btn { padding:12px 15px; background:#fff; border:1px solid #e0e0e0; border-radius:8px; margin:3px 10px; cursor:pointer; font-size:13px; text-align:left; }
         .conversation-list { padding:5px 10px; }
         .conversation-item { padding:12px; background:#fff; border:1px solid #e0e0e0; border-radius:8px; margin-bottom:5px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-size:13px; }
-        .conversation-item.active { border-color:#10a37f; background:#e8f5e9; } .conversation-title { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-        .conversation-actions { display:flex; gap:5px; } .conversation-actions button { background:transparent; border:none; cursor:pointer; font-size:15px; }
-        .chat-area { position:fixed; top:55px; left:0; right:0; bottom:65px; overflow-y:auto; padding:15px; background-size:cover; background-position:center; }
+        .conversation-item.active { border-color:#10a37f; background:#e8f5e9; }
+        .conversation-title { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .conversation-actions { display:flex; gap:5px; }
+        .conversation-actions button { background:transparent; border:none; cursor:pointer; font-size:15px; }
+        .chat-area { position:fixed; top:55px; left:0; right:0; bottom:100px; overflow-y:auto; padding:15px; background-size:cover; background-position:center; }
         .msg { max-width:85%; margin:8px 0; padding:10px 14px; border-radius:15px; font-size:14px; line-height:1.5; white-space:pre-wrap; word-wrap:break-word; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
-        .msg.user { background:#0066cc; color:#fff; margin-left:auto; } .msg.bot { background:#fff; color:#333; margin-right:auto; } .msg.sys { background:#fff3e0; color:#ff8800; text-align:center; margin:8px auto; font-size:12px; }
+        .msg.user { background:#0066cc; color:#fff; margin-left:auto; }
+        .msg.bot { background:#fff; color:#333; margin-right:auto; }
+        .msg.sys { background:#fff3e0; color:#ff8800; text-align:center; margin:8px auto; font-size:12px; }
         .msg img { max-width:200px; border-radius:10px; cursor:pointer; }
-        .code-block { background:#1e1e1e; border-radius:10px; margin:10px 0; overflow:hidden; } .code-header { background:#2d2d2d; padding:8px 12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:5px; }
-        .code-language { color:#10a37f; font-size:11px; font-weight:bold; text-transform:uppercase; } .code-actions { display:flex; gap:5px; } .code-actions button { padding:4px 8px; border:none; border-radius:4px; cursor:pointer; font-size:10px; }
-        .copy-code-btn { background:#10a37f; color:#fff; } .download-code-btn { background:#0066cc; color:#fff; } .code-content { padding:15px; overflow-x:auto; }
+        .code-block { background:#1e1e1e; border-radius:10px; margin:10px 0; overflow:hidden; }
+        .code-header { background:#2d2d2d; padding:8px 12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:5px; }
+        .code-language { color:#10a37f; font-size:11px; font-weight:bold; text-transform:uppercase; }
+        .code-actions { display:flex; gap:5px; }
+        .code-actions button { padding:4px 8px; border:none; border-radius:4px; cursor:pointer; font-size:10px; }
+        .copy-code-btn { background:#10a37f; color:#fff; }
+        .download-code-btn { background:#0066cc; color:#fff; }
+        .code-content { padding:15px; overflow-x:auto; }
         .code-content pre { margin:0; font-family:'Courier New',monospace; font-size:13px; color:#d4d4d4; white-space:pre-wrap; }
-        .msg.bot table { border-collapse:collapse; margin:10px 0; width:100%; font-size:12px; } .msg.bot th { background:#e8f5e9; padding:6px; text-align:left; border:1px solid #ddd; font-weight:bold; } .msg.bot td { padding:6px; border:1px solid #ddd; }
-        .msg.bot h2 { font-size:16px; margin:12px 0 8px; border-bottom:2px solid #10a37f; padding-bottom:4px; } .msg.bot h3 { font-size:14px; margin:10px 0 6px; } .msg.bot ul { margin:8px 0; padding-left:20px; } .msg.bot li { margin:4px 0; } .msg.bot strong { font-weight:bold; }
-        .settings-panel { position:fixed; bottom:0; left:0; right:0; background:#fff; border-radius:20px 20px 0 0; padding:20px; z-index:300; display:none; max-height:70vh; overflow-y:auto; } .settings-panel.open { display:block; }
-        .settings-header { display:flex; justify-content:space-between; margin-bottom:15px; } .close-settings { background:transparent; border:none; font-size:20px; cursor:pointer; }
-        .fundos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0; } .fundo-option { aspect-ratio:1; border-radius:10px; cursor:pointer; border:3px solid transparent; background-size:cover; background-position:center; }
-        .fundo-option.selected { border-color:#10a37f; } .fundo-option.color { display:flex; align-items:center; justify-content:center; font-size:20px; } .section-title { font-size:13px; font-weight:bold; color:#555; margin:15px 0 8px; }
-        .input-area { position:fixed; bottom:0; left:0; right:0; background:#fff; padding:8px 10px; border-top:1px solid #e0e0e0; display:flex; gap:6px; align-items:flex-end; z-index:100; }
+        .msg.bot table { border-collapse:collapse; margin:10px 0; width:100%; font-size:12px; }
+        .msg.bot th { background:#e8f5e9; padding:6px; text-align:left; border:1px solid #ddd; font-weight:bold; }
+        .msg.bot td { padding:6px; border:1px solid #ddd; }
+        .msg.bot h2 { font-size:16px; margin:12px 0 8px; border-bottom:2px solid #10a37f; padding-bottom:4px; }
+        .msg.bot h3 { font-size:14px; margin:10px 0 6px; }
+        .msg.bot ul { margin:8px 0; padding-left:20px; }
+        .msg.bot li { margin:4px 0; }
+        .msg.bot strong { font-weight:bold; }
+        .settings-panel { position:fixed; bottom:35px; left:0; right:0; background:#fff; border-radius:20px 20px 0 0; padding:20px; z-index:300; display:none; max-height:70vh; overflow-y:auto; }
+        .settings-panel.open { display:block; }
+        .settings-header { display:flex; justify-content:space-between; margin-bottom:15px; }
+        .close-settings { background:transparent; border:none; font-size:20px; cursor:pointer; }
+        .fundos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0; }
+        .fundo-option { aspect-ratio:1; border-radius:10px; cursor:pointer; border:3px solid transparent; background-size:cover; background-position:center; }
+        .fundo-option.selected { border-color:#10a37f; }
+        .fundo-option.color { display:flex; align-items:center; justify-content:center; font-size:20px; }
+        .section-title { font-size:13px; font-weight:bold; color:#555; margin:15px 0 8px; }
+        .input-area { position:fixed; bottom:35px; left:0; right:0; background:#fff; padding:8px 10px; border-top:1px solid #e0e0e0; display:flex; gap:6px; align-items:flex-end; z-index:100; }
         .attach-btn { background:#e0e0e0; border:none; border-radius:50%; width:38px; height:38px; font-size:16px; cursor:pointer; flex-shrink:0; }
         .input-field { flex:1; padding:10px 14px; border:2px solid #e0e0e0; border-radius:20px; font-size:15px; outline:none; resize:none; min-height:38px; max-height:80px; font-family:inherit; }
-        .input-field:focus { border-color:#10a37f; } .send-btn { background:#10a37f; color:#fff; border:none; border-radius:50%; width:38px; height:38px; font-size:16px; cursor:pointer; flex-shrink:0; }
+        .input-field:focus { border-color:#10a37f; }
+        .send-btn { background:#10a37f; color:#fff; border:none; border-radius:50%; width:38px; height:38px; font-size:16px; cursor:pointer; flex-shrink:0; }
+        .footer-links { position:fixed; bottom:0; left:0; right:0; background:#f8f8f8; padding:8px; text-align:center; z-index:2000; font-size:11px; border-top:1px solid #e0e0e0; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+        .footer-links a { color:#10a37f; text-decoration:none; }
     </style>
 </head>
 <body>
@@ -64,7 +102,7 @@
         <div class="login-card">
             <div class="logo">🐢</div>
             <h1>CHAT DO DYOU</h1>
-            <p class="subtitle">Seu assistente pessoal</p>
+            <p class="subtitle">Seu assistente pessoal inteligente</p>
             <div id="loginOptions">
                 <button class="login-btn nuvem" onclick="mostrarLoginNuvem()">☁️ Criar Conta na Nuvem</button>
                 <button class="login-btn nuvem" onclick="mostrarLoginNuvemExistente()">🔑 Login na Nuvem</button>
@@ -130,6 +168,14 @@
     </div>
     <input type="file" id="fileInput" style="display:none" multiple onchange="lerArquivos(event)">
 
+    <!-- RODAPÉ GLOBAL -->
+    <div class="footer-links">
+        <a href="sobre.html">📄 Sobre</a>
+        <a href="ajuda.html">❓ Ajuda</a>
+        <a href="privacidade.html">🔒 Privacidade</a>
+        <a href="termos.html">📋 Termos</a>
+    </div>
+
 <script>
 const db=window.supabase.createClient('https://mrlxfpqsnwqkywhickvn.supabase.co','sb_publishable_VDtJCN45kf5jU9Snv0P4eA_2NElS_MR');
 const GROQ_KEYS=['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','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','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'];
@@ -179,12 +225,9 @@ function aplicarFundo(tipo,valor){const chat=document.getElementById('chatArea')
 function uploadFundo(){document.getElementById('fundoInput').click();}
 function aplicarFundoUpload(e){const f=e.target.files[0];if(f){const r=new FileReader();r.onload=function(ev){aplicarFundo('imagem',ev.target.result);};r.readAsDataURL(f);}e.target.value='';}
 function temNegacao(msg){const l=msg.toLowerCase();return l.includes('não')||l.includes('nao')||l.includes('n quero')||l.includes('para de')||l.includes('pare de')||l.includes('chega de');}
-
 function extrairCidade(msg){const cidades=['maringa','curitiba','são paulo','sao paulo','rio de janeiro','brasilia','brasília','londrina','cascavel','foz do iguaçu','manaus','belém','belem','salvador','fortaleza','recife','porto alegre','campinas','santos','florianópolis','florianopolis','goiânia','goiania','natal','joão pessoa','joao pessoa'];for(const c of cidades){if(msg.toLowerCase().includes(c))return c;}const palavras=msg.split(' ');return palavras[palavras.length-1];}
-
 function detectarIntencao(msg){const l=msg.toLowerCase().trim();if(l==='para'||l==='pare'||l==='stop'||l==='chega')return'parar';if(temNegacao(msg))return'conversa';if(l.includes('quero conversar')||l.includes('vamos conversar')||l.includes('quero falar')||l.includes('preciso falar'))return'conversa';if(l.includes('clima')||l.includes('tempo hoje')||l.includes('temperatura')||l.includes('previsão')||l.includes('previsao')||l.includes('chovendo')||l.includes('frio')||l.includes('calor'))return'clima';if(l.startsWith('pesquisa')||l.startsWith('busca')||l.startsWith('busque')||l.startsWith('procura')||l.startsWith('pesquisar'))return'wikipedia';if(l.includes('remove fundo')||l.includes('remover fundo')||l.includes('tira fundo')||l.includes('tirar fundo')||l.includes('sem fundo')||l.includes('fundo transparente'))return'removebg';if(l.includes('qr code')||l.includes('qrcode'))return'qrcode';if((l.includes('foto')||l.includes('imagem')||l.includes('desenho')||l.includes('ilustração')||l.includes('ilustracao')||l.includes('figura')||l.includes('picture')||l.includes('image'))&&!temNegacao(msg))return'imagem';if(l.includes('significado')||l.includes('o que significa')||l.includes('dicionário')||l.includes('dicionario')||l.includes('defina'))return'dicionario';if(/^[\d\s+\-*/().,%]+$/.test(msg)&&/[\d]/.test(msg))return'calculadora';return'conversa';}
 function extrairTermo(msg){let t=msg;const rem=['foto de','foto da','foto do','foto:','imagem de','imagem:','gerar foto','gerar imagem','criar imagem','mostra foto','busca foto','desenho de','desenho:','pesquisa:','pesquisa','busca:','busca','busque','procura','pesquisar','significado de','o que significa','defina','qr code:','qrcode:','clima em','clima de','tempo em','tempo de','temperatura em','previsão de','previsao de'];for(const r of rem){if(t.toLowerCase().startsWith(r)){t=t.substring(r.length).trim();break;}}return t.trim()||msg;}
-
 async function enviar(){const input=document.getElementById('inputField');const msg=input.value.trim();if(!msg)return;addMsg(msg,'user');input.value='';historico.push({role:'user',content:msg});const intencao=detectarIntencao(msg);const termo=extrairTermo(msg);
 if(intencao==='parar'){addMsg('👍 Tudo bem!','bot');return;}
 if(intencao==='clima'){const cidade=extrairCidade(msg);buscarClima(cidade);return;}
@@ -196,61 +239,32 @@ if(intencao==='imagem'){buscarFotosMultiplas(termo);return;}
 if(intencao==='dicionario'){consultarDicionario(termo);return;}
 if(intencao==='calculadora'){calcular(msg);return;}
 await responderIA(msg);}
-
 function gerarQRCode(t){const url='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(t);const d=document.createElement('div');d.className='msg bot';d.innerHTML='<img src="'+url+'" style="max-width:200px;border-radius:10px">';document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth'});imagensConversa.push({url});}
 async function pesquisarTudo(termo){addMsg('⏳...','sys');try{const r=await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(termo.replace(/\s+/g,'_')));if(r.ok){const d=await r.json();if(d.extract&&d.extract.length>30){removerLoading();addMsg(d.extract.substring(0,800)+'...','bot');return;}}}catch(e){}try{const r2=await fetch('https://api.duckduckgo.com/?q='+encodeURIComponent(termo)+'&format=json&no_html=1');if(r2.ok){const d2=await r2.json();if(d2.AbstractText){removerLoading();addMsg(d2.AbstractText.substring(0,600)+'...','bot');return;}if(d2.Answer){removerLoading();addMsg(d2.Answer,'bot');return;}}}catch(e){}removerLoading();addMsg('Não encontrei nada sobre isso.','bot');}
 async function buscarFotosMultiplas(termo){addMsg('⏳...','sys');const urls=[];try{const r1=await fetch('https://api.unsplash.com/search/photos?query='+encodeURIComponent(termo)+'&client_id='+UNSPLASH_KEY+'&per_page=1');const d1=await r1.json();if(d1.results)d1.results.forEach(f=>urls.push(f.urls.regular));}catch{}try{const r2=await fetch('https://api.pexels.com/v1/search?query='+encodeURIComponent(termo)+'&per_page=1',{headers:{'Authorization':PEXELS_KEY}});const d2=await r2.json();if(d2.photos)d2.photos.forEach(f=>urls.push(f.src.large));}catch{}try{const r3=await fetch('https://pixabay.com/api/?key='+PIXABAY_KEY+'&q='+encodeURIComponent(termo)+'&per_page=2');const d3=await r3.json();if(d3.hits)d3.hits.forEach(f=>urls.push(f.webformatURL));}catch{}removerLoading();if(urls.length>0){urls.slice(0,4).forEach(url=>{const d=document.createElement('div');d.className='msg bot';d.innerHTML='<img src="'+url+'" style="max-width:100%;border-radius:10px;cursor:pointer" onclick="window.open(this.src)">';document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth'});imagensConversa.push({url});});}else{addMsg('Nenhuma imagem encontrada.','bot');}}
 async function removerFundoUltimaImagem(){if(imagensConversa.length===0){addMsg('Envie uma imagem primeiro!','bot');return;}const ultima=imagensConversa[imagensConversa.length-1];addMsg('⏳...','sys');try{const response=await fetch(ultima.url);const blob=await response.blob();const formData=new FormData();formData.append('image_file',blob,'imagem.png');formData.append('size','auto');const r=await fetch('https://api.remove.bg/v1.0/removebg',{method:'POST',headers:{'X-Api-Key':REMOVEBG_KEY},body:formData});if(r.ok){const blobResult=await r.blob();const urlResult=URL.createObjectURL(blobResult);removerLoading();const d=document.createElement('div');d.className='msg bot';d.innerHTML='<img src="'+urlResult+'" style="max-width:100%;border-radius:10px;background:#e0e0e0">';document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth'});imagensConversa.push({url:urlResult});}else{removerLoading();addMsg('Não consegui remover o fundo.','bot');}}catch{removerLoading();addMsg('Erro ao processar.','bot');}}
 async function consultarDicionario(p){try{const r=await fetch('https://api.dictionaryapi.dev/api/v2/entries/pt/'+p);if(r.ok){const d=await r.json();let resp=d[0].word+'\n\n';d[0].meanings.slice(0,2).forEach(m=>{resp+=m.partOfSpeech+'\n';m.definitions.slice(0,2).forEach(def=>{resp+='• '+def.definition+'\n';});});addMsg(resp,'bot');}else{addMsg('Não encontrei essa palavra.','bot');}}catch{addMsg('Erro ao buscar.','bot');}}
 function calcular(expr){try{let e=expr.replace(/×/g,'*').replace(/÷/g,'/').replace(/sen/gi,'Math.sin').replace(/cos/gi,'Math.cos').replace(/√/g,'Math.sqrt').replace(/pi/gi,'Math.PI');const r=new Function('return '+e)();addMsg('Resultado: '+r,'bot');}catch{addMsg('Expressão inválida.','bot');}}
-
-async function buscarClima(cidade){addMsg('🌡️ Buscando clima...','sys');try{const r=await fetch('https://api.openweathermap.org/data/2.5/weather?q='+encodeURIComponent(cidade)+'&appid='+WEATHER_KEY+'&units=metric&lang=pt_br');const d=await r.json();if(d.main&&d.weather){removerLoading();addMsg('🌡️ Clima em '+d.name+':\n\n• Temperatura: '+d.main.temp+'°C\n• Sensação: '+d.main.feels_like+'°C\n• Umidade: '+d.main.humidity+'%\n• Condição: '+d.weather[0].description,'bot');return;}removerLoading();addMsg('Não encontrei informações do clima para "'+cidade+'".','bot');}catch(e){removerLoading();addMsg('Erro ao buscar clima.','bot');}}
-
+async function buscarClima(cidade){addMsg('🌡️...','sys');try{const r=await fetch('https://api.openweathermap.org/data/2.5/weather?q='+encodeURIComponent(cidade)+'&appid='+WEATHER_KEY+'&units=metric&lang=pt_br');const d=await r.json();if(d.main&&d.weather){removerLoading();addMsg('🌡️ Clima em '+d.name+':\n\n• Temperatura: '+d.main.temp+'°C\n• Sensação: '+d.main.feels_like+'°C\n• Umidade: '+d.main.humidity+'%\n• Condição: '+d.weather[0].description,'bot');return;}removerLoading();addMsg('Não encontrei o clima para "'+cidade+'".','bot');}catch(e){removerLoading();addMsg('Erro ao buscar clima.','bot');}}
 async function chamarMistral(pergunta){try{const r=await fetch('https://api.mistral.ai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+MISTRAL_KEY,'Content-Type':'application/json'},body:JSON.stringify({model:'mistral-small-latest',messages:[{role:'user',content:pergunta}]})});const d=await r.json();if(d.choices&&d.choices[0])return d.choices[0].message.content;return null;}catch{return null;}}
 async function chamarCloudflare(pergunta){try{const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+CF_ACCOUNT+'/ai/run/@cf/meta/llama-3.1-8b-instruct',{method:'POST',headers:{'Authorization':'Bearer '+CF_TOKEN,'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:pergunta}]})});const d=await r.json();if(d.success&&d.result&&d.result.response)return d.result.response;return null;}catch{return null;}}
 async function chamarHuggingFace(pergunta){try{const r=await fetch('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium',{method:'POST',headers:{'Authorization':'Bearer '+HF_KEY,'Content-Type':'application/json'},body:JSON.stringify({inputs:pergunta})});const d=await r.json();if(d&&d[0]&&d[0].generated_text)return d[0].generated_text;return null;}catch{return null;}}
-
-async function responderIA(msg){
-    addMsg('⏳...','sys');
-    const l=msg.toLowerCase();
-    if(l==='oi'||l==='olá'||l==='ola'||l==='hey'){removerLoading();addMsg('Olá! 👋 Como posso ajudar?','bot');return;}
-    if(l==='tudo bem'||l==='como vai'){removerLoading();addMsg('Estou ótimo! 🐢 E você?','bot');return;}
-    if(l==='obrigado'||l==='valeu'){removerLoading();addMsg('De nada! 😊','bot');return;}
-    if(l==='bom dia'){removerLoading();addMsg('Bom dia! ☀️','bot');return;}
-    if(l==='boa tarde'){removerLoading();addMsg('Boa tarde! 🌤️','bot');return;}
-    if(l==='boa noite'){removerLoading();addMsg('Boa noite! 🌙','bot');return;}
-    if(l.includes('que dia')||l.includes('que ano')||l.includes('data de hoje')){removerLoading();addMsg('Hoje é '+new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'})+'.','bot');return;}
-    
-    let historicoLimitado=historico.slice(-100);
-    let contexto='';
-    if(ultimoArquivo){contexto='\n\nARQUIVO ('+ultimoArquivo.nome+'):\n'+ultimoArquivo.conteudo.substring(0,3000);}
-    
-    for(let tentativa=0;tentativa<GROQ_KEYS.length*MODELOS_CHAT.length;tentativa++){
-        const chave=GROQ_KEYS[tentativa%GROQ_KEYS.length];
-        const modelo=MODELOS_CHAT[Math.floor(tentativa/GROQ_KEYS.length)];
-        try{
-            const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+chave,'Content-Type':'application/json'},body:JSON.stringify({model:modelo,messages:[{role:'system',content:'Você é o CHAT DO DYOU, um assistente amigável. Responda naturalmente em português. Para código use ```linguagem.'},...historicoLimitado,{role:'user',content:msg+contexto}],temperature:0.7,max_tokens:3000})});
-            if(resp.ok){const data=await resp.json();if(data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content){let resposta=data.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim();if(resposta.length>0){removerLoading();addMsgBot(resposta);historico.push({role:'assistant',content:resposta});if(historico.length>100){historico=historico.slice(-100);}return;}}}
-        }catch(e){continue;}
-    }
-    
-    const mistral=await chamarMistral(msg);
-    if(mistral){removerLoading();addMsgBot(mistral);historico.push({role:'assistant',content:mistral});return;}
-    
-    const cf=await chamarCloudflare(msg);
-    if(cf){removerLoading();addMsgBot(cf);historico.push({role:'assistant',content:cf});return;}
-    
-    const hf=await chamarHuggingFace(msg);
-    if(hf){removerLoading();addMsgBot(hf);historico.push({role:'assistant',content:hf});return;}
-    
-    try{const resp2=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','HTTP-Referer':window.location.origin,'X-Title':'Chat DYOU'},body:JSON.stringify({model:'deepseek/deepseek-chat:free',messages:[{role:'system',content:'Você é o CHAT DO DYOU. Responda em português.'},...historicoLimitado.slice(-10)],max_tokens:2000})});if(resp2.ok){const data2=await resp2.json();if(data2.choices&&data2.choices[0]&&data2.choices[0].message){let resposta2=data2.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim();if(resposta2.length>0){removerLoading();addMsgBot(resposta2);historico.push({role:'assistant',content:resposta2});return;}}}}catch(e){}
-    
-    try{const termo=msg.replace(/gostaria de saber|quero saber|o que é|o que e|quem é|quem e|como fazer|como funciona|explique|fale sobre/gi,'').trim();if(termo.length>2){const r3=await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(termo.replace(/\s+/g,'_')));if(r3.ok){const d3=await r3.json();if(d3.extract&&d3.extract.length>30){removerLoading();addMsg(d3.extract.substring(0,800)+'...','bot');return;}}}}catch(e){}
-    
-    removerLoading();
-    addMsg('Desculpe, não consegui processar isso agora. Tente novamente!','bot');
-}
-
+async function responderIA(msg){addMsg('⏳...','sys');const l=msg.toLowerCase();
+if(l==='oi'||l==='olá'||l==='ola'||l==='hey'){removerLoading();addMsg('Olá! 👋 Como posso ajudar?','bot');return;}
+if(l==='tudo bem'||l==='como vai'){removerLoading();addMsg('Estou ótimo! 🐢 E você?','bot');return;}
+if(l==='obrigado'||l==='valeu'){removerLoading();addMsg('De nada! 😊','bot');return;}
+if(l==='bom dia'){removerLoading();addMsg('Bom dia! ☀️','bot');return;}
+if(l==='boa tarde'){removerLoading();addMsg('Boa tarde! 🌤️','bot');return;}
+if(l==='boa noite'){removerLoading();addMsg('Boa noite! 🌙','bot');return;}
+if(l.includes('que dia')||l.includes('que ano')||l.includes('data de hoje')){removerLoading();addMsg('Hoje é '+new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'})+'.','bot');return;}
+let historicoLimitado=historico.slice(-100);let contexto='';if(ultimoArquivo){contexto='\n\nARQUIVO ('+ultimoArquivo.nome+'):\n'+ultimoArquivo.conteudo.substring(0,3000);}
+for(let tentativa=0;tentativa<GROQ_KEYS.length*MODELOS_CHAT.length;tentativa++){const chave=GROQ_KEYS[tentativa%GROQ_KEYS.length];const modelo=MODELOS_CHAT[Math.floor(tentativa/GROQ_KEYS.length)];try{const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+chave,'Content-Type':'application/json'},body:JSON.stringify({model:modelo,messages:[{role:'system',content:'Você é o CHAT DO DYOU, um assistente amigável. Responda naturalmente em português. Para código use ```linguagem.'},...historicoLimitado,{role:'user',content:msg+contexto}],temperature:0.7,max_tokens:3000})});if(resp.ok){const data=await resp.json();if(data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content){let resposta=data.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim();if(resposta.length>0){removerLoading();addMsgBot(resposta);historico.push({role:'assistant',content:resposta});if(historico.length>100){historico=historico.slice(-100);}return;}}}}catch(e){continue;}}
+const mistral=await chamarMistral(msg);if(mistral){removerLoading();addMsgBot(mistral);historico.push({role:'assistant',content:mistral});return;}
+const cf=await chamarCloudflare(msg);if(cf){removerLoading();addMsgBot(cf);historico.push({role:'assistant',content:cf});return;}
+const hf=await chamarHuggingFace(msg);if(hf){removerLoading();addMsgBot(hf);historico.push({role:'assistant',content:hf});return;}
+try{const resp2=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','HTTP-Referer':window.location.origin,'X-Title':'Chat DYOU'},body:JSON.stringify({model:'deepseek/deepseek-chat:free',messages:[{role:'system',content:'Você é o CHAT DO DYOU. Responda em português.'},...historicoLimitado.slice(-10)],max_tokens:2000})});if(resp2.ok){const data2=await resp2.json();if(data2.choices&&data2.choices[0]&&data2.choices[0].message){let resposta2=data2.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim();if(resposta2.length>0){removerLoading();addMsgBot(resposta2);historico.push({role:'assistant',content:resposta2});return;}}}}catch(e){}
+try{const termo=msg.replace(/gostaria de saber|quero saber|o que é|o que e|quem é|quem e|como fazer|como funciona|explique|fale sobre/gi,'').trim();if(termo.length>2){const r3=await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(termo.replace(/\s+/g,'_')));if(r3.ok){const d3=await r3.json();if(d3.extract&&d3.extract.length>30){removerLoading();addMsg(d3.extract.substring(0,800)+'...','bot');return;}}}}catch(e){}
+removerLoading();addMsg('Desculpe, não consegui processar isso agora. Tente novamente!','bot');}
 function removerLoading(){document.querySelectorAll('.msg.sys').forEach(m=>{if(m.textContent.includes('⏳')||m.textContent.includes('🎨')||m.textContent.includes('📸')||m.textContent.includes('🔧')||m.textContent.includes('🌡️'))m.remove();});}
 function anexarArquivo(){document.getElementById('fileInput').click();}
 function lerArquivos(e){const arquivos=e.target.files;for(const arquivo of arquivos){const tipo=arquivo.type,nome=arquivo.name,tamanho=arquivo.size;if(tipo.startsWith('image/')){const leitor=new FileReader();leitor.onload=function(event){const d=document.createElement('div');d.className='msg bot';d.innerHTML='<img src="'+event.target.result+'" style="max-width:200px;border-radius:10px"><br><small>📎 '+nome+'</small>';document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth'});imagensConversa.push({url:event.target.result});addMsg('Imagem recebida!','bot');};leitor.readAsDataURL(arquivo);}else if(tipo.startsWith('text/')||tipo.includes('json')||tipo.includes('javascript')||tipo.includes('xml')||tipo.includes('csv')){const leitor=new FileReader();leitor.onload=function(event){ultimoArquivo={nome,tipo,conteudo:event.target.result};addMsg('Arquivo lido: '+nome,'sys');addMsg('Pode perguntar sobre ele!','bot');};leitor.readAsText(arquivo);}else{ultimoArquivo={nome,tipo,conteudo:'[Binário]'};addMsg('Arquivo: '+nome,'bot');}}e.target.value='';}
