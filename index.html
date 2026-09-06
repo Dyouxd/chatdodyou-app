@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🐢 CHAT DO DYOU - Seu Assistente Pessoal Inteligente</title>
-    <meta name="description" content="CHAT DO DYOU é um assistente virtual inteligente e gratuito. Converse, pesquise, calcule, consulte dicionário e gere imagens!">
-    
-    <!-- Google AdSense -->
+    <title>🐢 CHAT DO DYOU</title>
+    <meta name="description" content="Assistente virtual inteligente e gratuito">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4462741550595807" crossorigin="anonymous"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="manifest" href="/manifest.json">
@@ -19,131 +16,51 @@
         html,body { height:100%; overflow:hidden; font-family:Arial,sans-serif; background:#fff; touch-action:manipulation; }
         .login-screen { position:fixed; top:0; left:0; right:0; bottom:0; background:linear-gradient(135deg,#10a37f,#0066cc); display:flex; align-items:center; justify-content:center; z-index:1000; padding:15px; }
         .login-card { background:#fff; border-radius:20px; padding:25px; width:100%; max-width:380px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); max-height:90vh; overflow-y:auto; }
-        .logo { font-size:50px; }
-        .login-card h1 { font-size:22px; color:#333; margin:5px 0; }
-        .subtitle { color:#666; font-size:13px; margin-bottom:15px; }
+        .logo { font-size:50px; } .login-card h1 { font-size:22px; color:#333; margin:5px 0; } .subtitle { color:#666; font-size:13px; margin-bottom:15px; }
         .login-btn { width:100%; padding:13px; border:2px solid #ddd; border-radius:12px; margin-bottom:10px; cursor:pointer; font-size:14px; font-weight:600; background:#fff; display:flex; align-items:center; justify-content:center; gap:8px; min-height:48px; }
-        .login-btn:active { transform:scale(0.97); background:#f0f0f0; }
-        .login-btn.nuvem { border-color:#10a37f; color:#10a37f; }
-        .login-btn.offline { border-color:#ff8800; color:#ff8800; }
-        .login-btn.anon { border-color:#0066cc; color:#0066cc; }
-        .aviso-offline { background:#fff3e0; color:#cc6600; padding:10px; border-radius:8px; font-size:11px; margin:10px 0; display:none; text-align:left; }
-        .aviso-offline.show { display:block; }
-        .form-group { margin-bottom:12px; text-align:left; }
-        .form-group label { font-size:12px; font-weight:600; color:#555; display:block; margin-bottom:4px; }
+        .login-btn:active { transform:scale(0.97); background:#f0f0f0; } .login-btn.nuvem { border-color:#10a37f; color:#10a37f; } .login-btn.offline { border-color:#ff8800; color:#ff8800; } .login-btn.anon { border-color:#0066cc; color:#0066cc; }
+        .aviso-offline { background:#fff3e0; color:#cc6600; padding:10px; border-radius:8px; font-size:11px; margin:10px 0; display:none; text-align:left; } .aviso-offline.show { display:block; }
+        .form-group { margin-bottom:12px; text-align:left; } .form-group label { font-size:12px; font-weight:600; color:#555; display:block; margin-bottom:4px; }
         .form-group input { width:100%; padding:12px; border:2px solid #ddd; border-radius:10px; font-size:15px; outline:none; }
-        .form-actions { display:flex; gap:8px; margin-top:15px; }
-        .form-actions button { flex:1; padding:12px; border:none; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; }
-        .btn-submit { background:#10a37f; color:#fff; }
-        .btn-back { background:#e0e0e0; color:#333; }
+        .form-actions { display:flex; gap:8px; margin-top:15px; } .form-actions button { flex:1; padding:12px; border:none; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; } .btn-submit { background:#10a37f; color:#fff; } .btn-back { background:#e0e0e0; color:#333; }
         .mobile-header { position:fixed; top:0; left:0; right:0; background:#10a37f; color:#fff; padding:12px 15px; display:flex; align-items:center; gap:10px; z-index:100; }
-        .menu-btn { background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer; }
-        .header-title { flex:1; font-size:16px; font-weight:bold; text-align:center; }
-        .settings-btn { background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer; }
-        .sidebar-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:199; display:none; }
-        .sidebar-overlay.open { display:block; }
-        .sidebar { position:fixed; left:-300px; top:0; bottom:0; width:300px; background:#f5f5f5; z-index:200; transition:left 0.3s; display:flex; flex-direction:column; overflow-y:auto; }
-        .sidebar.open { left:0; }
+        .menu-btn { background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer; } .header-title { flex:1; font-size:16px; font-weight:bold; text-align:center; } .settings-btn { background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer; }
+        .sidebar-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:199; display:none; } .sidebar-overlay.open { display:block; }
+        .sidebar { position:fixed; left:-300px; top:0; bottom:0; width:300px; background:#f5f5f5; z-index:200; transition:left 0.3s; display:flex; flex-direction:column; overflow-y:auto; } .sidebar.open { left:0; }
         .sidebar-header { padding:20px; background:#10a37f; color:#fff; text-align:center; font-weight:bold; font-size:18px; }
         .user-info { padding:12px; background:#e8e8e8; display:flex; align-items:center; gap:10px; font-size:13px; }
-        .user-avatar { width:36px; height:36px; border-radius:50%; background:#10a37f; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; }
-        .user-name { flex:1; font-weight:600; }
+        .user-avatar { width:36px; height:36px; border-radius:50%; background:#10a37f; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; } .user-name { flex:1; font-weight:600; }
         .logout-btn { background:#cc0000; color:#fff; border:none; border-radius:5px; padding:6px 10px; cursor:pointer; font-size:11px; }
         .new-chat-btn { margin:10px 15px; padding:13px; background:#10a37f; color:#fff; border:none; border-radius:10px; cursor:pointer; font-weight:bold; font-size:14px; }
         .sidebar-section { padding:10px 15px; font-size:11px; font-weight:bold; color:#888; text-transform:uppercase; }
         .sidebar-btn { padding:12px 15px; background:#fff; border:1px solid #e0e0e0; border-radius:8px; margin:3px 10px; cursor:pointer; font-size:13px; text-align:left; }
         .conversation-list { padding:5px 10px; }
         .conversation-item { padding:12px; background:#fff; border:1px solid #e0e0e0; border-radius:8px; margin-bottom:5px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; font-size:13px; }
-        .conversation-item.active { border-color:#10a37f; background:#e8f5e9; }
-        .conversation-title { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-        .conversation-actions { display:flex; gap:5px; }
-        .conversation-actions button { background:transparent; border:none; cursor:pointer; font-size:15px; }
+        .conversation-item.active { border-color:#10a37f; background:#e8f5e9; } .conversation-title { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .conversation-actions { display:flex; gap:5px; } .conversation-actions button { background:transparent; border:none; cursor:pointer; font-size:15px; }
         .chat-area { position:fixed; top:55px; left:0; right:0; bottom:65px; overflow-y:auto; padding:15px; background-size:cover; background-position:center; }
         .msg { max-width:85%; margin:8px 0; padding:10px 14px; border-radius:15px; font-size:14px; line-height:1.5; white-space:pre-wrap; word-wrap:break-word; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
-        .msg.user { background:#0066cc; color:#fff; margin-left:auto; }
-        .msg.bot { background:#fff; color:#333; margin-right:auto; }
-        .msg.sys { background:#fff3e0; color:#ff8800; text-align:center; margin:8px auto; font-size:12px; }
+        .msg.user { background:#0066cc; color:#fff; margin-left:auto; } .msg.bot { background:#fff; color:#333; margin-right:auto; } .msg.sys { background:#fff3e0; color:#ff8800; text-align:center; margin:8px auto; font-size:12px; }
         .msg img { max-width:200px; border-radius:10px; cursor:pointer; }
-        .code-block { background:#1e1e1e; border-radius:10px; margin:10px 0; overflow:hidden; }
-        .code-header { background:#2d2d2d; padding:8px 12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:5px; }
-        .code-language { color:#10a37f; font-size:11px; font-weight:bold; text-transform:uppercase; }
-        .code-actions { display:flex; gap:5px; }
-        .code-actions button { padding:4px 8px; border:none; border-radius:4px; cursor:pointer; font-size:10px; }
-        .copy-code-btn { background:#10a37f; color:#fff; }
-        .download-code-btn { background:#0066cc; color:#fff; }
-        .code-content { padding:15px; overflow-x:auto; }
+        .code-block { background:#1e1e1e; border-radius:10px; margin:10px 0; overflow:hidden; } .code-header { background:#2d2d2d; padding:8px 12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:5px; }
+        .code-language { color:#10a37f; font-size:11px; font-weight:bold; text-transform:uppercase; } .code-actions { display:flex; gap:5px; } .code-actions button { padding:4px 8px; border:none; border-radius:4px; cursor:pointer; font-size:10px; }
+        .copy-code-btn { background:#10a37f; color:#fff; } .download-code-btn { background:#0066cc; color:#fff; } .code-content { padding:15px; overflow-x:auto; }
         .code-content pre { margin:0; font-family:'Courier New',monospace; font-size:13px; color:#d4d4d4; white-space:pre-wrap; }
-        .msg.bot table { border-collapse:collapse; margin:10px 0; width:100%; font-size:12px; }
-        .msg.bot th { background:#e8f5e9; padding:6px; text-align:left; border:1px solid #ddd; font-weight:bold; }
-        .msg.bot td { padding:6px; border:1px solid #ddd; }
-        .msg.bot h2 { font-size:16px; margin:12px 0 8px; border-bottom:2px solid #10a37f; padding-bottom:4px; }
-        .msg.bot h3 { font-size:14px; margin:10px 0 6px; }
-        .msg.bot ul { margin:8px 0; padding-left:20px; }
-        .msg.bot li { margin:4px 0; }
-        .msg.bot strong { font-weight:bold; }
-        .settings-panel { position:fixed; bottom:0; left:0; right:0; background:#fff; border-radius:20px 20px 0 0; padding:20px; z-index:300; display:none; max-height:70vh; overflow-y:auto; }
-        .settings-panel.open { display:block; }
-        .settings-header { display:flex; justify-content:space-between; margin-bottom:15px; }
-        .close-settings { background:transparent; border:none; font-size:20px; cursor:pointer; }
-        .fundos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0; }
-        .fundo-option { aspect-ratio:1; border-radius:10px; cursor:pointer; border:3px solid transparent; background-size:cover; background-position:center; }
-        .fundo-option.selected { border-color:#10a37f; }
-        .fundo-option.color { display:flex; align-items:center; justify-content:center; font-size:20px; }
-        .section-title { font-size:13px; font-weight:bold; color:#555; margin:15px 0 8px; }
+        .msg.bot table { border-collapse:collapse; margin:10px 0; width:100%; font-size:12px; } .msg.bot th { background:#e8f5e9; padding:6px; text-align:left; border:1px solid #ddd; font-weight:bold; } .msg.bot td { padding:6px; border:1px solid #ddd; }
+        .msg.bot h2 { font-size:16px; margin:12px 0 8px; border-bottom:2px solid #10a37f; padding-bottom:4px; } .msg.bot h3 { font-size:14px; margin:10px 0 6px; } .msg.bot ul { margin:8px 0; padding-left:20px; } .msg.bot li { margin:4px 0; } .msg.bot strong { font-weight:bold; }
+        .settings-panel { position:fixed; bottom:0; left:0; right:0; background:#fff; border-radius:20px 20px 0 0; padding:20px; z-index:300; display:none; max-height:70vh; overflow-y:auto; } .settings-panel.open { display:block; }
+        .settings-header { display:flex; justify-content:space-between; margin-bottom:15px; } .close-settings { background:transparent; border:none; font-size:20px; cursor:pointer; }
+        .fundos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0; } .fundo-option { aspect-ratio:1; border-radius:10px; cursor:pointer; border:3px solid transparent; background-size:cover; background-position:center; }
+        .fundo-option.selected { border-color:#10a37f; } .fundo-option.color { display:flex; align-items:center; justify-content:center; font-size:20px; } .section-title { font-size:13px; font-weight:bold; color:#555; margin:15px 0 8px; }
         .input-area { position:fixed; bottom:0; left:0; right:0; background:#fff; padding:8px 10px; border-top:1px solid #e0e0e0; display:flex; gap:6px; align-items:flex-end; z-index:100; }
         .attach-btn { background:#e0e0e0; border:none; border-radius:50%; width:38px; height:38px; font-size:16px; cursor:pointer; flex-shrink:0; }
         .input-field { flex:1; padding:10px 14px; border:2px solid #e0e0e0; border-radius:20px; font-size:15px; outline:none; resize:none; min-height:38px; max-height:80px; font-family:inherit; }
-        .input-field:focus { border-color:#10a37f; }
-        .send-btn { background:#10a37f; color:#fff; border:none; border-radius:50%; width:38px; height:38px; font-size:16px; cursor:pointer; flex-shrink:0; }
-        
-        /* ==== CONTEÚDO ADSENSE ==== */
-        .info-section { position:fixed; top:0; left:0; right:0; bottom:0; background:#fff; z-index:500; overflow-y:auto; padding:20px; display:none; }
-        .info-container { max-width:600px; margin:0 auto; text-align:center; }
-        .info-container h1 { font-size:28px; color:#10a37f; }
-        .info-container h2 { color:#0066cc; margin-top:20px; text-align:left; }
-        .info-container p { text-align:left; line-height:1.8; color:#333; }
-        .info-container ul { text-align:left; line-height:2; padding-left:20px; }
-        .info-container a { color:#10a37f; text-decoration:none; }
-        .btn-comecar { background:#10a37f; color:#fff; border:none; padding:15px 30px; border-radius:10px; font-size:16px; cursor:pointer; margin-top:20px; }
+        .input-field:focus { border-color:#10a37f; } .send-btn { background:#10a37f; color:#fff; border:none; border-radius:50%; width:38px; height:38px; font-size:16px; cursor:pointer; flex-shrink:0; }
     </style>
 </head>
 <body>
 
-    <!-- CONTEÚDO DESCRITIVO (para AdSense) -->
-    <div class="info-section" id="infoSection">
-        <div class="info-container">
-            <h1>🐢 CHAT DO DYOU</h1>
-            <p style="text-align:center; font-size:16px;">Seu Assistente Pessoal Inteligente</p>
-            
-            <h2>O que é o CHAT DO DYOU?</h2>
-            <p>O CHAT DO DYOU é um assistente virtual completo que utiliza inteligência artificial para ajudar você com conversas, pesquisas, cálculos, dicionário e muito mais. Totalmente gratuito e fácil de usar!</p>
-            
-            <h2>Funcionalidades Principais</h2>
-            <ul>
-                <li>💬 <strong>Chat Inteligente:</strong> Converse sobre qualquer assunto</li>
-                <li>🔢 <strong>Calculadora:</strong> Resolva operações matemáticas</li>
-                <li>📖 <strong>Dicionário:</strong> Consulte palavras em português</li>
-                <li>🖼️ <strong>Geração de Imagens:</strong> Crie imagens por descrição</li>
-                <li>📚 <strong>Pesquisa:</strong> Busque informações atualizadas</li>
-                <li>🔐 <strong>Segurança:</strong> Seus dados protegidos</li>
-            </ul>
-            
-            <h2>Por que usar?</h2>
-            <p>✅ 100% Gratuito | ✅ Fácil de usar | ✅ Respostas rápidas | ✅ Disponível 24/7</p>
-            
-            <h2>Links Úteis</h2>
-            <p>
-                <a href="sobre.html">📄 Sobre</a> | 
-                <a href="ajuda.html">❓ Ajuda</a> | 
-                <a href="privacidade.html">🔒 Privacidade</a> | 
-                <a href="termos.html">📋 Termos</a>
-            </p>
-            
-            <button class="btn-comecar" onclick="fecharInfo()">🚀 Começar a Usar</button>
-        </div>
-    </div>
-
-    <div class="login-screen" id="loginScreen" style="display:none;">
+    <div class="login-screen" id="loginScreen">
         <div class="login-card">
             <div class="logo">🐢</div>
             <h1>CHAT DO DYOU</h1>
@@ -182,206 +99,166 @@
         <span class="header-title" id="headerTitle">💬 Nova Conversa</span>
         <button class="settings-btn" onclick="abrirConfig()">⚙️</button>
     </div>
-
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="fecharSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">🐢 CHAT DO DYOU</div>
-        <div class="user-info">
-            <div class="user-avatar" id="userAvatar">?</div>
-            <span class="user-name" id="userName">...</span>
-            <button class="logout-btn" onclick="sair()">Sair</button>
-        </div>
+        <div class="user-info"><div class="user-avatar" id="userAvatar">?</div><span class="user-name" id="userName">...</span><button class="logout-btn" onclick="sair()">Sair</button></div>
         <button class="new-chat-btn" onclick="novaConversa()">➕ Nova Conversa</button>
         <div class="sidebar-section">📚 Conversas</div>
         <div class="conversation-list" id="conversationList"></div>
-        <div class="sidebar-section">🔗 Links</div>
-        <button class="sidebar-btn" onclick="window.location.href='sobre.html'">📄 Sobre</button>
-        <button class="sidebar-btn" onclick="window.location.href='ajuda.html'">❓ Ajuda</button>
-        <button class="sidebar-btn" onclick="window.location.href='privacidade.html'">🔒 Privacidade</button>
-        <button class="sidebar-btn" onclick="window.location.href='termos.html'">📋 Termos</button>
         <div class="sidebar-section">🎨 Personalização</div>
         <button class="sidebar-btn" onclick="abrirConfig()">🎨 Personalizar Fundo</button>
     </div>
-
     <div class="chat-area" id="chatArea" style="display:none"></div>
-
     <div class="input-area" id="inputArea" style="display:none">
         <button class="attach-btn" onclick="anexarArquivo()">📎</button>
         <textarea class="input-field" id="inputField" rows="1" placeholder="Digite..."></textarea>
         <button class="send-btn" onclick="enviar()">➤</button>
     </div>
-
     <div class="settings-panel" id="settingsPanel">
         <div class="settings-header"><h3>🎨 Personalizar Fundo</h3><button class="close-settings" onclick="fecharConfig()">✖</button></div>
-        <div class="section-title">🎨 Cores</div>
-        <div class="fundos-grid" id="fundosCores"></div>
-        <div class="section-title">🌈 Gradientes</div>
-        <div class="fundos-grid" id="fundosGradientes"></div>
-        <div class="section-title">🌸 Animes</div>
-        <div class="fundos-grid" id="fundosAnimes"></div>
-        <div class="section-title">🏔️ Paisagens</div>
-        <div class="fundos-grid" id="fundosPaisagens"></div>
-        <div class="section-title">🐾 Animais</div>
-        <div class="fundos-grid" id="fundosAnimais"></div>
-        <div class="section-title">🌿 Plantas</div>
-        <div class="fundos-grid" id="fundosPlantas"></div>
-        <div class="section-title">🍎 Frutas</div>
-        <div class="fundos-grid" id="fundosFrutas"></div>
+        <div class="section-title">🎨 Cores</div><div class="fundos-grid" id="fundosCores"></div>
+        <div class="section-title">🌈 Gradientes</div><div class="fundos-grid" id="fundosGradientes"></div>
+        <div class="section-title">🌸 Animes</div><div class="fundos-grid" id="fundosAnimes"></div>
+        <div class="section-title">🏔️ Paisagens</div><div class="fundos-grid" id="fundosPaisagens"></div>
+        <div class="section-title">🐾 Animais</div><div class="fundos-grid" id="fundosAnimais"></div>
+        <div class="section-title">🌿 Plantas</div><div class="fundos-grid" id="fundosPlantas"></div>
+        <div class="section-title">🍎 Frutas</div><div class="fundos-grid" id="fundosFrutas"></div>
         <div class="section-title">📁 Upload</div>
         <button class="sidebar-btn" onclick="uploadFundo()">📤 Enviar Imagem</button>
         <input type="file" id="fundoInput" style="display:none" accept="image/*" onchange="aplicarFundoUpload(event)">
     </div>
-
     <input type="file" id="fileInput" style="display:none" multiple onchange="lerArquivos(event)">
 
 <script>
-const db = window.supabase.createClient('https://mrlxfpqsnwqkywhickvn.supabase.co', 'sb_publishable_VDtJCN45kf5jU9Snv0P4eA_2NElS_MR');
-const GROQ_KEYS = ['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','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','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'];
-const MODELOS_CHAT = ['openai/gpt-oss-120b','openai/gpt-oss-20b','qwen/qwen3.6-27b','qwen/qwen3.8-27b','allam-2-7b','groq/compound','groq/compound-mini','canopylabs/orpheus-v1-english'];
-const UNSPLASH_KEY = 'xOSAe6ID7Kkm1z7I_q_mCkPhROYpOvjNZozAajhGrTs';
-const PEXELS_KEY = 'IJrJXcPWu5az8MhhPItOpNkXjIrOJxVtiy8Tu1XXi0a8wSAbepMzAmtj';
-const PIXABAY_KEY = '57402621-08cda3c47c3c14456f94e8419';
-const REMOVEBG_KEY = 'r2oeWr7jADx7p2KGkCv7wKcU';
-let usuarioAtual = null, modoLogin = '', conversas = {}, conversaAtual = null, contador = 0, historico = [];
-let imagensConversa = [], ultimoArquivo = null;
+const db=window.supabase.createClient('https://mrlxfpqsnwqkywhickvn.supabase.co','sb_publishable_VDtJCN45kf5jU9Snv0P4eA_2NElS_MR');
+const GROQ_KEYS=['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','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','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'];
+const MODELOS_CHAT=['qwen/qwen3.8-27b','groq/compound','groq/compound-mini','qwen/qwen3.6-27b','allam-2-7b'];
+const HF_KEY='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';
+const MISTRAL_KEY='FnNAauJep8XNhcTfrCVkZEKaYwiURTtt';
+const WEATHER_KEY='a8933eb346d4c23eb92492b05ee880d9';
+const CF_TOKEN='cfut_Nk4Vu8QlxmFG1naRoWWSl99p2mzsuSRA43nNANHna8a09b63';
+const CF_ACCOUNT='dccb0c78beadafe14ae5e7a652c70ef5';
+const UNSPLASH_KEY='xOSAe6ID7Kkm1z7I_q_mCkPhROYpOvjNZozAajhGrTs';
+const PEXELS_KEY='IJrJXcPWu5az8MhhPItOpNkXjIrOJxVtiy8Tu1XXi0a8wSAbepMzAmtj';
+const PIXABAY_KEY='57402621-08cda3c47c3c14456f94e8419';
+const REMOVEBG_KEY='r2oeWr7jADx7p2KGkCv7wKcU';
+let usuarioAtual=null,modoLogin='',conversas={},conversaAtual=null,contador=0,historico=[],imagensConversa=[],ultimoArquivo=null;
 
-function fecharInfo() { document.getElementById('infoSection').style.display='none'; document.getElementById('loginScreen').style.display='flex'; }
-window.addEventListener('load', function() { document.getElementById('infoSection').style.display='block'; });
-
-function voltarLogin() { document.getElementById('loginOptions').style.display='block'; document.getElementById('formNuvem').style.display='none'; document.getElementById('formNuvemLogin').style.display='none'; document.getElementById('formOffline').style.display='none'; document.getElementById('avisoOffline').classList.remove('show'); }
-function mostrarLoginNuvem() { document.getElementById('loginOptions').style.display='none'; document.getElementById('formNuvem').style.display='block'; }
-function mostrarLoginNuvemExistente() { document.getElementById('loginOptions').style.display='none'; document.getElementById('formNuvemLogin').style.display='block'; }
-function mostrarLoginOffline() { document.getElementById('loginOptions').style.display='none'; document.getElementById('formOffline').style.display='block'; document.getElementById('avisoOffline').classList.add('show'); }
-async function criarContaNuvem() { const n=document.getElementById('nomeNuvem').value.trim(); const e=document.getElementById('emailNuvem').value.trim(); const s=document.getElementById('senhaNuvem').value; if(!n)return alert('Digite seu nome!'); if(!e.includes('@'))return alert('Email inválido!'); if(s.length<6)return alert('Senha mín 6!'); try{const{data,error}=await db.auth.signUp({email:e,password:s,options:{data:{nome:n}}}); if(error)return alert('Erro: '+error.message); if(data.user){usuarioAtual={id:data.user.id,nome:n,email:e,tipo:'nuvem'}; modoLogin='nuvem'; entrarNoChat();}}catch(err){alert('Erro: '+err.message);} }
-async function fazerLoginNuvem() { const e=document.getElementById('emailNuvemLogin').value.trim(); const s=document.getElementById('senhaNuvemLogin').value; if(!e||!s)return alert('Preencha!'); try{const{data,error}=await db.auth.signInWithPassword({email:e,password:s}); if(error)return alert('Erro: '+error.message); if(data.user){usuarioAtual={id:data.user.id,nome:data.user.user_metadata?.nome||e.split('@')[0],email:e,tipo:'nuvem'}; modoLogin='nuvem'; entrarNoChat();}}catch(err){alert('Erro: '+err.message);} }
-function criarContaOffline() { const n=document.getElementById('nomeOffline').value.trim(); const s=document.getElementById('senhaOffline').value; if(!n)return alert('Digite seu nome!'); if(s.length<4)return alert('Senha mín 4!'); usuarioAtual={id:'offline_'+Date.now(),nome:n,email:n+'@offline',tipo:'offline'}; modoLogin='offline'; localStorage.setItem('dyou_usuario',JSON.stringify(usuarioAtual)); entrarNoChat(); }
-function loginAnonimo() { usuarioAtual={id:'anon_'+Date.now(),nome:'Anônimo',email:'anon@anon',tipo:'anonimo'}; modoLogin='anonimo'; entrarNoChat(); }
-function sair() { if(confirm('Sair?')){usuarioAtual=null;conversas={};localStorage.removeItem('dyou_usuario');document.getElementById('loginScreen').style.display='flex';document.getElementById('mobileHeader').style.display='none';document.getElementById('chatArea').style.display='none';document.getElementById('inputArea').style.display='none';voltarLogin();} }
-function entrarNoChat() { document.getElementById('loginScreen').style.display='none'; document.getElementById('mobileHeader').style.display='flex'; document.getElementById('chatArea').style.display='block'; document.getElementById('inputArea').style.display='flex'; document.getElementById('userName').textContent=usuarioAtual.nome; document.getElementById('userAvatar').textContent=usuarioAtual.nome.charAt(0).toUpperCase(); carregarConversas(); }
-function carregarConversas(){const s=localStorage.getItem('dyou_conversas'); if(s){conversas=JSON.parse(s); const chaves=Object.keys(conversas); if(chaves.length>0){trocarConversa(chaves[0]); return;}} novaConversa();}
-function novaConversa(){contador++; conversaAtual='Conversa '+contador; conversas[conversaAtual]=[]; historico=[]; imagensConversa=[]; document.getElementById('headerTitle').textContent='💬 '+conversaAtual; document.getElementById('chatArea').innerHTML=''; addMsg('🐢 Olá! Sou o CHAT DO DYOU!','bot'); listarConversas(); fecharSidebar(); salvarConversas();}
-function listarConversas(){const l=document.getElementById('conversationList'); l.innerHTML=''; for(const n in conversas){const item=document.createElement('div'); item.className='conversation-item'+(n===conversaAtual?' active':''); item.innerHTML='<span class="conversation-title">'+n+'</span><div class="conversation-actions"><button onclick="event.stopPropagation();renomearConversa(\''+n+'\')">✏️</button><button onclick="event.stopPropagation();excluirConversa(\''+n+'\')">🗑️</button></div>'; item.onclick=function(){trocarConversa(n);fecharSidebar();}; l.appendChild(item);}}
-function trocarConversa(n){conversaAtual=n; document.getElementById('headerTitle').textContent='💬 '+n; document.getElementById('chatArea').innerHTML=''; historico=[]; imagensConversa=[]; for(const m of conversas[n]||[]){exibirMsg(m.texto,m.tipo); if(m.tipo==='user')historico.push({role:'user',content:m.texto}); else if(m.tipo==='bot')historico.push({role:'assistant',content:m.texto});} listarConversas();}
-function renomearConversa(n){const novo=prompt('Novo nome:',n); if(novo&&novo.trim()&&novo!==n){conversas[novo]=conversas[n]; delete conversas[n]; if(conversaAtual===n)conversaAtual=novo; listarConversas(); salvarConversas();}}
-function excluirConversa(n){if(confirm('Excluir?')){delete conversas[n]; if(conversaAtual===n)novaConversa(); else listarConversas(); salvarConversas();}}
+function voltarLogin(){document.getElementById('loginOptions').style.display='block';document.getElementById('formNuvem').style.display='none';document.getElementById('formNuvemLogin').style.display='none';document.getElementById('formOffline').style.display='none';document.getElementById('avisoOffline').classList.remove('show');}
+function mostrarLoginNuvem(){document.getElementById('loginOptions').style.display='none';document.getElementById('formNuvem').style.display='block';}
+function mostrarLoginNuvemExistente(){document.getElementById('loginOptions').style.display='none';document.getElementById('formNuvemLogin').style.display='block';}
+function mostrarLoginOffline(){document.getElementById('loginOptions').style.display='none';document.getElementById('formOffline').style.display='block';document.getElementById('avisoOffline').classList.add('show');}
+async function criarContaNuvem(){const n=document.getElementById('nomeNuvem').value.trim();const e=document.getElementById('emailNuvem').value.trim();const s=document.getElementById('senhaNuvem').value;if(!n)return alert('Digite seu nome!');if(!e.includes('@'))return alert('Email inválido!');if(s.length<6)return alert('Senha mín 6!');try{const{data,error}=await db.auth.signUp({email:e,password:s,options:{data:{nome:n}}});if(error)return alert('Erro: '+error.message);if(data.user){usuarioAtual={id:data.user.id,nome:n,email:e,tipo:'nuvem'};modoLogin='nuvem';entrarNoChat();}}catch(err){alert('Erro: '+err.message);}}
+async function fazerLoginNuvem(){const e=document.getElementById('emailNuvemLogin').value.trim();const s=document.getElementById('senhaNuvemLogin').value;if(!e||!s)return alert('Preencha!');try{const{data,error}=await db.auth.signInWithPassword({email:e,password:s});if(error)return alert('Erro: '+error.message);if(data.user){usuarioAtual={id:data.user.id,nome:data.user.user_metadata?.nome||e.split('@')[0],email:e,tipo:'nuvem'};modoLogin='nuvem';entrarNoChat();}}catch(err){alert('Erro: '+err.message);}}
+function criarContaOffline(){const n=document.getElementById('nomeOffline').value.trim();const s=document.getElementById('senhaOffline').value;if(!n)return alert('Digite seu nome!');if(s.length<4)return alert('Senha mín 4!');usuarioAtual={id:'offline_'+Date.now(),nome:n,email:n+'@offline',tipo:'offline'};modoLogin='offline';localStorage.setItem('dyou_usuario',JSON.stringify(usuarioAtual));entrarNoChat();}
+function loginAnonimo(){usuarioAtual={id:'anon_'+Date.now(),nome:'Anônimo',email:'anon@anon',tipo:'anonimo'};modoLogin='anonimo';entrarNoChat();}
+function sair(){if(confirm('Sair?')){usuarioAtual=null;conversas={};localStorage.removeItem('dyou_usuario');document.getElementById('loginScreen').style.display='flex';document.getElementById('mobileHeader').style.display='none';document.getElementById('chatArea').style.display='none';document.getElementById('inputArea').style.display='none';voltarLogin();}}
+function entrarNoChat(){document.getElementById('loginScreen').style.display='none';document.getElementById('mobileHeader').style.display='flex';document.getElementById('chatArea').style.display='block';document.getElementById('inputArea').style.display='flex';document.getElementById('userName').textContent=usuarioAtual.nome;document.getElementById('userAvatar').textContent=usuarioAtual.nome.charAt(0).toUpperCase();carregarConversas();}
+function carregarConversas(){const s=localStorage.getItem('dyou_conversas');if(s){conversas=JSON.parse(s);const chaves=Object.keys(conversas);if(chaves.length>0){trocarConversa(chaves[0]);return;}}novaConversa();}
+function novaConversa(){contador++;conversaAtual='Conversa '+contador;conversas[conversaAtual]=[];historico=[];imagensConversa=[];document.getElementById('headerTitle').textContent='💬 '+conversaAtual;document.getElementById('chatArea').innerHTML='';addMsg('🐢 Olá! Sou o CHAT DO DYOU!','bot');listarConversas();fecharSidebar();salvarConversas();}
+function listarConversas(){const l=document.getElementById('conversationList');l.innerHTML='';for(const n in conversas){const item=document.createElement('div');item.className='conversation-item'+(n===conversaAtual?' active':'');item.innerHTML='<span class="conversation-title">'+n+'</span><div class="conversation-actions"><button onclick="event.stopPropagation();renomearConversa(\''+n+'\')">✏️</button><button onclick="event.stopPropagation();excluirConversa(\''+n+'\')">🗑️</button></div>';item.onclick=function(){trocarConversa(n);fecharSidebar();};l.appendChild(item);}}
+function trocarConversa(n){conversaAtual=n;document.getElementById('headerTitle').textContent='💬 '+n;document.getElementById('chatArea').innerHTML='';historico=[];imagensConversa=[];for(const m of conversas[n]||[]){exibirMsg(m.texto,m.tipo);if(m.tipo==='user')historico.push({role:'user',content:m.texto});else if(m.tipo==='bot')historico.push({role:'assistant',content:m.texto});}listarConversas();}
+function renomearConversa(n){const novo=prompt('Novo nome:',n);if(novo&&novo.trim()&&novo!==n){conversas[novo]=conversas[n];delete conversas[n];if(conversaAtual===n)conversaAtual=novo;listarConversas();salvarConversas();}}
+function excluirConversa(n){if(confirm('Excluir?')){delete conversas[n];if(conversaAtual===n)novaConversa();else listarConversas();salvarConversas();}}
 function salvarConversas(){localStorage.setItem('dyou_conversas',JSON.stringify(conversas));}
-function exibirMsg(t,tipo){const d=document.createElement('div'); d.className='msg '+tipo; d.textContent=t; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth',block:'end'});}
-function addMsg(t,tipo){exibirMsg(t,tipo); if(conversaAtual&&conversas[conversaAtual]){conversas[conversaAtual].push({texto:t,tipo}); salvarConversas();}}
-function addMsgBot(t){const d=document.createElement('div'); d.className='msg bot'; d.innerHTML=parseMarkdown(t); document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth',block:'end'}); if(conversaAtual&&conversas[conversaAtual]){conversas[conversaAtual].push({texto:t,tipo:'bot'}); salvarConversas();}}
-function parseMarkdown(texto){const linhas=texto.split('\n'); let html=''; let emCodigo=false,lang='',buffer=[]; let emTabela=false,tabelaHtml=''; let emLista=false,listaHtml=''; for(let i=0;i<linhas.length;i++){const linha=linhas[i]; if(emLista&&!linha.trim().startsWith('-')&&!linha.trim().startsWith('•')&&!linha.trim().match(/^\d+\./)){html+='<ul>'+listaHtml+'</ul>';listaHtml='';emLista=false;} if(emTabela&&!linha.trim().startsWith('|')){html+='<table>'+tabelaHtml+'</table>';tabelaHtml='';emTabela=false;} if(linha.trim().startsWith('```')){if(emCodigo){html+=criarBlocoCodigo(buffer.join('\n'),lang);buffer=[];emCodigo=false;}else{emCodigo=true;lang=linha.replace(/```/g,'').trim()||'code';}continue;} if(emCodigo){buffer.push(linha);continue;} if(linha.trim().startsWith('|')){emTabela=true; const celulas=linha.split('|').filter(c=>c.trim()!==''); if(celulas.every(c=>/^[-:]+$/.test(c.trim())))continue; const isHeader=i+1<linhas.length&&linhas[i+1].includes('---'); if(isHeader){tabelaHtml+='<tr>'+celulas.map(c=>'<th>'+c.trim()+'</th>').join('')+'</tr>';}else{tabelaHtml+='<tr>'+celulas.map(c=>'<td>'+c.trim()+'</td>').join('')+'</tr>';}continue;} if(linha.trim().startsWith('-')||linha.trim().startsWith('•')||linha.trim().match(/^\d+\./)){emLista=true; const item=linha.trim().replace(/^[-•]/g,'').replace(/^\d+\./g,'').trim(); listaHtml+='<li>'+item+'</li>';continue;} let l=linha.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); if(linha.startsWith('### ')){l='<h3>'+linha.substring(4)+'</h3>';}else if(linha.startsWith('## ')){l='<h2>'+linha.substring(3)+'</h2>';}else if(linha.startsWith('# ')){l='<h1>'+linha.substring(2)+'</h1>';}else{l=l.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>'); l=l.replace(/`([^`]+)`/g,'<code>$1</code>'); if(!linha.trim())l='<br>';} html+=l;} if(emLista)html+='<ul>'+listaHtml+'</ul>'; if(emTabela)html+='<table>'+tabelaHtml+'</table>'; if(emCodigo&&buffer.length>0)html+=criarBlocoCodigo(buffer.join('\n'),lang); return html;}
+function exibirMsg(t,tipo){const d=document.createElement('div');d.className='msg '+tipo;d.textContent=t;document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth',block:'end'});}
+function addMsg(t,tipo){exibirMsg(t,tipo);if(conversaAtual&&conversas[conversaAtual]){conversas[conversaAtual].push({texto:t,tipo});salvarConversas();}}
+function addMsgBot(t){const d=document.createElement('div');d.className='msg bot';d.innerHTML=parseMarkdown(t);document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth',block:'end'});if(conversaAtual&&conversas[conversaAtual]){conversas[conversaAtual].push({texto:t,tipo:'bot'});salvarConversas();}}
+function parseMarkdown(t){const linhas=t.split('\n');let h='';let codigo=false,lang='',buf=[];let tab=false,tabH='';let list=false,listH='';for(let i=0;i<linhas.length;i++){const l=linhas[i];if(list&&!l.trim().startsWith('-')&&!l.trim().startsWith('•')&&!l.trim().match(/^\d+\./)){h+='<ul>'+listH+'</ul>';listH='';list=false;}if(tab&&!l.trim().startsWith('|')){h+='<table>'+tabH+'</table>';tabH='';tab=false;}if(l.trim().startsWith('```')){if(codigo){h+=criarBlocoCodigo(buf.join('\n'),lang);buf=[];codigo=false;}else{codigo=true;lang=l.replace(/```/g,'').trim()||'code';}continue;}if(codigo){buf.push(l);continue;}if(l.trim().startsWith('|')){tab=true;const cs=l.split('|').filter(c=>c.trim()!=='');if(cs.every(c=>/^[-:]+$/.test(c.trim())))continue;const isH=i+1<linhas.length&&linhas[i+1].includes('---');if(isH){tabH+='<tr>'+cs.map(c=>'<th>'+c.trim()+'</th>').join('')+'</tr>';}else{tabH+='<tr>'+cs.map(c=>'<td>'+c.trim()+'</td>').join('')+'</tr>';}continue;}if(l.trim().startsWith('-')||l.trim().startsWith('•')||l.trim().match(/^\d+\./)){list=true;const item=l.trim().replace(/^[-•]/g,'').replace(/^\d+\./g,'').trim();listH+='<li>'+item+'</li>';continue;}let x=l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');if(l.startsWith('### ')){x='<h3>'+l.substring(4)+'</h3>';}else if(l.startsWith('## ')){x='<h2>'+l.substring(3)+'</h2>';}else if(l.startsWith('# ')){x='<h1>'+l.substring(2)+'</h1>';}else{x=x.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');x=x.replace(/`([^`]+)`/g,'<code>$1</code>');if(!l.trim())x='<br>';}h+=x;}if(list)h+='<ul>'+listH+'</ul>';if(tab)h+='<table>'+tabH+'</table>';if(codigo&&buf.length>0)h+=criarBlocoCodigo(buf.join('\n'),lang);return h;}
 function criarBlocoCodigo(cod,lang){return '<div class="code-block"><div class="code-header"><span class="code-language">'+lang+'</span><div class="code-actions"><button class="copy-code-btn" onclick="copiarCodigo(this)">📋 Copiar</button><button class="download-code-btn" onclick="baixarCodigo(this)">⬇️ Baixar</button></div></div><div class="code-content"><pre>'+cod.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre></div></div>';}
-function copiarCodigo(b){navigator.clipboard.writeText(b.closest('.code-block').querySelector('pre').textContent); b.textContent='✅'; setTimeout(()=>b.textContent='📋 Copiar',2000);}
-function baixarCodigo(b){const cod=b.closest('.code-block').querySelector('pre').textContent; const lang=b.closest('.code-block').querySelector('.code-language').textContent; const ext={python:'py',javascript:'js',html:'html',css:'css',java:'java',c:'c',code:'txt'}[lang.toLowerCase()]||'txt'; const blob=new Blob([cod],{type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='codigo.'+ext; a.click();}
+function copiarCodigo(b){navigator.clipboard.writeText(b.closest('.code-block').querySelector('pre').textContent);b.textContent='✅';setTimeout(()=>b.textContent='📋 Copiar',2000);}
+function baixarCodigo(b){const cod=b.closest('.code-block').querySelector('pre').textContent;const lang=b.closest('.code-block').querySelector('.code-language').textContent;const ext={python:'py',javascript:'js',html:'html',css:'css',java:'java',c:'c',code:'txt'}[lang.toLowerCase()]||'txt';const blob=new Blob([cod],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='codigo.'+ext;a.click();}
 function abrirSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('sidebarOverlay').classList.add('open');}
 function fecharSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}
 function abrirConfig(){document.getElementById('settingsPanel').classList.add('open');carregarFundos();fecharSidebar();}
 function fecharConfig(){document.getElementById('settingsPanel').classList.remove('open');}
-function carregarFundos(){const cores=['#ffffff','#f0f0f0','#e8f5e9','#e3f2fd','#fce4ec','#fff3e0']; const c=document.getElementById('fundosCores'); c.innerHTML=''; cores.forEach(cor=>{const d=document.createElement('div'); d.className='fundo-option color'; d.style.background=cor; d.onclick=()=>aplicarFundo('cor',cor); c.appendChild(d);}); const grads=['linear-gradient(135deg,#10a37f,#0066cc)','linear-gradient(135deg,#9b59b6,#e74c3c)','linear-gradient(135deg,#ff8800,#ffcc00)']; const g=document.getElementById('fundosGradientes'); g.innerHTML=''; grads.forEach(grad=>{const d=document.createElement('div'); d.className='fundo-option'; d.style.background=grad; d.onclick=()=>aplicarFundo('gradiente',grad); g.appendChild(d);}); carregarImgs('fundosAnimes',['https://image.pollinations.ai/prompt/anime%20landscape?width=300&height=300&nologo=true']); carregarImgs('fundosPaisagens',['https://image.pollinations.ai/prompt/mountain%20landscape?width=300&height=300&nologo=true']); carregarImgs('fundosAnimais',['https://image.pollinations.ai/prompt/cute%20cat?width=300&height=300&nologo=true']); carregarImgs('fundosPlantas',['https://image.pollinations.ai/prompt/flowers?width=300&height=300&nologo=true']); carregarImgs('fundosFrutas',['https://image.pollinations.ai/prompt/fruits?width=300&height=300&nologo=true']);}
-function carregarImgs(id,urls){const c=document.getElementById(id); c.innerHTML=''; urls.forEach(url=>{const d=document.createElement('div'); d.className='fundo-option'; d.style.backgroundImage='url('+url+')'; d.onclick=()=>aplicarFundo('imagem',url); c.appendChild(d);});}
-function aplicarFundo(tipo,valor){const chat=document.getElementById('chatArea'); if(tipo==='cor'){chat.style.backgroundImage='none';chat.style.backgroundColor=valor;} else if(tipo==='gradiente'){chat.style.backgroundImage=valor;} else{chat.style.backgroundImage='url('+valor+')';chat.style.backgroundSize='cover';} localStorage.setItem('dyou_fundo',JSON.stringify({tipo,valor})); fecharConfig();}
+function carregarFundos(){const cores=['#ffffff','#f0f0f0','#e8f5e9','#e3f2fd','#fce4ec','#fff3e0'];const c=document.getElementById('fundosCores');c.innerHTML='';cores.forEach(cor=>{const d=document.createElement('div');d.className='fundo-option color';d.style.background=cor;d.onclick=()=>aplicarFundo('cor',cor);c.appendChild(d);});const grads=['linear-gradient(135deg,#10a37f,#0066cc)','linear-gradient(135deg,#9b59b6,#e74c3c)','linear-gradient(135deg,#ff8800,#ffcc00)'];const g=document.getElementById('fundosGradientes');g.innerHTML='';grads.forEach(grad=>{const d=document.createElement('div');d.className='fundo-option';d.style.background=grad;d.onclick=()=>aplicarFundo('gradiente',grad);g.appendChild(d);});carregarImgs('fundosAnimes',['https://image.pollinations.ai/prompt/anime%20landscape?width=300&height=300&nologo=true']);carregarImgs('fundosPaisagens',['https://image.pollinations.ai/prompt/mountain%20landscape?width=300&height=300&nologo=true']);carregarImgs('fundosAnimais',['https://image.pollinations.ai/prompt/cute%20cat?width=300&height=300&nologo=true']);carregarImgs('fundosPlantas',['https://image.pollinations.ai/prompt/flowers?width=300&height=300&nologo=true']);carregarImgs('fundosFrutas',['https://image.pollinations.ai/prompt/fruits?width=300&height=300&nologo=true']);}
+function carregarImgs(id,urls){const c=document.getElementById(id);c.innerHTML='';urls.forEach(url=>{const d=document.createElement('div');d.className='fundo-option';d.style.backgroundImage='url('+url+')';d.onclick=()=>aplicarFundo('imagem',url);c.appendChild(d);});}
+function aplicarFundo(tipo,valor){const chat=document.getElementById('chatArea');if(tipo==='cor'){chat.style.backgroundImage='none';chat.style.backgroundColor=valor;}else if(tipo==='gradiente'){chat.style.backgroundImage=valor;}else{chat.style.backgroundImage='url('+valor+')';chat.style.backgroundSize='cover';}localStorage.setItem('dyou_fundo',JSON.stringify({tipo,valor}));fecharConfig();}
 function uploadFundo(){document.getElementById('fundoInput').click();}
-function aplicarFundoUpload(e){const f=e.target.files[0]; if(f){const r=new FileReader(); r.onload=function(ev){aplicarFundo('imagem',ev.target.result);}; r.readAsDataURL(f);} e.target.value='';}
-function temNegacao(msg){const l=msg.toLowerCase(); return l.includes('não')||l.includes('nao')||l.includes('n quero')||l.includes('para de')||l.includes('pare de')||l.includes('chega de');}
-function detectarIntencao(msg){const l=msg.toLowerCase().trim(); if(l==='para'||l==='pare'||l==='stop'||l==='chega')return'parar'; if(temNegacao(msg))return'conversa'; if(l.includes('quero conversar')||l.includes('vamos conversar')||l.includes('quero falar')||l.includes('preciso falar'))return'conversa'; if(l.startsWith('pesquisa')||l.startsWith('busca')||l.startsWith('busque')||l.startsWith('procura')||l.startsWith('pesquisar'))return'wikipedia'; if(l.includes('remove fundo')||l.includes('remover fundo')||l.includes('tira fundo')||l.includes('tirar fundo')||l.includes('sem fundo')||l.includes('fundo transparente'))return'removebg'; if(l.includes('qr code')||l.includes('qrcode'))return'qrcode'; if((l.includes('foto')||l.includes('imagem')||l.includes('desenho')||l.includes('ilustração')||l.includes('ilustracao')||l.includes('figura')||l.includes('picture')||l.includes('image'))&&!temNegacao(msg))return'imagem'; if(l.includes('significado')||l.includes('o que significa')||l.includes('dicionário')||l.includes('dicionario')||l.includes('defina'))return'dicionario'; if(/^[\d\s+\-*/().,%]+$/.test(msg)&&/[\d]/.test(msg))return'calculadora'; return'conversa';}
-function extrairTermo(msg){let t=msg; const rem=['foto de','foto da','foto do','foto:','imagem de','imagem:','gerar foto','gerar imagem','criar imagem','mostra foto','busca foto','desenho de','desenho:','pesquisa:','pesquisa','busca:','busca','busque','procura','pesquisar','significado de','o que significa','defina','qr code:','qrcode:']; for(const r of rem){if(t.toLowerCase().startsWith(r)){t=t.substring(r.length).trim(); break;}} return t.trim()||msg;}
-async function enviar(){const input=document.getElementById('inputField'); const msg=input.value.trim(); if(!msg)return; addMsg(msg,'user'); input.value=''; historico.push({role:'user',content:msg}); const intencao=detectarIntencao(msg); const termo=extrairTermo(msg); if(intencao==='parar'){addMsg('👍 Tudo bem!','bot'); return;} if(intencao==='conversa'){await responderIA(msg); return;} if(intencao==='wikipedia'){pesquisarWikipedia(termo); return;} if(intencao==='removebg'){removerFundoUltimaImagem(); return;} if(intencao==='qrcode'){gerarQRCode(termo); return;} if(intencao==='imagem'){buscarFotosMultiplas(termo); return;} if(intencao==='dicionario'){consultarDicionario(termo); return;} if(intencao==='calculadora'){calcular(msg); return;} await responderIA(msg);}
-function gerarQRCode(t){const url='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(t); const d=document.createElement('div'); d.className='msg bot'; d.innerHTML='<img src="'+url+'" style="max-width:200px;border-radius:10px">'; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth'}); imagensConversa.push({url});}
-async function pesquisarWikipedia(termo){addMsg('⏳...','sys'); try{const r=await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(termo.replace(/\s+/g,'_'))); if(r.ok){const d=await r.json(); if(d.extract&&d.extract.length>30){removerLoading(); addMsg(d.extract.substring(0,800)+'...','bot'); return;}} removerLoading(); addMsg('Não encontrei nada sobre isso.','bot');}catch(e){removerLoading(); addMsg('Não consegui pesquisar agora.','bot');}}
-async function buscarFotosMultiplas(termo){addMsg('⏳...','sys'); const urls=[]; try{const r1=await fetch('https://api.unsplash.com/search/photos?query='+encodeURIComponent(termo)+'&client_id='+UNSPLASH_KEY+'&per_page=1'); const d1=await r1.json(); if(d1.results)d1.results.forEach(f=>urls.push(f.urls.regular));}catch{} try{const r2=await fetch('https://api.pexels.com/v1/search?query='+encodeURIComponent(termo)+'&per_page=1',{headers:{'Authorization':PEXELS_KEY}}); const d2=await r2.json(); if(d2.photos)d2.photos.forEach(f=>urls.push(f.src.large));}catch{} try{const r3=await fetch('https://pixabay.com/api/?key='+PIXABAY_KEY+'&q='+encodeURIComponent(termo)+'&per_page=2'); const d3=await r3.json(); if(d3.hits)d3.hits.forEach(f=>urls.push(f.webformatURL));}catch{} removerLoading(); if(urls.length>0){urls.slice(0,4).forEach(url=>{const d=document.createElement('div'); d.className='msg bot'; d.innerHTML='<img src="'+url+'" style="max-width:100%;border-radius:10px;cursor:pointer" onclick="window.open(this.src)">'; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth'}); imagensConversa.push({url});});}else{addMsg('Nenhuma imagem encontrada.','bot');}}
-async function removerFundoUltimaImagem(){if(imagensConversa.length===0){addMsg('Envie uma imagem primeiro!','bot');return;} const ultima=imagensConversa[imagensConversa.length-1]; addMsg('⏳...','sys'); try{const response=await fetch(ultima.url); const blob=await response.blob(); const formData=new FormData(); formData.append('image_file',blob,'imagem.png'); formData.append('size','auto'); const r=await fetch('https://api.remove.bg/v1.0/removebg',{method:'POST',headers:{'X-Api-Key':REMOVEBG_KEY},body:formData}); if(r.ok){const blobResult=await r.blob(); const urlResult=URL.createObjectURL(blobResult); removerLoading(); const d=document.createElement('div'); d.className='msg bot'; d.innerHTML='<img src="'+urlResult+'" style="max-width:100%;border-radius:10px;background:#e0e0e0">'; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth'}); imagensConversa.push({url:urlResult});}else{removerLoading(); addMsg('Não consegui remover o fundo.','bot');}}catch{removerLoading(); addMsg('Erro ao processar.','bot');}}
-async function consultarDicionario(p){try{const r=await fetch('https://api.dictionaryapi.dev/api/v2/entries/pt/'+p); if(r.ok){const d=await r.json(); let resp=d[0].word+'\n\n'; d[0].meanings.slice(0,2).forEach(m=>{resp+=m.partOfSpeech+'\n'; m.definitions.slice(0,2).forEach(def=>{resp+='• '+def.definition+'\n';});}); addMsg(resp,'bot');}else{addMsg('Não encontrei essa palavra.','bot');}}catch{addMsg('Erro ao buscar.','bot');}}
-function calcular(expr){try{let e=expr.replace(/×/g,'*').replace(/÷/g,'/').replace(/sen/gi,'Math.sin').replace(/cos/gi,'Math.cos').replace(/√/g,'Math.sqrt').replace(/pi/gi,'Math.PI'); const r=new Function('return '+e)(); addMsg('Resultado: '+r,'bot');}catch{addMsg('Expressão inválida.','bot');}}
+function aplicarFundoUpload(e){const f=e.target.files[0];if(f){const r=new FileReader();r.onload=function(ev){aplicarFundo('imagem',ev.target.result);};r.readAsDataURL(f);}e.target.value='';}
+function temNegacao(msg){const l=msg.toLowerCase();return l.includes('não')||l.includes('nao')||l.includes('n quero')||l.includes('para de')||l.includes('pare de')||l.includes('chega de');}
 
-async function responderIA(msg) {
-    addMsg('⏳...', 'sys');
-    const l = msg.toLowerCase();
-    if(l==='oi'||l==='olá'||l==='ola'||l==='hey'){removerLoading(); addMsg('Olá! 👋 Como posso ajudar?','bot'); return;}
-    if(l==='tudo bem'||l==='como vai'){removerLoading(); addMsg('Estou ótimo! 🐢 E você?','bot'); return;}
-    if(l==='obrigado'||l==='valeu'){removerLoading(); addMsg('De nada! 😊','bot'); return;}
-    if(l==='bom dia'){removerLoading(); addMsg('Bom dia! ☀️','bot'); return;}
-    if(l==='boa tarde'){removerLoading(); addMsg('Boa tarde! 🌤️','bot'); return;}
-    if(l==='boa noite'){removerLoading(); addMsg('Boa noite! 🌙','bot'); return;}
-    if(l.includes('que dia')||l.includes('que ano')||l.includes('data de hoje')){removerLoading(); addMsg('Hoje é '+new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'})+'.','bot'); return;}
+function extrairCidade(msg){const cidades=['maringa','curitiba','são paulo','sao paulo','rio de janeiro','brasilia','brasília','londrina','cascavel','foz do iguaçu','manaus','belém','belem','salvador','fortaleza','recife','porto alegre','campinas','santos','florianópolis','florianopolis','goiânia','goiania','natal','joão pessoa','joao pessoa'];for(const c of cidades){if(msg.toLowerCase().includes(c))return c;}const palavras=msg.split(' ');return palavras[palavras.length-1];}
+
+function detectarIntencao(msg){const l=msg.toLowerCase().trim();if(l==='para'||l==='pare'||l==='stop'||l==='chega')return'parar';if(temNegacao(msg))return'conversa';if(l.includes('quero conversar')||l.includes('vamos conversar')||l.includes('quero falar')||l.includes('preciso falar'))return'conversa';if(l.includes('clima')||l.includes('tempo hoje')||l.includes('temperatura')||l.includes('previsão')||l.includes('previsao')||l.includes('chovendo')||l.includes('frio')||l.includes('calor'))return'clima';if(l.startsWith('pesquisa')||l.startsWith('busca')||l.startsWith('busque')||l.startsWith('procura')||l.startsWith('pesquisar'))return'wikipedia';if(l.includes('remove fundo')||l.includes('remover fundo')||l.includes('tira fundo')||l.includes('tirar fundo')||l.includes('sem fundo')||l.includes('fundo transparente'))return'removebg';if(l.includes('qr code')||l.includes('qrcode'))return'qrcode';if((l.includes('foto')||l.includes('imagem')||l.includes('desenho')||l.includes('ilustração')||l.includes('ilustracao')||l.includes('figura')||l.includes('picture')||l.includes('image'))&&!temNegacao(msg))return'imagem';if(l.includes('significado')||l.includes('o que significa')||l.includes('dicionário')||l.includes('dicionario')||l.includes('defina'))return'dicionario';if(/^[\d\s+\-*/().,%]+$/.test(msg)&&/[\d]/.test(msg))return'calculadora';return'conversa';}
+function extrairTermo(msg){let t=msg;const rem=['foto de','foto da','foto do','foto:','imagem de','imagem:','gerar foto','gerar imagem','criar imagem','mostra foto','busca foto','desenho de','desenho:','pesquisa:','pesquisa','busca:','busca','busque','procura','pesquisar','significado de','o que significa','defina','qr code:','qrcode:','clima em','clima de','tempo em','tempo de','temperatura em','previsão de','previsao de'];for(const r of rem){if(t.toLowerCase().startsWith(r)){t=t.substring(r.length).trim();break;}}return t.trim()||msg;}
+
+async function enviar(){const input=document.getElementById('inputField');const msg=input.value.trim();if(!msg)return;addMsg(msg,'user');input.value='';historico.push({role:'user',content:msg});const intencao=detectarIntencao(msg);const termo=extrairTermo(msg);
+if(intencao==='parar'){addMsg('👍 Tudo bem!','bot');return;}
+if(intencao==='clima'){const cidade=extrairCidade(msg);buscarClima(cidade);return;}
+if(intencao==='conversa'){await responderIA(msg);return;}
+if(intencao==='wikipedia'){pesquisarTudo(termo);return;}
+if(intencao==='removebg'){removerFundoUltimaImagem();return;}
+if(intencao==='qrcode'){gerarQRCode(termo);return;}
+if(intencao==='imagem'){buscarFotosMultiplas(termo);return;}
+if(intencao==='dicionario'){consultarDicionario(termo);return;}
+if(intencao==='calculadora'){calcular(msg);return;}
+await responderIA(msg);}
+
+function gerarQRCode(t){const url='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(t);const d=document.createElement('div');d.className='msg bot';d.innerHTML='<img src="'+url+'" style="max-width:200px;border-radius:10px">';document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth'});imagensConversa.push({url});}
+async function pesquisarTudo(termo){addMsg('⏳...','sys');try{const r=await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(termo.replace(/\s+/g,'_')));if(r.ok){const d=await r.json();if(d.extract&&d.extract.length>30){removerLoading();addMsg(d.extract.substring(0,800)+'...','bot');return;}}}catch(e){}try{const r2=await fetch('https://api.duckduckgo.com/?q='+encodeURIComponent(termo)+'&format=json&no_html=1');if(r2.ok){const d2=await r2.json();if(d2.AbstractText){removerLoading();addMsg(d2.AbstractText.substring(0,600)+'...','bot');return;}if(d2.Answer){removerLoading();addMsg(d2.Answer,'bot');return;}}}catch(e){}removerLoading();addMsg('Não encontrei nada sobre isso.','bot');}
+async function buscarFotosMultiplas(termo){addMsg('⏳...','sys');const urls=[];try{const r1=await fetch('https://api.unsplash.com/search/photos?query='+encodeURIComponent(termo)+'&client_id='+UNSPLASH_KEY+'&per_page=1');const d1=await r1.json();if(d1.results)d1.results.forEach(f=>urls.push(f.urls.regular));}catch{}try{const r2=await fetch('https://api.pexels.com/v1/search?query='+encodeURIComponent(termo)+'&per_page=1',{headers:{'Authorization':PEXELS_KEY}});const d2=await r2.json();if(d2.photos)d2.photos.forEach(f=>urls.push(f.src.large));}catch{}try{const r3=await fetch('https://pixabay.com/api/?key='+PIXABAY_KEY+'&q='+encodeURIComponent(termo)+'&per_page=2');const d3=await r3.json();if(d3.hits)d3.hits.forEach(f=>urls.push(f.webformatURL));}catch{}removerLoading();if(urls.length>0){urls.slice(0,4).forEach(url=>{const d=document.createElement('div');d.className='msg bot';d.innerHTML='<img src="'+url+'" style="max-width:100%;border-radius:10px;cursor:pointer" onclick="window.open(this.src)">';document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth'});imagensConversa.push({url});});}else{addMsg('Nenhuma imagem encontrada.','bot');}}
+async function removerFundoUltimaImagem(){if(imagensConversa.length===0){addMsg('Envie uma imagem primeiro!','bot');return;}const ultima=imagensConversa[imagensConversa.length-1];addMsg('⏳...','sys');try{const response=await fetch(ultima.url);const blob=await response.blob();const formData=new FormData();formData.append('image_file',blob,'imagem.png');formData.append('size','auto');const r=await fetch('https://api.remove.bg/v1.0/removebg',{method:'POST',headers:{'X-Api-Key':REMOVEBG_KEY},body:formData});if(r.ok){const blobResult=await r.blob();const urlResult=URL.createObjectURL(blobResult);removerLoading();const d=document.createElement('div');d.className='msg bot';d.innerHTML='<img src="'+urlResult+'" style="max-width:100%;border-radius:10px;background:#e0e0e0">';document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth'});imagensConversa.push({url:urlResult});}else{removerLoading();addMsg('Não consegui remover o fundo.','bot');}}catch{removerLoading();addMsg('Erro ao processar.','bot');}}
+async function consultarDicionario(p){try{const r=await fetch('https://api.dictionaryapi.dev/api/v2/entries/pt/'+p);if(r.ok){const d=await r.json();let resp=d[0].word+'\n\n';d[0].meanings.slice(0,2).forEach(m=>{resp+=m.partOfSpeech+'\n';m.definitions.slice(0,2).forEach(def=>{resp+='• '+def.definition+'\n';});});addMsg(resp,'bot');}else{addMsg('Não encontrei essa palavra.','bot');}}catch{addMsg('Erro ao buscar.','bot');}}
+function calcular(expr){try{let e=expr.replace(/×/g,'*').replace(/÷/g,'/').replace(/sen/gi,'Math.sin').replace(/cos/gi,'Math.cos').replace(/√/g,'Math.sqrt').replace(/pi/gi,'Math.PI');const r=new Function('return '+e)();addMsg('Resultado: '+r,'bot');}catch{addMsg('Expressão inválida.','bot');}}
+
+async function buscarClima(cidade){addMsg('🌡️ Buscando clima...','sys');try{const r=await fetch('https://api.openweathermap.org/data/2.5/weather?q='+encodeURIComponent(cidade)+'&appid='+WEATHER_KEY+'&units=metric&lang=pt_br');const d=await r.json();if(d.main&&d.weather){removerLoading();addMsg('🌡️ Clima em '+d.name+':\n\n• Temperatura: '+d.main.temp+'°C\n• Sensação: '+d.main.feels_like+'°C\n• Umidade: '+d.main.humidity+'%\n• Condição: '+d.weather[0].description,'bot');return;}removerLoading();addMsg('Não encontrei informações do clima para "'+cidade+'".','bot');}catch(e){removerLoading();addMsg('Erro ao buscar clima.','bot');}}
+
+async function chamarMistral(pergunta){try{const r=await fetch('https://api.mistral.ai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+MISTRAL_KEY,'Content-Type':'application/json'},body:JSON.stringify({model:'mistral-small-latest',messages:[{role:'user',content:pergunta}]})});const d=await r.json();if(d.choices&&d.choices[0])return d.choices[0].message.content;return null;}catch{return null;}}
+async function chamarCloudflare(pergunta){try{const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+CF_ACCOUNT+'/ai/run/@cf/meta/llama-3.1-8b-instruct',{method:'POST',headers:{'Authorization':'Bearer '+CF_TOKEN,'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:pergunta}]})});const d=await r.json();if(d.success&&d.result&&d.result.response)return d.result.response;return null;}catch{return null;}}
+async function chamarHuggingFace(pergunta){try{const r=await fetch('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium',{method:'POST',headers:{'Authorization':'Bearer '+HF_KEY,'Content-Type':'application/json'},body:JSON.stringify({inputs:pergunta})});const d=await r.json();if(d&&d[0]&&d[0].generated_text)return d[0].generated_text;return null;}catch{return null;}}
+
+async function responderIA(msg){
+    addMsg('⏳...','sys');
+    const l=msg.toLowerCase();
+    if(l==='oi'||l==='olá'||l==='ola'||l==='hey'){removerLoading();addMsg('Olá! 👋 Como posso ajudar?','bot');return;}
+    if(l==='tudo bem'||l==='como vai'){removerLoading();addMsg('Estou ótimo! 🐢 E você?','bot');return;}
+    if(l==='obrigado'||l==='valeu'){removerLoading();addMsg('De nada! 😊','bot');return;}
+    if(l==='bom dia'){removerLoading();addMsg('Bom dia! ☀️','bot');return;}
+    if(l==='boa tarde'){removerLoading();addMsg('Boa tarde! 🌤️','bot');return;}
+    if(l==='boa noite'){removerLoading();addMsg('Boa noite! 🌙','bot');return;}
+    if(l.includes('que dia')||l.includes('que ano')||l.includes('data de hoje')){removerLoading();addMsg('Hoje é '+new Date().toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'})+'.','bot');return;}
     
-    let historicoLimitado = historico.slice(-100);
-    let contexto = '';
+    let historicoLimitado=historico.slice(-100);
+    let contexto='';
     if(ultimoArquivo){contexto='\n\nARQUIVO ('+ultimoArquivo.nome+'):\n'+ultimoArquivo.conteudo.substring(0,3000);}
     
-    for(let tentativa = 0; tentativa < GROQ_KEYS.length * MODELOS_CHAT.length; tentativa++) {
-        const chave = GROQ_KEYS[tentativa % GROQ_KEYS.length];
-        const modelo = MODELOS_CHAT[Math.floor(tentativa / GROQ_KEYS.length)];
-        try {
-            const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-                method: 'POST',
-                headers: {'Authorization': 'Bearer ' + chave, 'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    model: modelo,
-                    messages: [
-                        {role: 'system', content: 'Você é o CHAT DO DYOU, um assistente amigável. Responda naturalmente em português. Para código use ```linguagem.'},
-                        ...historicoLimitado,
-                        {role: 'user', content: msg + contexto}
-                    ],
-                    temperature: 0.7, max_tokens: 3000
-                })
-            });
-            if(resp.ok) {
-                const data = await resp.json();
-                if(data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-                    let resposta = data.choices[0].message.content.replace(/<think>.*?<\/think>/gs, '').trim();
-                    if(resposta.length > 0) {
-                        removerLoading(); addMsgBot(resposta);
-                        historico.push({role: 'assistant', content: resposta});
-                        if(historico.length > 100){historico = historico.slice(-100);}
-                        return;
-                    }
-                }
-            }
-        } catch(e) { continue; }
+    for(let tentativa=0;tentativa<GROQ_KEYS.length*MODELOS_CHAT.length;tentativa++){
+        const chave=GROQ_KEYS[tentativa%GROQ_KEYS.length];
+        const modelo=MODELOS_CHAT[Math.floor(tentativa/GROQ_KEYS.length)];
+        try{
+            const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':'Bearer '+chave,'Content-Type':'application/json'},body:JSON.stringify({model:modelo,messages:[{role:'system',content:'Você é o CHAT DO DYOU, um assistente amigável. Responda naturalmente em português. Para código use ```linguagem.'},...historicoLimitado,{role:'user',content:msg+contexto}],temperature:0.7,max_tokens:3000})});
+            if(resp.ok){const data=await resp.json();if(data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content){let resposta=data.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim();if(resposta.length>0){removerLoading();addMsgBot(resposta);historico.push({role:'assistant',content:resposta});if(historico.length>100){historico=historico.slice(-100);}return;}}}
+        }catch(e){continue;}
     }
-    try {
-        const resp2 = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json', 'HTTP-Referer': window.location.origin, 'X-Title': 'Chat DYOU'},
-            body: JSON.stringify({model: 'deepseek/deepseek-chat:free', messages: [{role: 'system', content: 'Você é o CHAT DO DYOU. Responda em português.'}, ...historicoLimitado.slice(-10)], max_tokens: 2000})
-        });
-        if(resp2.ok) {
-            const data2 = await resp2.json();
-            if(data2.choices && data2.choices[0] && data2.choices[0].message) {
-                let resposta2 = data2.choices[0].message.content.replace(/<think>.*?<\/think>/gs, '').trim();
-                if(resposta2.length > 0) { removerLoading(); addMsgBot(resposta2); historico.push({role: 'assistant', content: resposta2}); return; }
-            }
-        }
-    } catch(e) {}
-    try {
-        const termo = msg.replace(/gostaria de saber|quero saber|o que é|o que e|quem é|quem e|como fazer|como funciona|explique|fale sobre/gi, '').trim();
-        if(termo.length > 2) {
-            const r3 = await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(termo.replace(/\s+/g, '_')));
-            if(r3.ok) { const d3 = await r3.json(); if(d3.extract && d3.extract.length > 30) { removerLoading(); addMsg(d3.extract.substring(0, 800) + '...', 'bot'); return; } }
-        }
-    } catch(e) {}
+    
+    const mistral=await chamarMistral(msg);
+    if(mistral){removerLoading();addMsgBot(mistral);historico.push({role:'assistant',content:mistral});return;}
+    
+    const cf=await chamarCloudflare(msg);
+    if(cf){removerLoading();addMsgBot(cf);historico.push({role:'assistant',content:cf});return;}
+    
+    const hf=await chamarHuggingFace(msg);
+    if(hf){removerLoading();addMsgBot(hf);historico.push({role:'assistant',content:hf});return;}
+    
+    try{const resp2=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','HTTP-Referer':window.location.origin,'X-Title':'Chat DYOU'},body:JSON.stringify({model:'deepseek/deepseek-chat:free',messages:[{role:'system',content:'Você é o CHAT DO DYOU. Responda em português.'},...historicoLimitado.slice(-10)],max_tokens:2000})});if(resp2.ok){const data2=await resp2.json();if(data2.choices&&data2.choices[0]&&data2.choices[0].message){let resposta2=data2.choices[0].message.content.replace(/<think>.*?<\/think>/gs,'').trim();if(resposta2.length>0){removerLoading();addMsgBot(resposta2);historico.push({role:'assistant',content:resposta2});return;}}}}catch(e){}
+    
+    try{const termo=msg.replace(/gostaria de saber|quero saber|o que é|o que e|quem é|quem e|como fazer|como funciona|explique|fale sobre/gi,'').trim();if(termo.length>2){const r3=await fetch('https://pt.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(termo.replace(/\s+/g,'_')));if(r3.ok){const d3=await r3.json();if(d3.extract&&d3.extract.length>30){removerLoading();addMsg(d3.extract.substring(0,800)+'...','bot');return;}}}}catch(e){}
+    
     removerLoading();
-    addMsg('Desculpe, não consegui processar isso agora. Tente novamente!', 'bot');
+    addMsg('Desculpe, não consegui processar isso agora. Tente novamente!','bot');
 }
 
-function removerLoading(){document.querySelectorAll('.msg.sys').forEach(m=>{if(m.textContent.includes('⏳')||m.textContent.includes('🎨')||m.textContent.includes('📸')||m.textContent.includes('🔧'))m.remove();});}
+function removerLoading(){document.querySelectorAll('.msg.sys').forEach(m=>{if(m.textContent.includes('⏳')||m.textContent.includes('🎨')||m.textContent.includes('📸')||m.textContent.includes('🔧')||m.textContent.includes('🌡️'))m.remove();});}
 function anexarArquivo(){document.getElementById('fileInput').click();}
-function lerArquivos(e){const arquivos=e.target.files; for(const arquivo of arquivos){const tipo=arquivo.type,nome=arquivo.name,tamanho=arquivo.size; if(tipo.startsWith('image/')){const leitor=new FileReader(); leitor.onload=function(event){const d=document.createElement('div'); d.className='msg bot'; d.innerHTML='<img src="'+event.target.result+'" style="max-width:200px;border-radius:10px"><br><small>📎 '+nome+'</small>'; document.getElementById('chatArea').appendChild(d); d.scrollIntoView({behavior:'smooth'}); imagensConversa.push({url:event.target.result}); addMsg('Imagem recebida!','bot');}; leitor.readAsDataURL(arquivo);} else if(tipo.startsWith('text/')||tipo.includes('json')||tipo.includes('javascript')||tipo.includes('xml')||tipo.includes('csv')){const leitor=new FileReader(); leitor.onload=function(event){ultimoArquivo={nome,tipo,conteudo:event.target.result}; addMsg('Arquivo lido: '+nome,'sys'); addMsg('Pode perguntar sobre ele!','bot');}; leitor.readAsText(arquivo);} else{ultimoArquivo={nome,tipo,conteudo:'[Binário]'}; addMsg('Arquivo: '+nome,'bot');}} e.target.value='';}
-function formatarTamanho(b){if(!b)return'0 B'; if(b<1024)return b+' B'; if(b<1048576)return(b/1024).toFixed(1)+' KB'; return(b/1048576).toFixed(1)+' MB';}
+function lerArquivos(e){const arquivos=e.target.files;for(const arquivo of arquivos){const tipo=arquivo.type,nome=arquivo.name,tamanho=arquivo.size;if(tipo.startsWith('image/')){const leitor=new FileReader();leitor.onload=function(event){const d=document.createElement('div');d.className='msg bot';d.innerHTML='<img src="'+event.target.result+'" style="max-width:200px;border-radius:10px"><br><small>📎 '+nome+'</small>';document.getElementById('chatArea').appendChild(d);d.scrollIntoView({behavior:'smooth'});imagensConversa.push({url:event.target.result});addMsg('Imagem recebida!','bot');};leitor.readAsDataURL(arquivo);}else if(tipo.startsWith('text/')||tipo.includes('json')||tipo.includes('javascript')||tipo.includes('xml')||tipo.includes('csv')){const leitor=new FileReader();leitor.onload=function(event){ultimoArquivo={nome,tipo,conteudo:event.target.result};addMsg('Arquivo lido: '+nome,'sys');addMsg('Pode perguntar sobre ele!','bot');};leitor.readAsText(arquivo);}else{ultimoArquivo={nome,tipo,conteudo:'[Binário]'};addMsg('Arquivo: '+nome,'bot');}}e.target.value='';}
+function formatarTamanho(b){if(!b)return'0 B';if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB';}
 document.getElementById('inputField').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}});
 const fundoSalvo=localStorage.getItem('dyou_fundo');
-if(fundoSalvo){const f=JSON.parse(fundoSalvo); const chat=document.getElementById('chatArea'); if(f.tipo==='cor'){chat.style.backgroundColor=f.valor;} else if(f.tipo==='gradiente'){chat.style.backgroundImage=f.valor;} else{chat.style.backgroundImage='url('+f.valor+')'; chat.style.backgroundSize='cover';}}
+if(fundoSalvo){const f=JSON.parse(fundoSalvo);const chat=document.getElementById('chatArea');if(f.tipo==='cor'){chat.style.backgroundColor=f.valor;}else if(f.tipo==='gradiente'){chat.style.backgroundImage=f.valor;}else{chat.style.backgroundImage='url('+f.valor+')';chat.style.backgroundSize='cover';}}
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}
-</script>
-
-<!-- Anúncio AdSense -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4462741550595807"
-     data-ad-slot="SEU_SLOT_AQUI"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </body>
 </html>
