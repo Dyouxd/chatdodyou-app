@@ -1,8 +1,8 @@
 {
-    "name": "CHAT DO DYOU v4.1",
-    "short_name": "DYOU v4.1",
+    "name": "CHAT DO DYOU",
+    "short_name": "DYOU",
     "description": "Assistente virtual universal completo com dicionário, calculadora e IA",
-    "id": "chat-dyou-v3",
+    "id": "chat-dyou",
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
